@@ -51,7 +51,6 @@ class _WalkThroughState extends State<WalkThrough> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              //SizedBox(height: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,7 +59,6 @@ class _WalkThroughState extends State<WalkThrough> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2.7,
                     decoration: BoxDecoration(
-                      //shape: BoxShape.circle,
                       border: Border.all(
                         width: 2,
                       ),
@@ -155,7 +153,6 @@ class _WalkThroughState extends State<WalkThrough> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              //SizedBox(height: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,7 +161,6 @@ class _WalkThroughState extends State<WalkThrough> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2.7,
                     decoration: BoxDecoration(
-                      //shape: BoxShape.circle,
                       border: Border.all(
                         width: 2,
                       ),
@@ -243,7 +239,6 @@ class _WalkThroughState extends State<WalkThrough> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              //SizedBox(height: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -252,7 +247,6 @@ class _WalkThroughState extends State<WalkThrough> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2.7,
                     decoration: BoxDecoration(
-                      //shape: BoxShape.circle,
                       border: Border.all(
                         width: 2,
                       ),
@@ -331,7 +325,6 @@ class _WalkThroughState extends State<WalkThrough> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              //SizedBox(height: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -340,7 +333,6 @@ class _WalkThroughState extends State<WalkThrough> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2.7,
                     decoration: BoxDecoration(
-                      //shape: BoxShape.circle,
                       border: Border.all(
                         width: 2,
                       ),
