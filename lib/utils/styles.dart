@@ -37,3 +37,10 @@ final kAppBarTitleTextStyle = GoogleFonts.dmSans(
   fontWeight: FontWeight.w600,
   letterSpacing: -0.7,
 );
+
+
+final kButtonLight = TextStyle(
+  color: AppColors.primary,
+  fontSize: 30,
+  letterSpacing: 0,
+);
