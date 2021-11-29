@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () {
-
+                              Navigator.popAndPushNamed(context, "/signup");
                             },
                             child: const Text(
                               "Didn't have any account? Sign Up Here",
