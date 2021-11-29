@@ -1,9 +1,12 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -74,8 +77,25 @@ class _LoginState extends State<Login> {
                                 prefixIcon: Icon(Icons.email),
                               ),
                               keyboardType: TextInputType.emailAddress,
-                              validator: (value) {},
-                              onSaved: (value) {},
+                              validator: (value) {
+                                if(value == null) {
+                                  return 'E-mail field cannot be empty';
+                                } else {
+                                  String trimmedValue = value.trim();
+                                  if(trimmedValue.isEmpty) {
+                                    return 'E-mail field cannot be empty';
+                                  }
+                                  if(!EmailValidator.validate(trimmedValue)) {
+                                    return 'Please enter a valid email';
+                                  }
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                if(value != null) {
+                                  mail = value;
+                                }
+                              },
                             ),
                           )
                         ],
@@ -104,8 +124,25 @@ class _LoginState extends State<Login> {
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
-                              validator: (value) {},
-                              onSaved: (value) {},
+                              validator: (value) {
+                                if(value == null) {
+                                  return 'Password field cannot be empty';
+                                } else {
+                                  String trimmedValue = value.trim();
+                                  if(trimmedValue.isEmpty) {
+                                    return 'Password field cannot be empty';
+                                  }
+                                  if(trimmedValue.length < 8) {
+                                    return 'Password must be at least 8 characters long';
+                                  }
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                if(value != null) {
+                                  pass = value;
+                                }
+                              },
                             ),
                           ),
                         ],
