@@ -202,12 +202,12 @@ class _WalkThroughState extends State<WalkThrough> {
                       Icon(
                         Icons.circle,
                         color: Colors.grey[550],
-                        size: 20,
+                        size: 15,
                       ),
                       Icon(
                         Icons.circle,
                         color: Colors.grey[700],
-                        size: 15,
+                        size: 20,
                       ),
                       Icon(
                         Icons.circle,
@@ -301,7 +301,7 @@ class _WalkThroughState extends State<WalkThrough> {
                       Icon(
                         Icons.circle,
                         color: Colors.grey[550],
-                        size: 20,
+                        size: 15,
                       ),
                       Icon(
                         Icons.circle,
@@ -311,7 +311,7 @@ class _WalkThroughState extends State<WalkThrough> {
                       Icon(
                         Icons.circle,
                         color: Colors.grey[700],
-                        size: 15,
+                        size: 20,
                       ),
                       Icon(
                         Icons.circle,
@@ -400,7 +400,7 @@ class _WalkThroughState extends State<WalkThrough> {
                       Icon(
                         Icons.circle,
                         color: Colors.grey[550],
-                        size: 20,
+                        size: 15,
                       ),
                       Icon(
                         Icons.circle,
@@ -415,7 +415,7 @@ class _WalkThroughState extends State<WalkThrough> {
                       Icon(
                         Icons.circle,
                         color: Colors.grey[700],
-                        size: 15,
+                        size: 20,
                       ),
                     ]),
                 SizedBox(
