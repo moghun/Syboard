@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/routes/welcome.dart';
@@ -277,7 +278,7 @@ class _WalkThroughState extends State<WalkThrough> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Row(
@@ -305,7 +306,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         size: 15,
                       ),
                     ]),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 SafeArea(
@@ -449,8 +450,11 @@ class _WalkThroughState extends State<WalkThrough> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.pushReplacement(
+                            onPressed: () async {
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                              await prefs.setBool('initialStart', true);
+                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
