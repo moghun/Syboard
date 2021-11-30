@@ -5,7 +5,7 @@ import 'package:syboard/utils/styles.dart';
 import 'package:syboard/routes/welcome.dart';
 
 class WalkThrough extends StatefulWidget {
-  const WalkThrough({Key key}) : super(key: key);
+  const WalkThrough({Key? key}) : super(key: key);
 
   @override
   _WalkThroughState createState() => _WalkThroughState();
