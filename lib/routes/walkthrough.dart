@@ -15,19 +15,14 @@ class WalkThrough extends StatefulWidget {
 class _WalkThroughState extends State<WalkThrough> {
   final controller = PageController(initialPage: 0);
   var AppBarTitles = ["WELCOME", "SIGNUP", "LOGIN", "GET STARTED"];
-  var PageTitles = [
+  var walkTitle = [
     "Welcome to Syboard",
     "Sign Up Easily",
     "Login Quickly",
     "Let's Start"
   ];
-  var ImageURLs = [
-    "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png",
-    "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=85",
-    "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=85",
-    "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png"
-  ];
-  var ImageCaptions = [
+  
+  var imTitle = [
     "A market place for all electronic devices",
     "Create your account",
     "Login to your account and...",
@@ -131,7 +126,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         Padding(
                           padding: EdgeInsets.only(top:70),
                           child: Text(
-                            ImageCaptions[0],
+                            imTitle[0],
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.primary,
@@ -160,7 +155,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            PageTitles[1],
+                            walkTitle[1],
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 28.0,
@@ -230,7 +225,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         Padding(
                           padding: EdgeInsets.only(top:70),
                           child: Text(
-                            ImageCaptions[1],
+                            imTitle[1],
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.primary,
@@ -259,7 +254,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            PageTitles[2],
+                            walkTitle[2],
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 28.0,
@@ -329,7 +324,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         Padding(
                           padding: EdgeInsets.only(top:70),
                           child: Text(
-                            ImageCaptions[2],
+                            imTitle[2],
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.primary,
@@ -358,7 +353,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            PageTitles[3],
+                            walkTitle[3],
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 28.0,
@@ -428,7 +423,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         Padding(
                           padding: EdgeInsets.only(top:70),
                           child: Text(
-                            ImageCaptions[3],
+                            imTitle[3],
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.primary,
