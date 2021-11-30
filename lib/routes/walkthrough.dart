@@ -22,8 +22,8 @@ class _WalkThroughState extends State<WalkThrough> {
   ];
   var ImageURLs = [
     "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png",
-    "a assign a sign in image here",
-    "https://cdn.pttrns.com/614/7772_f.jpg",
+    "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=85",
+    "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=85",
     "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png"
   ];
   var ImageCaptions = [
