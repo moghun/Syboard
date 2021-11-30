@@ -480,7 +480,6 @@ class _WalkThroughState extends State<WalkThrough> {
           ),
         ],
       ),
-      backgroundColor: Colors.grey[200],
     );
   }
 }
