@@ -56,7 +56,7 @@ class _WalkThroughState extends State<WalkThrough> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              imTitle[0],
+                              walkTitle[0],
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 28.0,
