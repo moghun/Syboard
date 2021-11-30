@@ -5,7 +5,7 @@ import 'package:syboard/routes/walkthrough.dart'
 
 void main() => runApp(MaterialApp(
   //home: Welcome(),
-  //initialRoute: '/login',
+  //initialRoute: '/walkthrough',
   routes: {
     '/': (context) => Welcome(),
     '/login': (context) => Login(),
