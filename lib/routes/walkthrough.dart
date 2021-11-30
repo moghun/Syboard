@@ -14,7 +14,6 @@ class WalkThrough extends StatefulWidget {
 
 class _WalkThroughState extends State<WalkThrough> {
   final controller = PageController(initialPage: 0);
-  var AppBarTitles = ["WELCOME", "SIGNUP", "LOGIN", "GET STARTED"];
   var walkTitle = [
     "Welcome to Syboard",
     "Sign Up Easily",
