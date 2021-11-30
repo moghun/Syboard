@@ -63,7 +63,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         width: 2,
                       ),
                       image: DecorationImage(
-                          image: AssetImage("lib/images/doctors.jpg"),
+                          image: AssetImage("lib/image/bart.jpg"),
                           fit: BoxFit.fill),
                     ),
                   ),
@@ -165,7 +165,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         width: 2,
                       ),
                       image: DecorationImage(
-                          image: AssetImage("sign in image here!!!"),
+                          image: AssetImage("lib/image/bart.jpg"),
                           fit: BoxFit.fill),
                     ),
                   ),
@@ -251,7 +251,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         width: 2,
                       ),
                       image: DecorationImage(
-                          image: AssetImage("login image here!!!"),
+                          image: AssetImage("lib/image/bart.jpg"),
                           fit: BoxFit.fill),
                     ),
                   ),
@@ -337,7 +337,7 @@ class _WalkThroughState extends State<WalkThrough> {
                         width: 2,
                       ),
                       image: DecorationImage(
-                          image: AssetImage("get started image here!"),
+                          image: AssetImage("lib/image/bart.jpg"),
                           fit: BoxFit.fill),
                     ),
                   ),
