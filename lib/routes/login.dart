@@ -33,7 +33,6 @@ class _LoginState extends State<Login> {
           maintainBottomViewPadding: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
                 height: 96,
