@@ -5,12 +5,13 @@ import 'package:syboard/routes/login.dart';
 import 'package:syboard/routes/walkthrough.dart';
 
 void main() => runApp(MaterialApp(
-  //home: Welcome(),
-  //initialRoute: '/walkthrough',
-  routes: {
-    '/': (context) => WalkThrough(),
-    '/walkthrough': (context) => WalkThrough(),
-    '/login': (context) => Login(),
-    '/signup': (context) => SignUp(),
-  },
-));
+      debugShowCheckedModeBanner: false,
+      //home: Welcome(),
+      //initialRoute: '/walkthrough',
+      routes: {
+        '/': (context) => WalkThrough(),
+        '/walkthrough': (context) => WalkThrough(),
+        '/login': (context) => Login(),
+        '/signup': (context) => SignUp(),
+      },
+    ));
