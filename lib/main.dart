@@ -8,6 +8,7 @@ void main() => runApp(MaterialApp(
   //initialRoute: '/walkthrough',
   routes: {
     '/': (context) => Welcome(),
+    '/walkthrough': (context) => WalkThrough(),
     '/login': (context) => Login(),
     // '/signup': (context) => SignUp(),
   },
