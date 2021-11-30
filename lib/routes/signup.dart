@@ -122,7 +122,7 @@ class _SignUpState extends State<SignUp> {
                               enableSuggestions: false,
                               autocorrect: false,
                               validator: (value) {
-                                initialPass = value!;
+                                initialPass = value!.trim();
                                 if (value == null) {
                                   return 'Password field cannot be empty';
                                 } else {
@@ -234,11 +234,11 @@ class _SignUpState extends State<SignUp> {
                               flex: 2,
                               child: SignInButton(
                                 Buttons.Facebook,
-                                text: 'Sign Up with Google',
+                                text: 'Sign Up with Facebook',
                                 onPressed: () {},
                               )),
                           SizedBox(
-                            width: 8.0,
+                            width: 1.0,
                           ),
                           Expanded(
                               flex: 2,
