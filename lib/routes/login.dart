@@ -5,7 +5,7 @@ import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  //const Login({Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -155,7 +155,11 @@ class _LoginState extends State<Login> {
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()){
+                                  _formKey.currentState!.save();
+                                }
+                              },
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 12.0),
