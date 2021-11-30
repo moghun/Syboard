@@ -107,17 +107,17 @@ class _WalkThroughState extends State<WalkThrough> {
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                     ]),
@@ -201,22 +201,22 @@ class _WalkThroughState extends State<WalkThrough> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[700],
+                        color: Colors.grey[550],
                         size: 20,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[700],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                     ]),
@@ -300,22 +300,22 @@ class _WalkThroughState extends State<WalkThrough> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[700],
+                        color: Colors.grey[550],
                         size: 20,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[700],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                     ]),
@@ -399,22 +399,22 @@ class _WalkThroughState extends State<WalkThrough> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[700],
+                        color: Colors.grey[550],
                         size: 20,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[550],
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: Colors.grey[350],
+                        color: Colors.grey[700],
                         size: 15,
                       ),
                     ]),
