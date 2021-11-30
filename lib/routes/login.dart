@@ -31,7 +31,6 @@ class _LoginState extends State<Login> {
       body: SingleChildScrollView(
         child: SafeArea(
           maintainBottomViewPadding: false,
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -78,21 +77,21 @@ class _LoginState extends State<Login> {
                               ),
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                if(value == null) {
+                                if (value == null) {
                                   return 'E-mail field cannot be empty';
                                 } else {
                                   String trimmedValue = value.trim();
-                                  if(trimmedValue.isEmpty) {
+                                  if (trimmedValue.isEmpty) {
                                     return 'E-mail field cannot be empty';
                                   }
-                                  if(!EmailValidator.validate(trimmedValue)) {
+                                  if (!EmailValidator.validate(trimmedValue)) {
                                     return 'Please enter a valid email';
                                   }
                                 }
                                 return null;
                               },
                               onSaved: (value) {
-                                if(value != null) {
+                                if (value != null) {
                                   mail = value;
                                 }
                               },
@@ -125,21 +124,21 @@ class _LoginState extends State<Login> {
                               enableSuggestions: false,
                               autocorrect: false,
                               validator: (value) {
-                                if(value == null) {
+                                if (value == null) {
                                   return 'Password field cannot be empty';
                                 } else {
                                   String trimmedValue = value.trim();
-                                  if(trimmedValue.isEmpty) {
+                                  if (trimmedValue.isEmpty) {
                                     return 'Password field cannot be empty';
                                   }
-                                  if(trimmedValue.length < 8) {
+                                  if (trimmedValue.length < 8) {
                                     return 'Password must be at least 8 characters long';
                                   }
                                 }
                                 return null;
                               },
                               onSaved: (value) {
-                                if(value != null) {
+                                if (value != null) {
                                   pass = value;
                                 }
                               },
@@ -172,7 +171,9 @@ class _LoginState extends State<Login> {
                           )
                         ],
                       ),
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +183,7 @@ class _LoginState extends State<Login> {
                               Navigator.popAndPushNamed(context, "/signup");
                             },
                             child: const Text(
-                              "Didn't have any account? Sign Up Here",
+                              "Don't have an account? Sign Up Here",
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 14,
