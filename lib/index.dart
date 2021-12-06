@@ -77,7 +77,7 @@ class _IndexState extends State<Index> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.category),
             label: 'Categories',
           ),
           BottomNavigationBarItem(
