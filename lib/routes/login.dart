@@ -159,6 +159,9 @@ class _LoginState extends State<Login> {
                                 if (_formKey.currentState!.validate()){
                                   _formKey.currentState!.save();
                                 }
+                                else {
+                                  Navigator.pop(context);
+                                }
                               },
                               child: Padding(
                                 padding:

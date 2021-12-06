@@ -70,7 +70,7 @@ class _WelcomeState extends State<Welcome> {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.popAndPushNamed(context, '/login');
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
