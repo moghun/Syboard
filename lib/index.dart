@@ -56,7 +56,7 @@ class _IndexState extends State<Index> {
           IconButton(
               onPressed: () {},
               icon: const Icon(
-                Icons.notifications,
+                Icons.notifications_outlined,
                 color: Colors.black54,
                 size: 28,
               ))
