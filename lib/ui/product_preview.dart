@@ -7,20 +7,21 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 Widget productPreview(Product product) {
   return SizedBox(
-      width: 190,
+      width: 150,
       child: Stack(alignment: Alignment.center, children: <Widget>[
         InkWell(
           onTap: () {
             print("Card Clicked");
           },
           child: Material(
+            color: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.black12, width: 1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Padding(
-              padding: Dimen.regularPadding,
+              padding: EdgeInsets.all(12),
               child: Column(
                 children: [
                   Image.network(
@@ -31,7 +32,7 @@ Widget productPreview(Product product) {
                   Container(
                       margin: const EdgeInsets.only(top: 10.0),
                       height: 30,
-                      width: 190,
+                      width: 150,
                       child: Text(
                         product.productName,
                         style: kTextTitleSmall,
