@@ -44,9 +44,17 @@ final kTextTitle = GoogleFonts.dmSans(
   fontWeight: FontWeight.w800,
   letterSpacing: -0.7,
 );
+final kTextTitleMedium = GoogleFonts.montserrat(
+  color: AppColors.primary,
+  fontWeight: FontWeight.w500,
+  fontSize: 18.0,
+  letterSpacing: -0.7,
+);
+
 
 final kTextTitleSmall = GoogleFonts.montserrat(
   color: AppColors.secondary,
+  fontWeight: FontWeight.w500,
   fontSize: 12.0,
   letterSpacing: -0.7,
 );
