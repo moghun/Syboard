@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
+import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/product_preview.dart';
 
@@ -20,36 +21,36 @@ class _HomeState extends State<Home> {
   static final _productPreviewList = <Product>[
     Product(
         imgURL:
-        "https://icons.iconarchive.com/icons/femfoyou/angry-birds/256/angry-bird-icon.png",
-        productName: "AngryBirds",
-        rating: 3.8,
-        price: 25.99,
-        seller: "Seller1"),
+        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
+        productName: "Nvidia Geforce GTX1050ti",
+        rating: 5,
+        price: 100.99,
+        seller: "Vatan PC"),
     Product(
         imgURL:
-        "https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-40/128/Mafia-2-3-icon.png",
-        productName: "Mafia2",
+        "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
+        productName: "MSI Prestige Notebook",
         rating: 3.9,
-        price: 119.99,
-        seller: "Seller2"),
+        price: 2000.99,
+        seller: "İtopya.com"),
     Product(
         imgURL:
-        "https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-34/128/Max-Payne-3-2-icon.png",
-        productName: "Max Payne 3",
+        "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
+        productName: "Gaming PC",
         rating: 4.4,
-        price: 124.99,
-        seller: "Seller1"),
+        price: 1000.99,
+        seller: "Hasan Hüseyin"),
     Product(
         imgURL:
-        "https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-31/128/Left4Dead-2-2-icon.png",
-        productName: "Left 4 Dead 2",
+        "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
+        productName: "Gaming PC",
         rating: 4.5,
         price: 12.99,
         seller: "Seller2"),
     Product(
         imgURL:
-        "https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-34/128/GTA-IV-Lost-and-Damned-6-icon.png",
-        productName: "GTA IV",
+        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
+        productName: "Gaming Monitor",
         rating: 4.7,
         price: 179.99,
         seller: "Seller1"),
@@ -58,18 +59,51 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications_outlined,
+                color: Colors.black54,
+                size: 28,
+              ))
+        ],
+        title: Text(
+          'Syboard',
+          style: kHeadingTextStyle,
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 2.0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(children: [
-              Expanded(child: TextFormField()),
-              IconButton(onPressed: () {}, icon: Icon(Icons.search))
-            ]),
+            Padding(
+              padding: Dimen.regularPadding,
+              child: Expanded(child: TextFormField(
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  labelText: "Search...",
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: AppColors.primary),
+                  ),
+                ),
+              )),
+            ),
 
 
             Text(
-              "Promotions",
-              style: kHeadingTextStyle,
+              "Top Products",
+              style: kTextTitle,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
