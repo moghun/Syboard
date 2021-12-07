@@ -55,14 +55,14 @@ final kTextTitleMedium = GoogleFonts.montserrat(
 final kTextTitleSmall = GoogleFonts.montserrat(
   color: AppColors.secondary,
   fontWeight: FontWeight.w500,
-  fontSize: 12.0,
+  fontSize: 14.0,
   letterSpacing: -0.7,
 );
 
 final kTextCaption = GoogleFonts.montserrat(
   fontStyle: FontStyle.italic,
   color: AppColors.lightTextColor,
-  fontSize: 10.0,
+  fontSize: 11.0,
   letterSpacing: -0.7,
 );
 
