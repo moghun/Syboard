@@ -51,24 +51,6 @@ class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: Colors.black54,
-                size: 28,
-              ))
-        ],
-        title: Text(
-          'Syboard',
-          style: kHeadingTextStyle,
-        ),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 2.0,
-      ),
       body: routes[_selectedBottomTabIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
