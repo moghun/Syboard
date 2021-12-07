@@ -38,6 +38,25 @@ final kAppBarTitleTextStyle = GoogleFonts.dmSans(
   letterSpacing: -0.7,
 );
 
+final kTextTitleSmall = GoogleFonts.montserrat(
+  color: AppColors.secondary,
+  fontSize: 12.0,
+  letterSpacing: -0.7,
+);
+
+final kTextCaption = GoogleFonts.montserrat(
+  fontStyle: FontStyle.italic,
+  color: AppColors.lightTextColor,
+  fontSize: 10.0,
+  letterSpacing: -0.7,
+);
+
+final kImportantText = GoogleFonts.montserrat(
+  fontWeight: FontWeight.bold,
+  fontSize: 10.0,
+  letterSpacing: -0.7,
+);
+
 
 final kButtonLight = TextStyle(
   color: AppColors.primary,
