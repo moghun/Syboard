@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/utils/color.dart';
-import 'package:syboard/utils/styles.dart';
 import 'package:syboard/routes/home.dart';
 import 'package:syboard/routes/categories.dart';
 import 'package:syboard/routes/cart.dart';
@@ -52,33 +51,43 @@ class _IndexState extends State<Index> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: routes[_selectedBottomTabIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Categories',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: 'Profile')
-        ],
-        currentIndex: _selectedBottomTabIndex,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.black45,
-        onTap: _onBottomTabPress,
-        type: BottomNavigationBarType.fixed,
-        elevation: 24.0,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 1,
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: 'Categories',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle), label: 'Profile')
+          ],
+          currentIndex: _selectedBottomTabIndex,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: Colors.black45,
+          onTap: _onBottomTabPress,
+          type: BottomNavigationBarType.fixed,
+          elevation: 24.0,
+        ),
       ),
     );
   }
