@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
                   Expanded(child: TextFormField(
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.search),
-                      labelText: "Search...",
+                      hintText: "Search...",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
                         borderSide: BorderSide(
