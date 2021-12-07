@@ -3,7 +3,6 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 
-
 Widget CartItem(Product product) {
   return SizedBox(
     width: 180,
@@ -55,26 +54,48 @@ Widget CartItem(Product product) {
                             ),
                           ],
                         ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Material(
-                            color: Colors.white,
-                            child: InkWell(
-                              child: const Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Icon(
-                                  Icons.delete_outlined,
-                                  color: Colors.grey,
-                                  size: 20,
+                        Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Material(
+                                color: Colors.white,
+                                child: InkWell(
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(
+                                      Icons.delete_outlined,
+                                      color: Colors.grey,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  onTap: () {},
                                 ),
                               ),
-                              onTap: () {},
                             ),
-                          ),
+
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Material(
+                                color: Colors.white,
+                                child: InkWell(
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.grey,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  onTap: () {},
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -95,9 +116,9 @@ Widget CartItem(Product product) {
                                 ),
                               ),
                             ),
-                            const SizedBox(width:12),
+                            const SizedBox(width: 12),
                             const Text("2"),
-                            const SizedBox(width:12),
+                            const SizedBox(width: 12),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Material(
