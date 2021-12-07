@@ -54,12 +54,18 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Shopping Cart',
-          style: kAppBarTitleTextStyle,
+        title: Row(
+          children: [
+            Text(
+              'Shopping Cart',
+              style: kAppBarTitleTextStyle,
+              textAlign: TextAlign.left,
+            ),
+            Text('  -  6 items', textScaleFactor: 0.8,style: TextStyle(color: Colors.black45))
+          ],
         ),
         backgroundColor: Colors.white,
-        centerTitle: true,
+        centerTitle: false,
         elevation: 2,
       ),
       body: Column(
