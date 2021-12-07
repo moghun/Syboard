@@ -13,43 +13,38 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-
-
-
   //ProductPreview
   static final _productPreviewList = <Product>[
     Product(
         imgURL:
-        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
+            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
         productName: "Nvidia Geforce GTX1050ti",
         rating: 5,
         price: 100.99,
         seller: "Vatan PC"),
     Product(
         imgURL:
-        "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
+            "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
         productName: "MSI Prestige Notebook",
         rating: 3.9,
         price: 2000.99,
         seller: "İtopya.com"),
     Product(
         imgURL:
-        "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
+            "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
         productName: "Gaming PC",
         rating: 4.4,
         price: 1000.99,
         seller: "Hasan Hüseyin"),
     Product(
-        imgURL:
-        "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
+        imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
         productName: "Gaming PC",
         rating: 4.5,
         price: 12.99,
         seller: "Seller2"),
     Product(
         imgURL:
-        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
+            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
         productName: "Gaming Monitor",
         rating: 4.7,
         price: 179.99,
@@ -67,14 +62,24 @@ class _HomeState extends State<Home> {
                 Icons.notifications_outlined,
                 color: Colors.black54,
                 size: 28,
-              ))
+              )),
+          const SizedBox(width:8)
         ],
-        title: Text(
-          'Syboard',
-          style: kHeadingTextStyle,
+        title: Row(
+          children: [
+            const SizedBox(width: 8),
+            SizedBox(
+                width: 38,
+                height: 48,
+                child: Image.asset('lib/images/logo_small.png')),
+            const SizedBox(width: 8),
+            Text(
+              'Syboard',
+              style: kHeadingTextStyle,
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
-        centerTitle: true,
         elevation: 2.0,
       ),
       body: SingleChildScrollView(
@@ -82,30 +87,26 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: Dimen.regularPadding,
-              child: Row(
-                children:[
-                  Expanded(child: TextFormField(
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: "Search...",
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: AppColors.primary),
+              child: Row(children: [
+                Expanded(
+                    child: TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "Search...",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
                       ),
                     ),
-                  )),
-                ]
-
-              ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: AppColors.primary),
+                    ),
+                  ),
+                )),
+              ]),
             ),
-
-
             Text(
               "Top Products",
               style: kTextTitle,
@@ -117,10 +118,10 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: List.generate(
                       _productPreviewList.length,
-                          (index) => Row(children: [
-                        productPreview(_productPreviewList[index]),
-                        const SizedBox(width: 8)
-                      ])),
+                      (index) => Row(children: [
+                            productPreview(_productPreviewList[index]),
+                            const SizedBox(width: 8)
+                          ])),
                 ),
               ),
             ),
