@@ -32,9 +32,9 @@ final kButtonDarkTextStyle = GoogleFonts.dmSans(
 );
 
 final kAppBarTitleTextStyle = GoogleFonts.dmSans(
-  color: Colors.white,
+  color: Colors.black,
   fontSize: 24.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w700,
   letterSpacing: -0.7,
 );
 
@@ -61,6 +61,7 @@ final kTextCaption = GoogleFonts.montserrat(
 final kImportantText = GoogleFonts.montserrat(
   fontWeight: FontWeight.bold,
   fontSize: 10.0,
+  color: Colors.black,
   letterSpacing: -0.7,
 );
 
