@@ -79,7 +79,7 @@ class _IndexState extends State<Index> {
               label: 'Favorites',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), label: 'Profile')
+                icon: Icon(Icons.account_circle), label: 'Account')
           ],
           currentIndex: _selectedBottomTabIndex,
           selectedItemColor: AppColors.primary,
