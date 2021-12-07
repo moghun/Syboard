@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
                       _productPreviewList.length,
                           (index) => Row(children: [
                         productPreview(_productPreviewList[index]),
-                        SizedBox(width: 8)
+                        const SizedBox(width: 8)
                       ])),
                 ),
               ),

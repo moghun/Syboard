@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:syboard/utils/color.dart';
-import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,11 +15,11 @@ Widget productPreview(Product product) {
             color: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.black12, width: 1),
+              side: const BorderSide(color: Colors.black12, width: 1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Padding(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 children: [
                   Image.network(

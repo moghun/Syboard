@@ -58,14 +58,14 @@ class _CartState extends State<Cart> {
           'Shopping Cart',
           style: kAppBarTitleTextStyle,
         ),
-        backgroundColor: Colors.white38,
+        backgroundColor: Colors.white,
         centerTitle: true,
-        elevation: 0,
+        elevation: 2,
       ),
       body: Column(
         children: [
           const SizedBox(
-            height: 12,
+            height: 8,
           ),
           Expanded(
             child: ListView.builder(
