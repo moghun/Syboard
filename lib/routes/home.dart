@@ -82,22 +82,27 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: Dimen.regularPadding,
-              child: Expanded(child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  labelText: "Search...",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
+              child: Row(
+                children:[
+                  Expanded(child: TextFormField(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      labelText: "Search...",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: AppColors.primary),
+                      ),
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: AppColors.primary),
-                  ),
-                ),
-              )),
+                  )),
+                ]
+
+              ),
             ),
 
 
