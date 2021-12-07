@@ -3,12 +3,14 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 Widget productPreview(Product product) {
   return SizedBox(
-      width: 150,
-      child: Stack(alignment: Alignment.bottomCenter, children: <Widget>[
-        Card(
+      width: 190,
+      child: Stack(alignment: Alignment.center,
+          children: <Widget>[
+        Material(
           elevation: 0,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Colors.black12, width: 1),
@@ -30,6 +32,7 @@ Widget productPreview(Product product) {
                 ),
                 SizedBox(
                   height: 30,
+                  width: 175,
                   child: TextButton(
                     child: Text(
                       product.productName,
@@ -48,27 +51,36 @@ Widget productPreview(Product product) {
                     onPressed: () {},
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.star, color: Colors.yellow),
-                    Text("${product.rating}", style: kImportantText)
-                  ],
+                RatingBar.builder(
+                  initialRating: product.rating,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  itemSize: 12,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {},
                 ),
-                Text("\$ ${product.price}")
+                Text("\$ ${product.price}"),
               ],
             ),
           ),
         ),
         Positioned(
-          top: 0,
-          right: 0,
+          top: -8,
+          right: 4,
           child: IconButton(
             splashRadius: 30,
             iconSize: 20,
-            icon: const Icon(Icons.favorite_outlined),
+            icon: const Icon(Icons.favorite),
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+
+            },
           ),
         ),
       ]));
