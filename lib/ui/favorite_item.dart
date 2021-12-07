@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 
-
-Widget CartItem(Product product) {
+Widget FavoriteItem(Product product) {
   return SizedBox(
     width: 180,
     child: Container(
@@ -78,42 +78,30 @@ Widget CartItem(Product product) {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Material(
-                                child: InkWell(
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                  onTap: () {},
-                                ),
+                        SizedBox(
+                          height: 30,
+                          width: 96,
+                          child: OutlinedButton(
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 6),
+                                primary: AppColors.primary,
+                                side: const BorderSide(
+                                    width: 1.0, color: AppColors.primary),
                               ),
-                            ),
-                            const SizedBox(width:12),
-                            const Text("2"),
-                            const SizedBox(width:12),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Material(
-                                child: InkWell(
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                  onTap: () {},
-                                ),
-                              ),
-                            ),
-                          ],
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: const [
+                                  Icon(Icons.add_shopping_cart, size: 16),
+                                  Text("Add to Cart",
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontSize: 12.0,
+                                      ))
+                                ],
+                              )),
                         ),
                         Container(
                             margin: const EdgeInsets.only(top: 8.0),
