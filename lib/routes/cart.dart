@@ -61,7 +61,7 @@ class _CartState extends State<Cart> {
               style: kAppBarTitleTextStyle,
               textAlign: TextAlign.left,
             ),
-            Text('  -  6 items', textScaleFactor: 0.8,style: TextStyle(color: Colors.black45))
+            const Text('  -  6 items', textScaleFactor: 0.8,style: TextStyle(color: Colors.black45))
           ],
         ),
         backgroundColor: Colors.white,
@@ -88,7 +88,7 @@ class _CartState extends State<Cart> {
             child: Material(
                 color: Colors.white,
                 child: Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                  padding:  const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,8 +96,8 @@ class _CartState extends State<Cart> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Total'),
-                          SizedBox(width: 8),
+                          const Text('Total'),
+                          const SizedBox(width: 8),
                           Text('USD 295',
                           style: kTextTitleMedium,),
                         ],
@@ -105,7 +105,7 @@ class _CartState extends State<Cart> {
                       SizedBox(
                         width: 200,
                         child: TextButton(
-                          child: Text('Proceed to Checkout'),
+                          child: const Text('Proceed to Checkout'),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                             backgroundColor: AppColors.primary,

@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 Widget productPreview(Product product) {
   return SizedBox(
-      width: 150,
+      width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
         InkWell(
           onTap: () {
@@ -29,8 +29,8 @@ Widget productPreview(Product product) {
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 10.0),
-                      height: 30,
-                      width: 150,
+                      height: 34,
+                      width: 180,
                       child: Text(
                         product.productName,
                         style: kTextTitleSmall,

@@ -6,9 +6,9 @@ import 'package:syboard/models/product.dart';
 
 Widget CartItem(Product product) {
   return SizedBox(
-    width: 150,
+    width: 180,
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Material(
         color: Colors.white,
         elevation: 2,
@@ -16,7 +16,7 @@ Widget CartItem(Product product) {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Row(
             children: [
               Expanded(
@@ -36,17 +36,17 @@ Widget CartItem(Product product) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                                height: 30,
-                                width: 150,
+                                height: 34,
+                                width: 180,
                                 child: Text(
                                   product.productName,
                                   style: kTextTitleSmall,
                                   textAlign: TextAlign.left,
                                 )),
                             SizedBox(
-                              width: 150,
                               child: Text(
                                 product.seller,
                                 style: kTextCaption,
@@ -60,8 +60,8 @@ Widget CartItem(Product product) {
                           child: Material(
                             color: Colors.white,
                             child: InkWell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8),
                                 child: Icon(
                                   Icons.delete_outlined,
                                   color: Colors.grey,
@@ -84,8 +84,8 @@ Widget CartItem(Product product) {
                               borderRadius: BorderRadius.circular(50),
                               child: Material(
                                 child: InkWell(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(5),
                                     child: Icon(
                                       Icons.remove,
                                       color: AppColors.primary,
@@ -95,15 +95,15 @@ Widget CartItem(Product product) {
                                 ),
                               ),
                             ),
-                            SizedBox(width:12),
-                            Text("2"),
-                            SizedBox(width:12),
+                            const SizedBox(width:12),
+                            const Text("2"),
+                            const SizedBox(width:12),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Material(
                                 child: InkWell(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(5),
                                     child: Icon(
                                       Icons.add,
                                       color: AppColors.primary,
