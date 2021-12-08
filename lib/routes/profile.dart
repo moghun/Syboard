@@ -27,6 +27,16 @@ class _ProfileState extends State<Profile> {
         icon: Icon(Icons.reviews_outlined,
             size: 30, color: Colors.black.withOpacity(0.7)),
         name: 'My Reviews',
+        route: '/'),
+    AccountListItem(
+        icon: Icon(Icons.local_shipping_outlined,
+            size: 30, color: Colors.black.withOpacity(0.7)),
+        name: 'My Orders',
+        route: '/'),
+    AccountListItem(
+        icon: Icon(Icons.edit_outlined,
+            size: 30, color: Colors.black.withOpacity(0.7)),
+        name: 'Edit My Account',
         route: '/')
   ];
 
@@ -75,17 +85,53 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Column(
-              children: List.generate(
-                  _itemList.length,
-                  (index) => Row(children: [
-                        Expanded(
-                            child: Padding(
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                children: List.generate(
+                    _itemList.length,
+                    (index) => Row(children: [
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            child: AccountListItemTile(_itemList[index]),
+                          ))
+                        ])),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                        style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 14),
-                          child: AccountListItemTile(_itemList[index]),
-                        ))
-                      ])),
+                              vertical: 10),
+                          primary: Colors.grey,
+                        ),
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.logout, size: 24),
+                            SizedBox(width: 8,),
+                            Text("Log Out",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 17.0,
+                                ))
+                          ],
+                        )),
+                  ),
+                ],
+              ),
             )
           ],
         ),
