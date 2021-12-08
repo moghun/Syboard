@@ -7,27 +7,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'index.dart';
 
 
-void main() async {
 
-  return runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    routes: {
-      '/': (context) => Index(),
-      '/walkthrough': (context) => const WalkThrough(),
-      '/welcome': (context) => Welcome(),
-      '/login': (context) => Login(),
-      '/signup': (context) => SignUp(),
-    },
-  ));
-}
-
-
-
-//FIREBASE CONNECTION
-/*
-void main()  {
+void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyFirebaseApp());
+  runApp(const MyFirebaseApp());
 }
 
 class MyFirebaseApp extends StatefulWidget {
@@ -57,17 +40,19 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
         }
         if(snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-              routes: {
-                '/': (context) => Index(),
-                '/walkthrough': (context) => const WalkThrough(),
-                '/welcome': (context) => Welcome(),
-                '/login': (context) => Login(),
-                '/signup': (context) => SignUp(),
-              },
+            home: MaterialApp(
+              debugShowCheckedModeBanner: false,
+                routes: {
+                  '/': (context) => Index(),
+                  '/walkthrough': (context) => const WalkThrough(),
+                  '/welcome': (context) => Welcome(),
+                  '/login': (context) => Login(),
+                  '/signup': (context) => SignUp(),
+                },
+            ),
           );
         }
-        return MaterialApp(
+        return const MaterialApp(
           home: Center(
             child: Text('Connecting to Firebase'),
           ),
@@ -75,4 +60,4 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
       },);
   }
 }
-*/
+
