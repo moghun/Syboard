@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237129782950",
+    "project_id": "cs310-syboard",
+    "storage_bucket": "cs310-syboard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237129782950:android:a789a3f7811b9223cdc667",
+        "android_client_info": {
+          "package_name": "com.example.syboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237129782950-n67b3tufe4e50t16q4nbbbgc5okar68m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD8q-arv-PjjIgjFu5ASzDYcqUiSJgXqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237129782950-n67b3tufe4e50t16q4nbbbgc5okar68m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
