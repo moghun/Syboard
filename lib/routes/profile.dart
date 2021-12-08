@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
                           backgroundColor: Colors.white,
                           radius: 40,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text('Doğkan Saraç', style: kAppBarTitleTextStyle)
@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Padding(
@@ -102,7 +102,7 @@ class _ProfileState extends State<Profile> {
                         ])),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
