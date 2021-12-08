@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 class AccountListItem {
-  String iconTag;
+  Icon icon;
   String name;
+  String route;
 
   AccountListItem(
-      {required this.iconTag,
-        required this.name});
+      {required this.icon,
+        required this.name,
+      required this.route});
 }
