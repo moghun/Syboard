@@ -29,9 +29,9 @@ class _ProfileState extends State<Profile> {
         name: 'My Reviews',
         route: '/'),
     AccountListItem(
-        icon: Icon(Icons.local_shipping_outlined,
+        icon: Icon(Icons.notifications_outlined,
             size: 30, color: Colors.black.withOpacity(0.7)),
-        name: 'My Orders',
+        name: 'Notifications',
         route: '/'),
     AccountListItem(
         icon: Icon(Icons.edit_outlined,
