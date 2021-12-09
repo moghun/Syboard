@@ -4,6 +4,7 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:syboard/services/auth.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
+
+  AuthService authService = AuthService();
+
   String mail = "";
   String initialPass = "";
   String finalPass = "";
@@ -234,7 +238,9 @@ class _SignUpState extends State<SignUp> {
                               child: SignInButton(
                             Buttons.Google,
                             text: 'Sign Up with Google',
-                            onPressed: () {},
+                            onPressed: () {
+                              authService.googleSignIn();
+                            },
                           ))
                         ],
                       ),
