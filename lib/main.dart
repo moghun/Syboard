@@ -44,6 +44,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
           return MaterialApp(
             home: MaterialApp(
               debugShowCheckedModeBanner: false,
+
               routes: {
                 '/': (context) => Index(),
                 '/walkthrough': (context) => const WalkThrough(),
@@ -51,6 +52,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
                 '/login': (context) => Login(),
                 '/signup': (context) => SignUp(),
               },
+
             ),
           );
         }
@@ -62,3 +64,4 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
       },);
   }
 }
+
