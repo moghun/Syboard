@@ -9,6 +9,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'index.dart';
 
 
+
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyFirebaseApp());
@@ -42,15 +43,15 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
         if(snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             home: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            routes: {
-              '/': (context) => Index(),
-              '/walkthrough': (context) => const WalkThrough(),
-              '/welcome': (context) => Welcome(),
-              '/login': (context) => Login(),
-              '/signup': (context) => SignUp(),
-            },
-            )
+              debugShowCheckedModeBanner: false,
+              routes: {
+                '/': (context) => Index(),
+                '/walkthrough': (context) => const WalkThrough(),
+                '/welcome': (context) => Welcome(),
+                '/login': (context) => Login(),
+                '/signup': (context) => SignUp(),
+              },
+            ),
           );
         }
         return const MaterialApp(
