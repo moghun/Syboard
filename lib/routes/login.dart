@@ -71,6 +71,17 @@ class _LoginState extends State<Login> {
     }
   }
 
+  Future signInAnon() async {
+    try {
+      UserCredential result = await auth.signInAnonymously();
+      User user = result.user!;
+      return _userFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
 
   @override
   void initState() {
@@ -269,6 +280,26 @@ class _LoginState extends State<Login> {
                             },
                             child: const Text(
                               "Don't have an account? Sign Up Here",
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              signInAnon();
+                              Navigator.popAndPushNamed(context, "/");
+                            },
+                            child: const Text(
+                              "Contiune without Logging In",
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 14,
