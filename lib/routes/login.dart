@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   //const Login({Key? key}) : super(key: key);
@@ -15,6 +18,79 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   String mail = "";
   String pass = "";
+  String _message = '';
+
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  User? _userFromFirebase(User? user) {
+    return user ?? null;
+  }
+
+  Stream<User?> get user {
+    return auth.authStateChanges().map(_userFromFirebase);
+  }
+
+  void setmessage(String msg) {
+    setState(() {
+      _message = msg;
+    });
+  }
+
+  Future<void> signupUser() async {
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: mail, password: pass);
+      print(userCredential.toString());
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      if(e.code == 'email-already-in-use') {
+        setmessage('There is another account with the same email adress');
+      }
+      else if(e.code == 'weak-password') {
+        setmessage('You have entered a weak password');
+      }
+    }
+  }
+
+  Future<void> loginUser() async {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: mail,
+          password: pass
+      );
+      print(userCredential.toString());
+
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      if(e.code == 'user-not-found') {
+        signupUser();
+      }
+      else if (e.code == 'wrong-password') {
+        setmessage('Please check your password');
+      }
+    }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    auth.authStateChanges().listen((user)
+    {
+      if(user == null) {
+        print('User is signed out');
+      }
+      else {
+        print('User is signed in');
+      }
+    });
+  }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +234,8 @@ class _LoginState extends State<Login> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()){
                                   _formKey.currentState!.save();
+
+                                  loginUser();
                                 }
                                 else {
                                   Navigator.pop(context);
