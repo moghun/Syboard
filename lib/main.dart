@@ -62,8 +62,3 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
       },);
   }
 }
-
-
-
-
-
