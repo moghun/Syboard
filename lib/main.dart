@@ -63,17 +63,18 @@ class AppBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorObservers: <NavigatorObserver> [observer],
-      home: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home:Welcome(analytics: analytics, observer: observer),
-        routes: {
-          '/walkthrough': (context) => const WalkThrough(),
-          '/welcome': (context) => Welcome(),
-          '/login': (context) => Login(),
-          '/signup': (context) => SignUp(),
-        },
+       home: MaterialApp(
+              debugShowCheckedModeBanner: false,
 
-      ),
+              routes: {
+                '/': (context) => Index(),
+                '/walkthrough': (context) => const WalkThrough(),
+                '/welcome': (context) => Welcome(analytics: analytics, observer: observer),,
+                '/login': (context) => Login(),
+                '/signup': (context) => SignUp(),
+              },
+
+            )
     );
   }
 }

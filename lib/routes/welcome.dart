@@ -17,31 +17,12 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  String _message = '';
-  void setMessage(String msg){
-    setState(() {
-      _message = msg;
-    });
-  }
-
-/*
-  Future<void> _setLogEvent() async {
-    await widget.analytics?.logEvent(
-      name: "test",
-      parameters: <String, dynamic> {
-        "p1": "inside welcome page",
-      }
-    );
-  }
-  Future<void> _setCurrentScreen() async {
-    await widget.analytics?.setCurrentScreen(screenName: "Welcome Page", screenClassOverride: "welcomePage");
-    setMessage("setCurrentScreen succeeded");
-  }
-
-  Future<void> _setUserId() async {
-    await widget.analytics.setUserId("id");
-  }
-*/
+  // String _message = '';
+  // void setMessage(String msg){
+  //   setState(() {
+  //     _message = msg;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
