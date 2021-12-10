@@ -2,6 +2,7 @@ import 'package:syboard/utils/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -70,6 +71,7 @@ class _WelcomeState extends State<Welcome> {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
+                        FirebaseAnalytics().logEvent(name: "clickLoginButton");
                         Navigator.popAndPushNamed(context, '/login');
                       },
                       child: Padding(
