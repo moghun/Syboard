@@ -3,13 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:syboard/utils/analytics-utils.dart';
 
 class Welcome extends StatefulWidget {
+  const Welcome({Key? key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
+
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
+  String _message = '';
+  void setMessage(String msg){
+    setState(() {
+      _message = msg;
+    });
+  }
+
+/*
+  Future<void> _setLogEvent() async {
+    await widget.analytics?.logEvent(
+      name: "test",
+      parameters: <String, dynamic> {
+        "p1": "inside welcome page",
+      }
+    );
+  }
+  Future<void> _setCurrentScreen() async {
+    await widget.analytics?.setCurrentScreen(screenName: "Welcome Page", screenClassOverride: "welcomePage");
+    setMessage("setCurrentScreen succeeded");
+  }
+
+  Future<void> _setUserId() async {
+    await widget.analytics.setUserId("id");
+  }
+*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +104,8 @@ class _WelcomeState extends State<Welcome> {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
-                        FirebaseAnalytics().logEvent(name: "clickLoginButton");
+                        //FirebaseAnalytics().logEvent(name: "clickLoginButton");
+                        setLogEventUtil(analytics: widget.analytics, eventName: "clickLoginBtn");
                         Navigator.popAndPushNamed(context, '/login');
                       },
                       child: Padding(

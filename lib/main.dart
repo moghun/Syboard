@@ -41,20 +41,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
           );
         }
         if(snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            home: MaterialApp(
-              debugShowCheckedModeBanner: false,
-
-              routes: {
-                '/': (context) => Index(),
-                '/walkthrough': (context) => const WalkThrough(),
-                '/welcome': (context) => Welcome(),
-                '/login': (context) => Login(),
-                '/signup': (context) => SignUp(),
-              },
-
-            ),
-          );
+          return AppBase();
         }
         return const MaterialApp(
           home: Center(
@@ -65,3 +52,28 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
   }
 }
 
+
+class AppBase extends StatelessWidget {
+  const AppBase({Key? key,}):super(key: key);
+
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      navigatorObservers: <NavigatorObserver> [observer],
+      home: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home:Welcome(analytics: analytics, observer: observer),
+        routes: {
+          '/walkthrough': (context) => const WalkThrough(),
+          '/welcome': (context) => Welcome(),
+          '/login': (context) => Login(),
+          '/signup': (context) => SignUp(),
+        },
+
+      ),
+    );
+  }
+}
