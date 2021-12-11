@@ -5,8 +5,17 @@ import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:syboard/services/auth.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:syboard/utils/analytics-utils.dart';
 
 class SignUp extends StatefulWidget {
+
+  const SignUp({Key? key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -22,6 +31,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics().setCurrentScreen(screenName: "signupScreen");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(

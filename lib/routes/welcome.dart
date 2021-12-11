@@ -26,6 +26,7 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
+    setCurrentScreenUtil(analytics: widget.analytics, screenName: "welcomeScreen");
     return Scaffold(
       body: SafeArea(
         maintainBottomViewPadding: false,
@@ -60,6 +61,7 @@ class _WelcomeState extends State<Welcome> {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
+                        setLogEventUtil(analytics: widget.analytics, eventName: "clickSignupBtn");
                         Navigator.pushNamed(context, '/signup');
                       },
                       child: Padding(

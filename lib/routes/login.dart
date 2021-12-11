@@ -6,9 +6,15 @@ import 'package:syboard/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:syboard/utils/analytics-utils.dart';
 
 class Login extends StatefulWidget {
-  //const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
 
   @override
   _LoginState createState() => _LoginState();
@@ -59,9 +65,12 @@ class _LoginState extends State<Login> {
           password: pass
       );
       print(userCredential.toString());
+      FirebaseAnalytics().logEvent(name: "successfulLogin");
 
     } on FirebaseAuthException catch (e) {
       print(e.toString());
+      FirebaseAnalytics().logEvent(name: "failedLogin");
+
       if(e.code == 'user-not-found') {
         signupUser();
       }
@@ -105,6 +114,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    setCurrentScreenUtil(analytics: widget.analytics, screenName: "loginScreen");
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
