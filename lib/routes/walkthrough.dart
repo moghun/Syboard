@@ -5,9 +5,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/routes/welcome.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:syboard/utils/analytics-utils.dart';
 
 class WalkThrough extends StatefulWidget {
-  const WalkThrough({Key? key}) : super(key: key);
+  const WalkThrough({Key? key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
 
   @override
   _WalkThroughState createState() => _WalkThroughState();
@@ -31,6 +37,7 @@ class _WalkThroughState extends State<WalkThrough> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics().setCurrentScreen(screenName: "walkthroughScreen");
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(00.0),
@@ -451,6 +458,7 @@ class _WalkThroughState extends State<WalkThrough> {
                               ),
                             ),
                             onPressed: () async {
+                              setLogEventUtil(analytics: widget.analytics, eventName: "finishingWalkthrough");
                               SharedPreferences prefs = await SharedPreferences.getInstance();
 
                               await prefs.setBool('initialStart', true);

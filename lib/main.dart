@@ -65,15 +65,13 @@ class AppBase extends StatelessWidget {
       navigatorObservers: <NavigatorObserver> [observer],
        home: MaterialApp(
               debugShowCheckedModeBanner: false,
-
               routes: {
                 '/': (context) => Index(),
-                '/walkthrough': (context) => const WalkThrough(),
-                '/welcome': (context) => Welcome(analytics: analytics, observer: observer),,
-                '/login': (context) => Login(),
-                '/signup': (context) => SignUp(),
+                '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
+                '/welcome': (context) => Welcome(analytics: analytics, observer: observer),
+                '/login': (context) => Login(analytics: analytics, observer: observer),
+                '/signup': (context) => SignUp(analytics: analytics, observer: observer),
               },
-
             )
     );
   }
