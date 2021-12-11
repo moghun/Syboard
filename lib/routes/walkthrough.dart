@@ -8,6 +8,7 @@ import 'package:syboard/routes/welcome.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class WalkThrough extends StatefulWidget {
   const WalkThrough({Key? key, this.analytics, this.observer}) : super(key: key);

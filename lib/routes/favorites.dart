@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/styles.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/favorite_item.dart';
 
