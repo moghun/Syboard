@@ -2,13 +2,28 @@ import 'package:syboard/utils/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:syboard/utils/analytics-utils.dart';
 
 class Welcome extends StatefulWidget {
+  const Welcome({Key? key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
+
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
+  // String _message = '';
+  // void setMessage(String msg){
+  //   setState(() {
+  //     _message = msg;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +85,8 @@ class _WelcomeState extends State<Welcome> {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
+                        //FirebaseAnalytics().logEvent(name: "clickLoginButton");
+                        setLogEventUtil(analytics: widget.analytics, eventName: "clickLoginBtn");
                         Navigator.popAndPushNamed(context, '/login');
                       },
                       child: Padding(
