@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, this.analytics, this.observer}) : super(key: key);

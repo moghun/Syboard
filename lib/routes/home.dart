@@ -6,6 +6,7 @@ import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/product_preview.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, this.analytics, this.observer}) : super(key: key);

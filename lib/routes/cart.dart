@@ -3,6 +3,7 @@ import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/cart_item.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);

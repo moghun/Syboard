@@ -3,6 +3,7 @@ import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/account_list_item.dart';
 import 'package:syboard/ui/account_list_item_tile.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);

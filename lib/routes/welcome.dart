@@ -5,6 +5,7 @@ import 'package:syboard/utils/styles.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key, this.analytics, this.observer}) : super(key: key);
