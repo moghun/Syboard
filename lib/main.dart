@@ -67,7 +67,7 @@ class AppBase extends StatelessWidget {
        home: MaterialApp(
               debugShowCheckedModeBanner: false,
               routes: {
-                '/': (context) => Index(),
+                '/': (context) => Index(analytics: analytics, observer: observer),
                 '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
                 '/welcome': (context) => Welcome(analytics: analytics, observer: observer),
                 '/login': (context) => Login(analytics: analytics, observer: observer),
