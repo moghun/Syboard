@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
@@ -28,6 +30,7 @@ class _LoginState extends State<Login> {
   String _message = '';
 
 
+  AuthService authService = AuthService();
   FirebaseAuth auth = FirebaseAuth.instance;
 
   User? _userFromFirebase(User? user) {
@@ -279,6 +282,23 @@ class _LoginState extends State<Login> {
                           )
                         ],
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              child: SignInButton(
+                                Buttons.Google,
+                                text: 'Log In with Google',
+                                onPressed: () {
+                                  authService.googleSignIn();
+                                },
+                              ))
+                        ],
+                      ),
+
                       const SizedBox(
                         height: 8,
                       ),
