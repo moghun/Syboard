@@ -50,6 +50,7 @@ class _IndexState extends State<Index> {
     setState(() {
       _selectedBottomTabIndex = index;
     });
+    widget.analytics.setCurrentScreen(screenName: routes[index].toString());
   }
 
   @override
