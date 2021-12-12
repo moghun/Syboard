@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
@@ -15,6 +17,17 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final AuthService authService = AuthService();
+
+  Future<void> start() async {
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    start();
+    // obtain shared preferences
+  }
 
   static final _itemList = <AccountListItem>[
     AccountListItem(
@@ -46,6 +59,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
