@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "237129782950-274a80mpku10ijhi0p67btbf20jn5nj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.syboard",
+            "certificate_hash": "ae2403ecb33de53f8989198927e3830fbe046051"
+          }
+        },
+        {
           "client_id": "237129782950-m0d9kc8he2fiqf25rk3fbm9545n36h1l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
