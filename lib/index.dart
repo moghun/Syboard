@@ -1,7 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/routes/home.dart';
@@ -11,7 +13,8 @@ import 'package:syboard/routes/favorites.dart';
 import 'package:syboard/routes/profile.dart';
 
 class Index extends StatefulWidget {
-  const Index({Key? key, required this.analytics, required this.observer}) : super(key: key);
+  const Index({Key? key, required this.analytics, required this.observer})
+      : super(key: key);
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
@@ -36,21 +39,27 @@ class _IndexState extends State<Index> {
     }
   }
 
+  static int _selectedBottomTabIndex = 0;
   @override
   void initState() {
     super.initState();
     start();
+    _selectedBottomTabIndex = 0;
     // obtain shared preferences
   }
 
   //BottomNavigation
-  static int _selectedBottomTabIndex = 0;
 
   void _onBottomTabPress(int index) {
-    setState(() {
-      _selectedBottomTabIndex = index;
-    });
-    widget.analytics.setCurrentScreen(screenName: routes[index].toString());
+    final user = Provider.of<User?>(context, listen: false);
+    if (user == null && index == 4) {
+      Navigator.popAndPushNamed(context, '/login');
+    } else {
+      setState(() {
+        _selectedBottomTabIndex = index;
+      });
+      widget.analytics.setCurrentScreen(screenName: routes[index].toString());
+    }
   }
 
   @override
