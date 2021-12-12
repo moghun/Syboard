@@ -2,11 +2,14 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/signup.dart';
 import 'package:syboard/routes/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:syboard/routes/login.dart';
 import 'package:syboard/routes/walkthrough.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:provider/provider.dart';
+import 'package:syboard/services/auth.dart';
 import 'index.dart';
 
 
@@ -62,10 +65,12 @@ class AppBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorObservers: <NavigatorObserver> [observer],
-       home: MaterialApp(
+    return StreamProvider<User?>.value(
+        initialData: null,
+       value: AuthService().user,
+       child: MaterialApp(
               debugShowCheckedModeBanner: false,
+         navigatorObservers: <NavigatorObserver> [observer],
               routes: {
                 '/': (context) => Index(analytics: analytics, observer: observer),
                 '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
