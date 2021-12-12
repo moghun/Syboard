@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/account_list_item.dart';
@@ -13,6 +14,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final AuthService authService = AuthService();
+
   static final _itemList = <AccountListItem>[
     AccountListItem(
         icon: Icon(Icons.local_shipping_outlined,
@@ -117,7 +120,10 @@ class _ProfileState extends State<Profile> {
                               vertical: 10),
                           primary: Colors.grey,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          authService.signOut();
+                          Navigator.popAndPushNamed(  context, '/login');
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [

@@ -70,6 +70,7 @@ class _LoginState extends State<Login> {
       );
       print(userCredential.toString());
       FirebaseAnalytics().logEvent(name: "successfulLogin");
+      Navigator.pushReplacementNamed(context, "/");
 
     } on FirebaseAuthException catch (e) {
       print(e.toString());
