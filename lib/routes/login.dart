@@ -293,8 +293,9 @@ class _LoginState extends State<Login> {
                               child: SignInButton(
                                 Buttons.Google,
                                 text: 'Log In with Google',
-                                onPressed: () {
-                                  authService.googleSignIn();
+                                onPressed: () async {
+                                  await authService.googleSignIn();
+                                  Navigator.popAndPushNamed(context, '/');
                                 },
                               ))
                         ],

@@ -35,16 +35,17 @@ class _IndexState extends State<Index> {
       Navigator.pushNamed(context, '/walkthrough');
     }
   }
-
+  static int _selectedBottomTabIndex = 0;
   @override
   void initState() {
     super.initState();
     start();
+    _selectedBottomTabIndex = 0;
     // obtain shared preferences
   }
 
   //BottomNavigation
-  static int _selectedBottomTabIndex = 0;
+
 
   void _onBottomTabPress(int index) {
     setState(() {
