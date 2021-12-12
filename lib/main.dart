@@ -13,6 +13,7 @@ import 'index.dart';
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(const MyFirebaseApp());
 }
