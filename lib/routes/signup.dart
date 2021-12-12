@@ -255,17 +255,6 @@ class _SignUpState extends State<SignUp> {
                           ))
                         ],
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                              child: SignInButton(
-                            Buttons.Facebook,
-                            text: 'Sign Up with Facebook',
-                            onPressed: () {},
-                          )),
-                        ],
-                      ),
                       const SizedBox(
                         height: 8,
                       ),
