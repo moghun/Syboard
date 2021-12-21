@@ -12,6 +12,10 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebase);
   }
 
+  User? getCurrentUser(){
+    return _auth.currentUser;
+  }
+
   Future changePassword(String newPassword) async {
     try{
       _auth.currentUser?.updatePassword(newPassword);

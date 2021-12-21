@@ -16,6 +16,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   final AuthService authService = AuthService();
 
   Future<void> start() async {
@@ -60,6 +61,8 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
 
+    String? userName = authService.getCurrentUser()?.displayName;
+
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -96,7 +99,7 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text('Doğkan Saraç', style: kAppBarTitleTextStyle)
+                        Text(userName ?? "No username", style: kAppBarTitleTextStyle)
                       ],
                     ),
                   ),
