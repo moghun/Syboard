@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
         icon: Icon(Icons.edit_outlined,
             size: 30, color: Colors.black.withOpacity(0.7)),
         name: 'Edit My Account',
-        route: '/')
+        route: '/edit_account')
   ];
 
   @override
@@ -114,8 +114,8 @@ class _ProfileState extends State<Profile> {
                     (index) => Row(children: [
                           Expanded(
                               child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            child: AccountListItemTile(_itemList[index]),
+                            padding: const EdgeInsets.symmetric(vertical: 1),
+                            child: AccountListItemTile(_itemList[index], context),
                           ))
                         ])),
               ),
