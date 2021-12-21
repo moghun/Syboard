@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
+import 'package:syboard/utils/styles.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -29,107 +30,141 @@ class _ChangePasswordState extends State<ChangePassword> {
       ),
       body: Column(
         children: [
-          Form(
-            key: _formKey,
-            child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Password',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppColors.primary,
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'New password',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.primary,
+                                ),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10)),
                               ),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                              prefixIcon: Icon(Icons.lock),
                             ),
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          validator: (value) {
-                            initialPass = value!.trim();
-                            if (value == null) {
-                              return 'Password field cannot be empty';
-                            } else {
-                              String trimmedValue = value.trim();
-                              if (trimmedValue.isEmpty) {
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            validator: (value) {
+                              initialPass = value!.trim();
+                              if (value == null) {
                                 return 'Password field cannot be empty';
+                              } else {
+                                String trimmedValue = value.trim();
+                                if (trimmedValue.isEmpty) {
+                                  return 'Password field cannot be empty';
+                                }
+                                if (trimmedValue.length < 8) {
+                                  return 'Password must be at least 8 characters long';
+                                }
                               }
-                              if (trimmedValue.length < 8) {
-                                return 'Password must be at least 8 characters long';
+                              return null;
+                            },
+                            onSaved: (value) {
+                              if (value != null) {
+                                initialPass = value;
                               }
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            if (value != null) {
-                              initialPass = value;
-                            }
-                          },
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Confirm Password',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppColors.primary,
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Confirm new password',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.primary,
+                                ),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10)),
                               ),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                              prefixIcon: Icon(Icons.lock),
                             ),
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Password field cannot be empty';
-                            } else {
-                              String trimmedValue = value.trim();
-                              if (trimmedValue.isEmpty) {
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            validator: (value) {
+                              if (value == null) {
                                 return 'Password field cannot be empty';
+                              } else {
+                                String trimmedValue = value.trim();
+                                if (trimmedValue.isEmpty) {
+                                  return 'Password field cannot be empty';
+                                }
+                                if (trimmedValue.length < 8) {
+                                  return 'Password must be at least 8 characters long';
+                                }
+                                if (value != initialPass) {
+                                  return 'Passwords are not matching';
+                                }
                               }
-                              if (trimmedValue.length < 8) {
-                                return 'Password must be at least 8 characters long';
+                              return null;
+                            },
+                            onSaved: (value) {
+                              if (value != null) {
+                                finalPass = value;
                               }
-                              if (value != initialPass) {
-                                return 'Passwords are not matching';
-                              }
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            if (value != null) {
-                              finalPass = value;
-                            }
-                          },
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                              }
+                            },
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 12.0),
+                              child: Text(
+                                'Change password',
+                                style: kButtonDarkTextStyle,
+                              ),
+                            ),
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+            ),
           ),
         ],
       ),
