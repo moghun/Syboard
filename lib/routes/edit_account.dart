@@ -19,7 +19,7 @@ class _EditAccountState extends State<EditAccount> {
 
   static final _itemList = <AccountListItem>[
     AccountListItem(icon: const Icon(Icons.insert_photo_outlined), name: "Change profile picture", route: '/'),
-    AccountListItem(icon: const Icon(Icons.lock_outline), name: "Change password", route: '/'),
+    AccountListItem(icon: const Icon(Icons.lock_outline), name: "Change password", route: '/change_password'),
     AccountListItem(icon: const Icon(Icons.highlight_remove), name: "Delete Account", route: '/'),
   ];
 
