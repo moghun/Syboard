@@ -12,6 +12,14 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebase);
   }
 
+  Future changePassword(String newPassword) async {
+    try{
+      _auth.currentUser?.updatePassword(newPassword);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future googleSignIn() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
