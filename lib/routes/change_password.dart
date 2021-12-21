@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 
@@ -16,6 +17,8 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final _formKey = GlobalKey<FormState>();
+
+  AuthService authService = AuthService();
 
   String initialPass = "";
   String finalPass = "";
@@ -145,6 +148,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
+                                authService.changePassword(initialPass);
                               }
                             },
                             child: Padding(
