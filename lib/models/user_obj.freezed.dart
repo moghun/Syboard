@@ -21,8 +21,7 @@ UserObj _$UserObjFromJson(Map<String, dynamic> json) {
 class _$UserObjTearOff {
   const _$UserObjTearOff();
 
-  _UserObj call(
-      {required int uid, required String name, required String email}) {
+  _UserObj call({required String uid, String? name, String? email}) {
     return _UserObj(
       uid: uid,
       name: name,
@@ -40,9 +39,9 @@ const $UserObj = _$UserObjTearOff();
 
 /// @nodoc
 mixin _$UserObj {
-  int get uid => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +52,7 @@ mixin _$UserObj {
 abstract class $UserObjCopyWith<$Res> {
   factory $UserObjCopyWith(UserObj value, $Res Function(UserObj) then) =
       _$UserObjCopyWithImpl<$Res>;
-  $Res call({int uid, String name, String email});
+  $Res call({String uid, String? name, String? email});
 }
 
 /// @nodoc
@@ -74,15 +73,15 @@ class _$UserObjCopyWithImpl<$Res> implements $UserObjCopyWith<$Res> {
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -92,7 +91,7 @@ abstract class _$UserObjCopyWith<$Res> implements $UserObjCopyWith<$Res> {
   factory _$UserObjCopyWith(_UserObj value, $Res Function(_UserObj) then) =
       __$UserObjCopyWithImpl<$Res>;
   @override
-  $Res call({int uid, String name, String email});
+  $Res call({String uid, String? name, String? email});
 }
 
 /// @nodoc
@@ -114,15 +113,15 @@ class __$UserObjCopyWithImpl<$Res> extends _$UserObjCopyWithImpl<$Res>
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -130,17 +129,17 @@ class __$UserObjCopyWithImpl<$Res> extends _$UserObjCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserObj implements _UserObj {
-  _$_UserObj({required this.uid, required this.name, required this.email});
+  _$_UserObj({required this.uid, this.name, this.email});
 
   factory _$_UserObj.fromJson(Map<String, dynamic> json) =>
       _$$_UserObjFromJson(json);
 
   @override
-  final int uid;
+  final String uid;
   @override
-  final String name;
+  final String? name;
   @override
-  final String email;
+  final String? email;
 
   @override
   String toString() {
@@ -176,19 +175,17 @@ class _$_UserObj implements _UserObj {
 }
 
 abstract class _UserObj implements UserObj {
-  factory _UserObj(
-      {required int uid,
-      required String name,
-      required String email}) = _$_UserObj;
+  factory _UserObj({required String uid, String? name, String? email}) =
+      _$_UserObj;
 
   factory _UserObj.fromJson(Map<String, dynamic> json) = _$_UserObj.fromJson;
 
   @override
-  int get uid;
+  String get uid;
   @override
-  String get name;
+  String? get name;
   @override
-  String get email;
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$UserObjCopyWith<_UserObj> get copyWith =>
