@@ -7,9 +7,9 @@ part of 'user_obj.dart';
 // **************************************************************************
 
 _$_UserObj _$$_UserObjFromJson(Map<String, dynamic> json) => _$_UserObj(
-      uid: json['uid'] as int,
-      name: json['name'] as String,
-      email: json['email'] as String,
+      uid: json['uid'] as String,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$$_UserObjToJson(_$_UserObj instance) =>
