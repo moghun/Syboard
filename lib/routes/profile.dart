@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
@@ -61,7 +62,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
 
-    String? userName = authService.getCurrentUser()?.displayName;
+    UserObj? currentUser = authService.getCurrentUser();
 
     return Scaffold(
         body: SafeArea(
@@ -99,7 +100,7 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(userName ?? "No username", style: kAppBarTitleTextStyle)
+                        Text(currentUser?.name ?? "No username", style: kAppBarTitleTextStyle),
                       ],
                     ),
                   ),

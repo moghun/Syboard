@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:syboard/models/user_obj.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,8 +13,10 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebase);
   }
 
-  User? getCurrentUser(){
-    return _auth.currentUser;
+  UserObj? getCurrentUser(){
+    if(_auth.currentUser == null) return null;
+    UserObj tempUser = UserObj(uid: _auth.currentUser!.uid, name: _auth.currentUser?.displayName, email: _auth.currentUser?.email);
+    return tempUser;
   }
 
   Future changePassword(String newPassword) async {
