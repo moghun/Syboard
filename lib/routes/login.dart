@@ -96,11 +96,11 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(
-                height: 48,
+                height: 40,
               ),
               Text(errMsg, style: const TextStyle(
                 color: Colors.red,
-                fontSize: 12,
+                fontSize: 14,
               ),),
               Padding(
                 padding: Dimen.regularPadding,

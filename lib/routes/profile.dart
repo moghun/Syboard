@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(currentUser?.name ?? "No username", style: kAppBarTitleTextStyle),
+                        Text(currentUser?.name ?? currentUser!.email!, style: kAppBarTitleTextStyle),
                       ],
                     ),
                   ),

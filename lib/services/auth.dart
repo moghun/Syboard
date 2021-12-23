@@ -35,6 +35,13 @@ class AuthService {
     );
   }
 
+  Future<void> signUpUser(String email, String password) async {
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password
+    );
+  }
+
   Future<void> signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
