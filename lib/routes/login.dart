@@ -6,12 +6,9 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -27,95 +24,42 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   String mail = "";
   String pass = "";
-  String _message = '';
-
+  String errMsg = "";
 
   AuthService authService = AuthService();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
-  User? _userFromFirebase(User? user) {
-    return user ?? null;
-  }
-
-  Stream<User?> get user {
-    return auth.authStateChanges().map(_userFromFirebase);
-  }
-
-  void setmessage(String msg) {
+  void setErrorMessage(String e){
     setState(() {
-      _message = msg;
+      errMsg = e;
     });
-  }
-
-  Future<void> signupUser() async {
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: mail, password: pass);
-      print(userCredential.toString());
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      if(e.code == 'email-already-in-use') {
-        setmessage('There is another account with the same email adress');
-      }
-      else if(e.code == 'weak-password') {
-        setmessage('You have entered a weak password');
-      }
-    }
   }
 
   Future<void> loginUser() async {
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: mail,
-          password: pass
-      );
-      print(userCredential.toString());
+      await authService.loginUser(mail, pass);
       FirebaseAnalytics().logEvent(name: "successfulLogin");
       Navigator.pushReplacementNamed(context, "/");
-
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       FirebaseAnalytics().logEvent(name: "failedLogin");
-
-      if(e.code == 'user-not-found') {
-        signupUser();
-      }
-      else if (e.code == 'wrong-password') {
-        setmessage('Please check your password');
+      if(e.code == 'user-not-found' || e.code == 'wrong-password') {
+        setErrorMessage('Wrong username or password!');
       }
     }
   }
-
-  Future signInAnon() async {
-    try {
-      UserCredential result = await auth.signInAnonymously();
-      User user = result.user!;
-      return _userFromFirebase(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
 
   @override
   void initState() {
     super.initState();
 
-    auth.authStateChanges().listen((user)
-    {
-      if(user == null) {
-        print('User is signed out');
-      }
-      else {
-        print('User is signed in');
+    authService.user.listen((user) {
+      if(user == null){
+        print('No user is currently signed in.');
+      } else {
+        print('${authService.getCurrentUser()!.name} is the current user');
       }
     });
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +82,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 96,
+                height: 64,
               ),
               Center(
                 child: Padding(
@@ -152,8 +96,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(
-                height: 64,
+                height: 48,
               ),
+              Text(errMsg, style: const TextStyle(
+                color: Colors.red,
+                fontSize: 12,
+              ),),
               Padding(
                 padding: Dimen.regularPadding,
                 child: Form(
@@ -259,13 +207,10 @@ class _LoginState extends State<Login> {
                             flex: 1,
                             child: OutlinedButton(
                               onPressed: () {
+                                setErrorMessage(' ');
                                 if (_formKey.currentState!.validate()){
                                   _formKey.currentState!.save();
-
                                   loginUser();
-                                }
-                                else {
-                                  Navigator.pop(context);
                                 }
                               },
                               child: Padding(
@@ -329,7 +274,7 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () {
-                              signInAnon();
+                              authService.signInAnon();
                               Navigator.popAndPushNamed(context, "/");
                             },
                             child: const Text(

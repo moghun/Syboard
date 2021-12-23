@@ -2,7 +2,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/change_password.dart';
 import 'package:syboard/routes/edit_account.dart';
-import 'package:syboard/routes/profile.dart';
 import 'package:syboard/routes/signup.dart';
 import 'package:syboard/routes/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,13 +18,15 @@ import 'index.dart';
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runApp(const MyFirebaseApp());
+  final Future<FirebaseApp> init = Firebase.initializeApp();
+  //await Firebase.initializeApp();
+  runApp(MyFirebaseApp(init: init));
 }
 
 class MyFirebaseApp extends StatefulWidget {
-  const MyFirebaseApp({Key? key}) : super(key: key);
+  const MyFirebaseApp({Key? key, this.init}) : super(key: key);
+
+  final Future<FirebaseApp>? init;
 
   @override
   _MyFirebaseAppState createState() => _MyFirebaseAppState();
@@ -33,12 +34,10 @@ class MyFirebaseApp extends StatefulWidget {
 
 class _MyFirebaseAppState extends State<MyFirebaseApp> {
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialization,
+      future: widget.init,
       builder: (context, snapshot){
         if(snapshot.hasError) {
           return MaterialApp(
@@ -50,6 +49,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
           );
         }
         if(snapshot.connectionState == ConnectionState.done) {
+          FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
           return AppBase();
         }
         return const MaterialApp(

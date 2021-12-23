@@ -6,7 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? _userFromFirebase(User? user) {
-    return user ?? null;
+    return user;
   }
 
   Stream<User?> get user {
@@ -22,6 +22,22 @@ class AuthService {
   Future changePassword(String newPassword) async {
     try{
       _auth.currentUser?.updatePassword(newPassword);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> loginUser(String email, String password) async {
+
+    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password
+    );
+  }
+
+  Future<void> signInAnon() async {
+    try {
+      UserCredential result = await _auth.signInAnonymously();
     } catch (e) {
       print(e.toString());
     }
