@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:syboard/utils/color.dart';
@@ -29,6 +30,27 @@ class _SignUpState extends State<SignUp> {
   String mail = "";
   String initialPass = "";
   String finalPass = "";
+  String errMsg = "";
+
+  void setErrorMessage(String e){
+    setState(() {
+      errMsg = e;
+    });
+  }
+
+  Future<void> signUp() async {
+    try {
+      await authService.signUpUser(mail, initialPass);
+      FirebaseAnalytics().logEvent(name: "successfulSignup");
+      Navigator.pushReplacementNamed(context, "/");
+    } on FirebaseAuthException catch (e) {
+      if(e.code == 'email-already-in-use'){
+        setErrorMessage('User with this email already exists');
+      } else if(e.code == 'weak-password'){
+        setErrorMessage('Please choose a stronger password');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +86,12 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               const SizedBox(
-                height: 40,
+                height: 36,
               ),
+              Text(errMsg, style: const TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+              ),),
               Padding(
                 padding: Dimen.regularPadding,
                 child: Form(
@@ -222,6 +248,7 @@ class _SignUpState extends State<SignUp> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
+                                  signUp();
                                 }
                               },
                               child: Padding(
