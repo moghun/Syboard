@@ -27,6 +27,14 @@ class AuthService {
     }
   }
 
+  Future<void> loginUser(String email, String password) async {
+
+    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password
+    );
+  }
+
   Future googleSignIn() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

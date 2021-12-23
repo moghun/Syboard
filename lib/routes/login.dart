@@ -27,11 +27,16 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   String mail = "";
   String pass = "";
-  String _message = '';
-
+  String errMsg = "";
 
   AuthService authService = AuthService();
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  void setErrorMessage(String e){
+    setState(() {
+      errMsg = e;
+    });
+  }
 
   User? _userFromFirebase(User? user) {
     return user ?? null;
@@ -41,11 +46,6 @@ class _LoginState extends State<Login> {
     return auth.authStateChanges().map(_userFromFirebase);
   }
 
-  void setmessage(String msg) {
-    setState(() {
-      _message = msg;
-    });
-  }
 
   Future<void> signupUser() async {
     try {
@@ -54,33 +54,24 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       if(e.code == 'email-already-in-use') {
-        setmessage('There is another account with the same email adress');
+        print('There is another account with the same email adress');
       }
       else if(e.code == 'weak-password') {
-        setmessage('You have entered a weak password');
+        print('You have entered a weak password');
       }
     }
   }
 
   Future<void> loginUser() async {
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: mail,
-          password: pass
-      );
-      print(userCredential.toString());
+      await authService.loginUser(mail, pass);
       FirebaseAnalytics().logEvent(name: "successfulLogin");
       Navigator.pushReplacementNamed(context, "/");
-
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       FirebaseAnalytics().logEvent(name: "failedLogin");
-
-      if(e.code == 'user-not-found') {
-        signupUser();
-      }
-      else if (e.code == 'wrong-password') {
-        setmessage('Please check your password');
+      if(e.code == 'user-not-found' || e.code == 'wrong-password') {
+        setErrorMessage('Wrong username or password!');
       }
     }
   }
@@ -96,7 +87,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -111,11 +101,6 @@ class _LoginState extends State<Login> {
       }
     });
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +123,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 96,
+                height: 64,
               ),
               Center(
                 child: Padding(
@@ -152,8 +137,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(
-                height: 64,
+                height: 48,
               ),
+              Text(errMsg, style: const TextStyle(
+                color: Colors.red,
+                fontSize: 12,
+              ),),
               Padding(
                 padding: Dimen.regularPadding,
                 child: Form(
@@ -259,13 +248,10 @@ class _LoginState extends State<Login> {
                             flex: 1,
                             child: OutlinedButton(
                               onPressed: () {
+                                setErrorMessage(' ');
                                 if (_formKey.currentState!.validate()){
                                   _formKey.currentState!.save();
-
                                   loginUser();
-                                }
-                                else {
-                                  Navigator.pop(context);
                                 }
                               },
                               child: Padding(
