@@ -6,7 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? _userFromFirebase(User? user) {
-    return user ?? null;
+    return user;
   }
 
   Stream<User?> get user {
@@ -33,6 +33,14 @@ class AuthService {
         email: email,
         password: password
     );
+  }
+
+  Future<void> signInAnon() async {
+    try {
+      UserCredential result = await _auth.signInAnonymously();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future googleSignIn() async {

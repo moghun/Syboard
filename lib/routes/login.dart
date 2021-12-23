@@ -6,12 +6,9 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -30,36 +27,11 @@ class _LoginState extends State<Login> {
   String errMsg = "";
 
   AuthService authService = AuthService();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
   void setErrorMessage(String e){
     setState(() {
       errMsg = e;
     });
-  }
-
-  User? _userFromFirebase(User? user) {
-    return user ?? null;
-  }
-
-  Stream<User?> get user {
-    return auth.authStateChanges().map(_userFromFirebase);
-  }
-
-
-  Future<void> signupUser() async {
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: mail, password: pass);
-      print(userCredential.toString());
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      if(e.code == 'email-already-in-use') {
-        print('There is another account with the same email adress');
-      }
-      else if(e.code == 'weak-password') {
-        print('You have entered a weak password');
-      }
-    }
   }
 
   Future<void> loginUser() async {
@@ -76,28 +48,15 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future signInAnon() async {
-    try {
-      UserCredential result = await auth.signInAnonymously();
-      User user = result.user!;
-      return _userFromFirebase(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
 
-    auth.authStateChanges().listen((user)
-    {
-      if(user == null) {
-        print('User is signed out');
-      }
-      else {
-        print('User is signed in');
+    authService.user.listen((user) {
+      if(user == null){
+        print('No user is currently signed in.');
+      } else {
+        print('${authService.getCurrentUser()!.name} is the current user');
       }
     });
   }
@@ -315,7 +274,7 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () {
-                              signInAnon();
+                              authService.signInAnon();
                               Navigator.popAndPushNamed(context, "/");
                             },
                             child: const Text(
