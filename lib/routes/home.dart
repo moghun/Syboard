@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
@@ -26,38 +27,52 @@ class _HomeState extends State<Home> {
         productName: "Nvidia Geforce GTX1050ti",
         rating: 5,
         price: 100.99,
-        seller: "Vatan PC"),
+        seller: "Vatan PC",
+        description: "",
+        onSale: false),
     Product(
         imgURL:
             "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
         productName: "MSI Prestige Notebook",
         rating: 3.9,
         price: 2000.99,
-        seller: "İtopya.com"),
+        seller: "İtopya.com",
+        description: "",
+        onSale: false),
     Product(
         imgURL:
             "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
         productName: "Gaming PC",
         rating: 4.4,
         price: 1000.99,
-        seller: "Hasan Hüseyin"),
+        seller: "Hasan Hüseyin",
+        description: "",
+        onSale: false),
     Product(
         imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
         productName: "Gaming PC",
         rating: 4.5,
         price: 12.99,
-        seller: "Seller2"),
+        seller: "Seller2",
+        description: "",
+        onSale: false),
     Product(
         imgURL:
             "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
         productName: "Gaming Monitor",
         rating: 4.7,
         price: 179.99,
-        seller: "Seller1"),
+        seller: "Seller1",
+        description: "",
+        onSale: false),
   ];
+  service DB = service();
 
   @override
   Widget build(BuildContext context) {
+    DB.addProduct('elma',4.9,'pazarci',7,true,'golden elma','deneme',10);
+    DB.addProduct('patates',4.9,'pazarci',7,false,'yerli patetes','deneme',null);
+    DB.addProduct('havuc',4.9,'pazarci',7,true,'havuc','deneme',null);
     return Scaffold(
       appBar: AppBar(
         actions: [
