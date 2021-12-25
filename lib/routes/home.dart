@@ -8,6 +8,7 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -20,6 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   //ProductPreview
+
   static final _productPreviewList = <Product>[
     Product(
         imgURL:
@@ -66,13 +68,25 @@ class _HomeState extends State<Home> {
         description: "",
         onSale: false),
   ];
-  service DB = service();
+
+  Service db = Service();
+  List<Product> allProducts = [];
+
+  getAllProduct() async {
+    allProducts = await db.getProducts();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllProduct();
+  }
 
   @override
   Widget build(BuildContext context) {
-    DB.addProduct('elma',4.9,'pazarci',7,true,'golden elma','deneme',10);
-    DB.addProduct('patates',4.9,'pazarci',7,false,'yerli patetes','deneme',null);
-    DB.addProduct('havuc',4.9,'pazarci',7,true,'havuc','deneme',null);
+    // db.addProduct('elma', 4.9, 'pazarci', 7, true, 'golden elma', 'deneme', 10);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -83,7 +97,7 @@ class _HomeState extends State<Home> {
                 color: Colors.black54,
                 size: 28,
               )),
-          const SizedBox(width:8)
+          const SizedBox(width: 8)
         ],
         title: Row(
           children: [
@@ -137,9 +151,9 @@ class _HomeState extends State<Home> {
                 padding: Dimen.regularPadding,
                 child: Row(
                   children: List.generate(
-                      _productPreviewList.length,
+                      allProducts.length,
                       (index) => Row(children: [
-                            productPreview(_productPreviewList[index]),
+                            productPreview(allProducts[index]),
                             const SizedBox(width: 8)
                           ])),
                 ),
