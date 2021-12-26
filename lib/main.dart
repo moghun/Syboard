@@ -2,6 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/change_password.dart';
 import 'package:syboard/routes/edit_account.dart';
+import 'package:syboard/routes/searchResults.dart';
 import 'package:syboard/routes/signup.dart';
 import 'package:syboard/routes/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -84,6 +85,7 @@ class AppBase extends StatelessWidget {
                 '/signup': (context) => SignUp(analytics: analytics, observer: observer),
                 '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
                 '/change_password': (context) => ChangePassword(analytics: analytics, observer: observer),
+                '/search_result': (context) => SearchResult(analytics: analytics, observer: observer),
               },
             )
     );

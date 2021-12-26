@@ -10,23 +10,23 @@ import 'package:syboard/ui/product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key, this.analytics, this.observer}) : super(key: key);
+class SearchResult extends StatefulWidget {
+  const SearchResult({Key? key, this.analytics, this.observer}) : super(key: key);
   final FirebaseAnalytics? analytics;
   final FirebaseAnalyticsObserver? observer;
 
   @override
-  State<Home> createState() => _HomeState();
+  State<SearchResult> createState() => _SearchResult();
 }
 
-class _HomeState extends State<Home> {
+class _SearchResult extends State<SearchResult> {
   //ProductPreview
 
   Service db = Service();
-  static List<Product> allProducts = [];
+  static List<Product> searchedProducts = [];
 
   getAllProduct() async {
-    allProducts = await db.getProducts();
+    searchedProducts = await db.getProducts();
   }
 
   @override
@@ -72,30 +72,8 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: Dimen.regularPadding,
-              child: Row(children: [
-                Expanded(
-                    child: TextFormField(
-                    decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Search...",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: AppColors.primary),
-                    ),
-                  ),
-                )),
-              ]),
-            ),
             Text(
-              "Top Products",
+              "Search Result",
               style: kTextTitle,
             ),
             SingleChildScrollView(
@@ -104,9 +82,9 @@ class _HomeState extends State<Home> {
                 padding: Dimen.regularPadding,
                 child: Row(
                   children: List.generate(
-                      allProducts.length,
+                      searchedProducts.length,
                       (index) => Row(children: [
-                            productPreview(allProducts[index]),
+                            productPreview(searchedProducts[index]),
                             const SizedBox(width: 8)
                           ])),
                 ),
