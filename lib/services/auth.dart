@@ -10,7 +10,7 @@ class AuthService {
   }
 
   Stream<User?> get user {
-    return _auth.authStateChanges().map(_userFromFirebase);
+    return _auth.userChanges().map(_userFromFirebase);
   }
 
   UserObj? getCurrentUser(){
