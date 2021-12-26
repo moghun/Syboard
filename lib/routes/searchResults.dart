@@ -11,26 +11,28 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchResult extends StatefulWidget {
-  const SearchResult({Key? key, this.analytics, this.observer, required this.searchQuery}) : super(key: key);
+  SearchResult(
+      {Key? key, this.analytics, this.observer, required this.searchQuery})
+      : super(key: key);
   final FirebaseAnalytics? analytics;
   final FirebaseAnalyticsObserver? observer;
-  final String searchQuery;
+  String searchQuery;
 
   @override
   State<SearchResult> createState() => _SearchResult();
 }
 
 class _SearchResult extends State<SearchResult> {
-
   Service db = Service();
-  static List<Product> searchedProducts = [];
+  List<Product> searchedProducts = [];
   TextEditingController searchTextController = TextEditingController();
 
-
   getSearchedProduct() async {
-    searchedProducts = await db.getSearchResults(widget.searchQuery);
+    var result = await db.getSearchResults(widget.searchQuery);
+    setState(() {
+      searchedProducts = result;
+    });
   }
-  
 
   @override
   void initState() {
@@ -40,34 +42,13 @@ class _SearchResult extends State<SearchResult> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: Colors.black54,
-                size: 28,
-              )),
-          const SizedBox(width: 8)
-        ],
         title: Row(
           children: [
-            const SizedBox(width: 8),
-            SizedBox(
-                width: 38,
-                height: 48,
-                child: Image.asset('lib/images/logo_small.png')),
-            const SizedBox(width: 8),
-            Text(
-              'Syboard',
-              style: kHeadingTextStyle,
-            ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         elevation: 2.0,
       ),
       body: SingleChildScrollView(
@@ -75,57 +56,55 @@ class _SearchResult extends State<SearchResult> {
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: 25),
-              child: Row(
-                  children: [
-                    /*  TextField(
+              child: Row(children: [
+                /*  TextField(
                       controller: searchTextController,
 
                     ),*/
-                    /*IconButton(
+                /*IconButton(
                         onPressed: () {
                         },
                         icon: Icon(Icons.search)
                     ),*/
-                    Expanded(
-                        child:Padding(
-                            padding: Dimen.regularPadding,
-                            child: TextField(
-                              controller: searchTextController,
-                              decoration: const InputDecoration(
-                                hintText: "Search...",
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide: BorderSide(color: AppColors.primary),
-                                ),
-                              ) ,
-
-
-                            )
-                        )
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          if(searchTextController.text != ""){
-                            getSearchedProduct();
-                         /*   Navigator.push(
+                Expanded(
+                    child: Padding(
+                        padding: Dimen.regularPadding,
+                        child: TextField(
+                          controller: searchTextController,
+                          decoration: const InputDecoration(
+                            hintText: "Search...",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.primary),
+                            ),
+                          ),
+                        ))),
+                IconButton(
+                    onPressed: () {
+                      if (searchTextController.text != "") {
+                        setState(() {
+                          widget.searchQuery = searchTextController.text;
+                        });
+                        getSearchedProduct();
+                        /*   Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         SearchResult(analytics: widget.analytics,observer: widget.observer,searchQuery: searchTextController.text,)
                                 )
                             );*/
-                          }
-                        },
-                        icon: Icon(Icons.search)
-                    ),
-
-                  ]),
+                      }
+                    },
+                    icon: Icon(Icons.search)),
+              ]),
             ),
             Text(
               "Search Result",
@@ -136,19 +115,14 @@ class _SearchResult extends State<SearchResult> {
               child: Padding(
                 padding: Dimen.regularPadding,
                 child: Row(
-                  children:
-                    searchedProducts.length > 0 ?
-                      List.generate(
-                          searchedProducts.length,
-                              (index) => Row(children: [
-                            productPreview(searchedProducts[index]),
-                            const SizedBox(width: 8)
-                          ])) :
-                    [Text(
-                      "No product found"
-                    )]
-
-                ),
+                    children: searchedProducts.length > 0
+                        ? List.generate(
+                            searchedProducts.length,
+                            (index) => Row(children: [
+                                  productPreview(searchedProducts[index]),
+                                  const SizedBox(width: 8)
+                                ]))
+                        : [Text("No product found")]),
               ),
             ),
           ],

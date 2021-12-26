@@ -114,7 +114,6 @@ class _HomeState extends State<Home> {
                      IconButton(
                             onPressed: () {
                               if(searchTextController.text != ""){
-                                Navigator.pop(context);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
