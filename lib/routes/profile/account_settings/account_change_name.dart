@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
 
@@ -26,7 +27,7 @@ class _AccountSettingsNameState extends State<AccountSettingsName> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TextFormField(
-                    initialValue: Provider.of<User?>(context)!.displayName,
+                    initialValue: Provider.of<UserObj?>(context)!.name,
                    /* decoration: InputDecoration(
                     //  fillColor: AppColors.DarkTextColor,
                       filled: true,

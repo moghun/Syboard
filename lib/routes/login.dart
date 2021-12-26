@@ -53,11 +53,11 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
 
-    authService.user.listen((user) {
+    authService.getCurrentUser.listen((user) {
       if (user == null) {
         print('No user is currently signed in.');
       } else {
-        print('${authService.getCurrentUser()!.name} is the current user');
+        print('${user.name} is the current user');
       }
     });
   }
