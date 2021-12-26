@@ -1,8 +1,13 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:syboard/routes/change_password.dart';
-import 'package:syboard/routes/edit_account.dart';
+
 import 'package:syboard/routes/searchResults.dart';
+import 'package:syboard/models/user_obj.dart';
+import 'package:syboard/routes/profile/account_settings/account_change_avatar.dart';
+import 'package:syboard/routes/profile/account_settings/account_change_name.dart';
+import 'package:syboard/routes/profile/account_settings/account_change_password.dart';
+import 'package:syboard/routes/profile/edit_account.dart';
+
 import 'package:syboard/routes/signup.dart';
 import 'package:syboard/routes/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,9 +76,9 @@ class AppBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User?>.value(
+    return StreamProvider<UserObj?>.value(
         initialData: null,
-       value: AuthService().user,
+       value: AuthService().getCurrentUser,
        child: MaterialApp(
               debugShowCheckedModeBanner: false,
          navigatorObservers: <NavigatorObserver> [observer],
@@ -84,8 +89,12 @@ class AppBase extends StatelessWidget {
                 '/login': (context) => Login(analytics: analytics, observer: observer),
                 '/signup': (context) => SignUp(analytics: analytics, observer: observer),
                 '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
-                '/change_password': (context) => ChangePassword(analytics: analytics, observer: observer),
+
                 '/search_result': (context) => SearchResult(analytics: analytics, observer: observer,searchQuery: ""),
+                '/profile/change_password': (context) => AccountSettingsPassword(),
+                '/profile/change_name': (context) => AccountSettingsName(), // TO DO: add analytics
+                '/profile/change_avatar' : (context) => AccountSettingsPP(),
+
               },
             )
     );

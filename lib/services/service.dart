@@ -8,6 +8,12 @@ class Service {
   final CollectionReference productCollection =
       FirebaseFirestore.instance.collection('products');
 
+  static final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('Users');
+  static Future addUser(String uid) async {
+    userCollection.doc(uid).set({'notificationIDs': [1]});
+  }
+
   Future addProduct(
       String productName,
       double rating,

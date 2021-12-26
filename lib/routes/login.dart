@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
@@ -28,7 +29,7 @@ class _LoginState extends State<Login> {
 
   AuthService authService = AuthService();
 
-  void setErrorMessage(String e){
+  void setErrorMessage(String e) {
     setState(() {
       errMsg = e;
     });
@@ -42,7 +43,7 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       FirebaseAnalytics().logEvent(name: "failedLogin");
-      if(e.code == 'user-not-found' || e.code == 'wrong-password') {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         setErrorMessage('Wrong username or password!');
       }
     }
@@ -52,18 +53,19 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
 
-    authService.user.listen((user) {
-      if(user == null){
+    authService.getCurrentUser.listen((user) {
+      if (user == null) {
         print('No user is currently signed in.');
       } else {
-        print('${authService.getCurrentUser()!.name} is the current user');
+        print('${user.name} is the current user');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    setCurrentScreenUtil(analytics: widget.analytics, screenName: "loginScreen");
+    setCurrentScreenUtil(
+        analytics: widget.analytics, screenName: "loginScreen");
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -98,10 +100,13 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 40,
               ),
-              Text(errMsg, style: const TextStyle(
-                color: Colors.red,
-                fontSize: 14,
-              ),),
+              Text(
+                errMsg,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                ),
+              ),
               Padding(
                 padding: Dimen.regularPadding,
                 child: Form(
@@ -206,11 +211,14 @@ class _LoginState extends State<Login> {
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setErrorMessage(' ');
-                                if (_formKey.currentState!.validate()){
+                                if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
                                   loginUser();
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setBool('hasProvider', false);
                                 }
                               },
                               child: Padding(
@@ -236,16 +244,18 @@ class _LoginState extends State<Login> {
                         children: [
                           Expanded(
                               child: SignInButton(
-                                Buttons.Google,
-                                text: 'Log In with Google',
-                                onPressed: () async {
-                                  await authService.googleSignIn();
-                                  Navigator.popAndPushNamed(context, '/');
-                                },
-                              ))
+                            Buttons.Google,
+                            text: 'Log In with Google',
+                            onPressed: () async {
+                              await authService.googleSignIn();
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool('hasProvider', true);
+                              Navigator.popAndPushNamed(context, '/');
+                            },
+                          ))
                         ],
                       ),
-
                       const SizedBox(
                         height: 8,
                       ),

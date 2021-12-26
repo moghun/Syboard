@@ -17,12 +17,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   final AuthService authService = AuthService();
 
-  Future<void> start() async {
-
-  }
+  Future<void> start() async {}
 
   @override
   void initState() {
@@ -34,36 +31,33 @@ class _ProfileState extends State<Profile> {
   static final _itemList = <AccountListItem>[
     AccountListItem(
         icon: Icon(Icons.local_shipping_outlined,
-            size: 30, color: Colors.black.withOpacity(0.7)),
+            color: Colors.black.withOpacity(0.7)),
         name: 'My Orders',
         route: '/'),
     AccountListItem(
-        icon: Icon(Icons.favorite_border,
-            size: 30, color: Colors.black.withOpacity(0.7)),
+        icon: Icon(Icons.favorite_border, color: Colors.black.withOpacity(0.7)),
         name: 'My Favorites',
         route: '/'),
     AccountListItem(
-        icon: Icon(Icons.reviews_outlined,
-            size: 30, color: Colors.black.withOpacity(0.7)),
+        icon:
+            Icon(Icons.reviews_outlined, color: Colors.black.withOpacity(0.7)),
         name: 'My Reviews',
         route: '/'),
     AccountListItem(
         icon: Icon(Icons.notifications_outlined,
-            size: 30, color: Colors.black.withOpacity(0.7)),
+            color: Colors.black.withOpacity(0.7)),
         name: 'Notifications',
         route: '/'),
     AccountListItem(
-        icon: Icon(Icons.edit_outlined,
-            size: 30, color: Colors.black.withOpacity(0.7)),
+        icon: Icon(Icons.settings_outlined, color: Colors.black.withOpacity(0.7)),
         name: 'Edit My Account',
         route: '/edit_account')
   ];
 
   @override
   Widget build(BuildContext context) {
-
-    UserObj? currentUser = authService.getCurrentUser();
-
+    UserObj? currentUser = Provider.of<UserObj?>(context);
+    String pp = currentUser?.photoURL ?? "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png";
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -88,19 +82,16 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 32,
                         ),
-                        const CircleAvatar(
-                          child: Icon(
-                            Icons.account_circle,
-                            color: Colors.grey,
-                            size: 60,
-                          ),
+                         CircleAvatar(
+                         backgroundImage: NetworkImage(pp),
                           backgroundColor: Colors.white,
                           radius: 40,
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(currentUser?.name ?? currentUser!.email!, style: kAppBarTitleTextStyle),
+                        Text(currentUser?.name ?? currentUser!.email!,
+                            style: kAppBarTitleTextStyle),
                       ],
                     ),
                   ),
@@ -119,7 +110,8 @@ class _ProfileState extends State<Profile> {
                           Expanded(
                               child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 1),
-                            child: AccountListItemTile(_itemList[index], context),
+                            child:
+                                AccountListItemTile(_itemList[index], context),
                           ))
                         ])),
               ),
@@ -134,19 +126,20 @@ class _ProfileState extends State<Profile> {
                   Expanded(
                     child: OutlinedButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           primary: Colors.grey,
                         ),
                         onPressed: () {
                           authService.signOut();
-                          Navigator.popAndPushNamed(  context, '/login');
+                          Navigator.popAndPushNamed(context, '/login');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(Icons.logout, size: 24),
-                            SizedBox(width: 8,),
+                            SizedBox(
+                              width: 8,
+                            ),
                             Text("Log Out",
                                 style: TextStyle(
                                   color: Colors.black54,
