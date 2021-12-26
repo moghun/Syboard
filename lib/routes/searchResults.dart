@@ -26,7 +26,7 @@ class _SearchResult extends State<SearchResult> {
   static List<Product> searchedProducts = [];
 
   getAllProduct() async {
-    searchedProducts = await db.getProducts();
+    searchedProducts = await db.getSearchResults("vu");
   }
 
   @override

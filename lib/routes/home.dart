@@ -22,6 +22,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //ProductPreview
 
+  TextEditingController searchTextController = TextEditingController();
+
   Service db = Service();
   static List<Product> allProducts = [];
 
@@ -74,24 +76,44 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: Dimen.regularPadding,
-              child: Row(children: [
-                Expanded(
+              child: Row(
+                  children: [
+                  /*  Column(
+                        children:[
+                          TextField(
+                            controller: searchTextController,
+
+                          )
+                        ]
+
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              print(searchTextController.text);
+                            },
+                            icon: Icon(Icons.search))
+                      ],
+                    ),
+*/
+                  Expanded(
                     child: TextFormField(
-                    decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Search...",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: "Search...",
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: AppColors.primary),
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: AppColors.primary),
-                    ),
-                  ),
-                )),
+                    )),
               ]),
             ),
             Text(

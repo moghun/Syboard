@@ -78,14 +78,14 @@ class AppBase extends StatelessWidget {
               debugShowCheckedModeBanner: false,
          navigatorObservers: <NavigatorObserver> [observer],
               routes: {
-                '/': (context) => Index(analytics: analytics, observer: observer),
+                // '/': (context) => Index(analytics: analytics, observer: observer),
                 '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
                 '/welcome': (context) => Welcome(analytics: analytics, observer: observer),
                 '/login': (context) => Login(analytics: analytics, observer: observer),
                 '/signup': (context) => SignUp(analytics: analytics, observer: observer),
                 '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
                 '/change_password': (context) => ChangePassword(analytics: analytics, observer: observer),
-                '/search_result': (context) => SearchResult(analytics: analytics, observer: observer),
+                '/': (context) => SearchResult(analytics: analytics, observer: observer),
               },
             )
     );
