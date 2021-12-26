@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     UserObj? currentUser = authService.getCurrentUser();
-
+    String pp = Provider.of<User?>(context)!.photoURL ?? "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png";
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -82,12 +82,8 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 32,
                         ),
-                        const CircleAvatar(
-                          child: Icon(
-                            Icons.account_circle,
-                            color: Colors.grey,
-                            size: 60,
-                          ),
+                         CircleAvatar(
+                         backgroundImage: NetworkImage(pp),
                           backgroundColor: Colors.white,
                           radius: 40,
                         ),
