@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:syboard/models/user_obj.dart';
 
@@ -79,6 +82,11 @@ class AuthService {
     }
   }
 
+
+  /*  ************************
+      *** UPDATE USER INFO ***
+      ************************ */
+
   Future updatePassword(String oldPass, String newPass) async {
     AuthCredential cred = EmailAuthProvider.credential(
         email: _auth.currentUser!.email!, password: oldPass);
@@ -111,4 +119,19 @@ class AuthService {
       return null;
     }
   }
+  Future updateAvatar(File file) async {
+    try {
+      var ref = FirebaseStorage.instance.ref();
+      String filepath =
+          "/profileImages/${_auth.currentUser!.uid}${extension(file.path)}";
+      await ref.child(filepath).putFile(file);
+      String ppURL = await ref.child(filepath).getDownloadURL();
+      await _auth.currentUser!.updatePhotoURL(ppURL);
+      return true;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
 }
