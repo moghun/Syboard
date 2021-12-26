@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/routes/searchResults.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
@@ -75,45 +76,57 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Padding(
-              padding: Dimen.regularPadding,
+              padding: EdgeInsets.only(bottom: 25),
               child: Row(
                   children: [
-                  /*  Column(
-                        children:[
-                          TextField(
-                            controller: searchTextController,
+                  /*  TextField(
+                      controller: searchTextController,
 
-                          )
-                        ]
+                    ),*/
+                    /*IconButton(
+                        onPressed: () {
+                        },
+                        icon: Icon(Icons.search)
+                    ),*/
+                    Expanded(
+                      child:Padding(
+                        padding: Dimen.regularPadding,
+                        child: TextField(
+                          controller: searchTextController,
+                          decoration: const InputDecoration(
+                            hintText: "Search...",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.primary),
+                            ),
+                          ) ,
 
+
+                        )
+                      )
                     ),
-                    Column(
-                      children: [
-                        IconButton(
+                     IconButton(
                             onPressed: () {
-                              print(searchTextController.text);
+                              if(searchTextController.text != ""){
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchResult(analytics: widget.analytics,observer: widget.observer,searchQuery: searchTextController.text,)
+                                    )
+                                );
+                              }
                             },
-                            icon: Icon(Icons.search))
-                      ],
-                    ),
-*/
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        hintText: "Search...",
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                          ),
+                            icon: Icon(Icons.search)
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          borderSide: BorderSide(color: AppColors.primary),
-                        ),
-                      ),
-                    )),
+
               ]),
             ),
             Text(

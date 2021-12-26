@@ -54,23 +54,28 @@ class Service {
 
     List<Product> list = [];
 
-    var products = await FirebaseFirestore.instance.collection('products')
+ /*   var products = await FirebaseFirestore.instance.collection('products')
         .where('productName', isGreaterThanOrEqualTo: query,
 
       isLessThan: query.substring(0, query.length - 1) +
           String.fromCharCode(query.codeUnitAt(query.length - 1) + 1),
 
-    ).get();
+    ).get();*/
+    var products = await FirebaseFirestore.instance.collection('products').get();
 
     products.docs.forEach((doc) {
-      list.add(Product(
-      imgURL: doc["imgURL"],
-      productName: doc["productName"],
-      rating: doc["rating"],
-      price: doc["price"],
-      seller: doc["seller"],
-      description: doc["description"],
-      onSale: false));
+      if((doc["productName"]).toString().contains(query)){
+        list.add(Product(
+            imgURL: doc["imgURL"],
+            productName: doc["productName"],
+            rating: doc["rating"],
+            price: doc["price"],
+            seller: doc["seller"],
+            description: doc["description"],
+            onSale: false)
+        );
+      }
+
     });
 
     return list;
