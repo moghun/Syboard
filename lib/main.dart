@@ -1,5 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/routes/notifications.dart';
 
 import 'package:syboard/routes/searchResults.dart';
 import 'package:syboard/models/user_obj.dart';
@@ -20,9 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:syboard/services/auth.dart';
 import 'index.dart';
 
-
-
-void main()  async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final Future<FirebaseApp> init = Firebase.initializeApp();
   //await Firebase.initializeApp();
@@ -39,23 +38,24 @@ class MyFirebaseApp extends StatefulWidget {
 }
 
 class _MyFirebaseAppState extends State<MyFirebaseApp> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: widget.init,
-      builder: (context, snapshot){
-        if(snapshot.hasError) {
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
           return MaterialApp(
             home: Scaffold(
               body: Center(
-                child: Text('No Firebase Connection: ${snapshot.error.toString()}'),
+                child: Text(
+                    'No Firebase Connection: ${snapshot.error.toString()}'),
               ),
             ),
           );
         }
-        if(snapshot.connectionState == ConnectionState.done) {
-          FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+        if (snapshot.connectionState == ConnectionState.done) {
+          FlutterError.onError =
+              FirebaseCrashlytics.instance.recordFlutterError;
           return AppBase();
         }
         return const MaterialApp(
@@ -63,40 +63,50 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
             child: Text('Connecting to Firebase'),
           ),
         );
-      },);
+      },
+    );
   }
 }
 
-
 class AppBase extends StatelessWidget {
-  const AppBase({Key? key,}):super(key: key);
+  const AppBase({
+    Key? key,
+  }) : super(key: key);
 
   static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserObj?>.value(
         initialData: null,
-       value: AuthService().getCurrentUser,
-       child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-         navigatorObservers: <NavigatorObserver> [observer],
-              routes: {
-                '/': (context) => Index(analytics: analytics, observer: observer),
-                '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
-                '/welcome': (context) => Welcome(analytics: analytics, observer: observer),
-                '/login': (context) => Login(analytics: analytics, observer: observer),
-                '/signup': (context) => SignUp(analytics: analytics, observer: observer),
-                '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
+        value: AuthService().getCurrentUser,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorObservers: <NavigatorObserver>[observer],
+          routes: {
+            '/': (context) => Index(analytics: analytics, observer: observer),
+            '/walkthrough': (context) =>
+                WalkThrough(analytics: analytics, observer: observer),
+            '/welcome': (context) =>
+                Welcome(analytics: analytics, observer: observer),
+            '/login': (context) =>
+                Login(analytics: analytics, observer: observer),
+            '/signup': (context) =>
+                SignUp(analytics: analytics, observer: observer),
+            '/edit_account': (context) =>
+                EditAccount(analytics: analytics, observer: observer),
+            '/notifications': (context) =>
+                Notifications(analytics: analytics, observer: observer),
 
-                '/search_result': (context) => SearchResult(analytics: analytics, observer: observer,searchQuery: ""),
-                '/profile/change_password': (context) => AccountSettingsPassword(),
-                '/profile/change_name': (context) => AccountSettingsName(), // TO DO: add analytics
-                '/profile/change_avatar' : (context) => AccountSettingsPP(),
-
-              },
-            )
-    );
+            '/search_result': (context) => SearchResult(
+                analytics: analytics, observer: observer, searchQuery: ""),
+            '/profile/change_password': (context) => AccountSettingsPassword(),
+            '/profile/change_name': (context) =>
+                AccountSettingsName(), // TO DO: add analytics
+            '/profile/change_avatar': (context) => AccountSettingsPP(),
+          },
+        ));
   }
 }

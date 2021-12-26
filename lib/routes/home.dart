@@ -36,18 +36,18 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("aaaa");
     getAllProduct();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/notifications');
+              },
               icon: const Icon(
                 Icons.notifications_outlined,
                 color: Colors.black54,
@@ -77,55 +77,51 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: 25),
-              child: Row(
-                  children: [
-                  /*  TextField(
+              child: Row(children: [
+                /*  TextField(
                       controller: searchTextController,
 
                     ),*/
-                    /*IconButton(
+                /*IconButton(
                         onPressed: () {
                         },
                         icon: Icon(Icons.search)
                     ),*/
-                    Expanded(
-                      child:Padding(
+                Expanded(
+                    child: Padding(
                         padding: Dimen.regularPadding,
                         child: TextField(
                           controller: searchTextController,
                           decoration: const InputDecoration(
                             hintText: "Search...",
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
                                 color: Colors.grey,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(color: AppColors.primary),
                             ),
-                          ) ,
-
-
-                        )
-                      )
-                    ),
-                     IconButton(
-                            onPressed: () {
-                              if(searchTextController.text != ""){
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SearchResult(analytics: widget.analytics,observer: widget.observer,searchQuery: searchTextController.text,)
-                                    )
-                                );
-                              }
-                            },
-                            icon: Icon(Icons.search)
-                        ),
-
+                          ),
+                        ))),
+                IconButton(
+                    onPressed: () {
+                      if (searchTextController.text != "") {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchResult(
+                                      analytics: widget.analytics,
+                                      observer: widget.observer,
+                                      searchQuery: searchTextController.text,
+                                    )));
+                      }
+                    },
+                    icon: Icon(Icons.search)),
               ]),
             ),
             Text(
