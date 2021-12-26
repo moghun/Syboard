@@ -20,6 +20,8 @@ class _AccountSettingsPPState extends State<AccountSettingsPP> {
 
   @override
   Widget build(BuildContext context) {
+    UserObj? currentUser = Provider.of<UserObj?>(context);
+    String pp = currentUser?.photoURL ?? "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png";
     return Material(
       child: InkWell(
         customBorder: const CircleBorder(),
@@ -79,7 +81,7 @@ class _AccountSettingsPPState extends State<AccountSettingsPP> {
             CircleAvatar(
               radius: 50,
               backgroundImage:
-              NetworkImage(Provider.of<UserObj?>(context)!.photoURL!),
+              NetworkImage(pp),
             ),
             Icon(
               Icons.edit,
