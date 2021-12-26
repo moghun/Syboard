@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/routes/searchResults.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
@@ -21,6 +22,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   //ProductPreview
+
+  TextEditingController searchTextController = TextEditingController();
 
   Service db = Service();
   static List<Product> allProducts = [];
@@ -73,25 +76,56 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Padding(
-              padding: Dimen.regularPadding,
-              child: Row(children: [
-                Expanded(
-                    child: TextFormField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Search...",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                      ),
+              padding: EdgeInsets.only(bottom: 25),
+              child: Row(
+                  children: [
+                  /*  TextField(
+                      controller: searchTextController,
+
+                    ),*/
+                    /*IconButton(
+                        onPressed: () {
+                        },
+                        icon: Icon(Icons.search)
+                    ),*/
+                    Expanded(
+                      child:Padding(
+                        padding: Dimen.regularPadding,
+                        child: TextField(
+                          controller: searchTextController,
+                          decoration: const InputDecoration(
+                            hintText: "Search...",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.primary),
+                            ),
+                          ) ,
+
+
+                        )
+                      )
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: AppColors.primary),
-                    ),
-                  ),
-                )),
+                     IconButton(
+                            onPressed: () {
+                              if(searchTextController.text != ""){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchResult(analytics: widget.analytics,observer: widget.observer,searchQuery: searchTextController.text,)
+                                    )
+                                );
+                              }
+                            },
+                            icon: Icon(Icons.search)
+                        ),
+
               ]),
             ),
             Text(
