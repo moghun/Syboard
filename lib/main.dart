@@ -84,7 +84,7 @@ class AppBase extends StatelessWidget {
                 '/login': (context) => Login(analytics: analytics, observer: observer),
                 '/signup': (context) => SignUp(analytics: analytics, observer: observer),
                 '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
-                '/profile/change_password': (context) => ChangePassword(analytics: analytics, observer: observer),
+                '/profile/change_password': (context) => AccountSettingsPassword(),
                 '/profile/change_name': (context) => AccountSettingsName() // TO DO: add analytics
               },
             )
