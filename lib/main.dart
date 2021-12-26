@@ -2,7 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/notifications.dart';
 
-import 'package:syboard/routes/searchResults.dart';
+import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_avatar.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_name.dart';
