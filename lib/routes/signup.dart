@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
@@ -245,10 +246,12 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
                                   signUp();
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  await prefs.setBool('hasProvider', false);
                                 }
                               },
                               child: Padding(
@@ -276,8 +279,10 @@ class _SignUpState extends State<SignUp> {
                               child: SignInButton(
                             Buttons.Google,
                             text: 'Sign Up with Google',
-                            onPressed: () {
+                            onPressed: () async {
                               authService.googleSignIn();
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              await prefs.setBool('hasProvider', true);
                             },
                           ))
                         ],

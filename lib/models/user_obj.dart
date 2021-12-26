@@ -9,6 +9,8 @@ class UserObj with _$UserObj {
     required String uid,
     String? name,
     String? email,
+    String? photoURL,
+    String? number,
 }) = _UserObj;
 
   factory UserObj.fromJson(Map<String, dynamic> json) => _$UserObjFromJson(json);

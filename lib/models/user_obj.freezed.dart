@@ -21,11 +21,18 @@ UserObj _$UserObjFromJson(Map<String, dynamic> json) {
 class _$UserObjTearOff {
   const _$UserObjTearOff();
 
-  _UserObj call({required String uid, String? name, String? email}) {
+  _UserObj call(
+      {required String uid,
+      String? name,
+      String? email,
+      String? photoURL,
+      String? number}) {
     return _UserObj(
       uid: uid,
       name: name,
       email: email,
+      photoURL: photoURL,
+      number: number,
     );
   }
 
@@ -42,6 +49,8 @@ mixin _$UserObj {
   String get uid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get photoURL => throw _privateConstructorUsedError;
+  String? get number => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +61,12 @@ mixin _$UserObj {
 abstract class $UserObjCopyWith<$Res> {
   factory $UserObjCopyWith(UserObj value, $Res Function(UserObj) then) =
       _$UserObjCopyWithImpl<$Res>;
-  $Res call({String uid, String? name, String? email});
+  $Res call(
+      {String uid,
+      String? name,
+      String? email,
+      String? photoURL,
+      String? number});
 }
 
 /// @nodoc
@@ -68,6 +82,8 @@ class _$UserObjCopyWithImpl<$Res> implements $UserObjCopyWith<$Res> {
     Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
+    Object? photoURL = freezed,
+    Object? number = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -82,6 +98,14 @@ class _$UserObjCopyWithImpl<$Res> implements $UserObjCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoURL: photoURL == freezed
+          ? _value.photoURL
+          : photoURL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -91,7 +115,12 @@ abstract class _$UserObjCopyWith<$Res> implements $UserObjCopyWith<$Res> {
   factory _$UserObjCopyWith(_UserObj value, $Res Function(_UserObj) then) =
       __$UserObjCopyWithImpl<$Res>;
   @override
-  $Res call({String uid, String? name, String? email});
+  $Res call(
+      {String uid,
+      String? name,
+      String? email,
+      String? photoURL,
+      String? number});
 }
 
 /// @nodoc
@@ -108,6 +137,8 @@ class __$UserObjCopyWithImpl<$Res> extends _$UserObjCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
+    Object? photoURL = freezed,
+    Object? number = freezed,
   }) {
     return _then(_UserObj(
       uid: uid == freezed
@@ -122,6 +153,14 @@ class __$UserObjCopyWithImpl<$Res> extends _$UserObjCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoURL: photoURL == freezed
+          ? _value.photoURL
+          : photoURL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -129,7 +168,8 @@ class __$UserObjCopyWithImpl<$Res> extends _$UserObjCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserObj implements _UserObj {
-  _$_UserObj({required this.uid, this.name, this.email});
+  _$_UserObj(
+      {required this.uid, this.name, this.email, this.photoURL, this.number});
 
   factory _$_UserObj.fromJson(Map<String, dynamic> json) =>
       _$$_UserObjFromJson(json);
@@ -140,10 +180,14 @@ class _$_UserObj implements _UserObj {
   final String? name;
   @override
   final String? email;
+  @override
+  final String? photoURL;
+  @override
+  final String? number;
 
   @override
   String toString() {
-    return 'UserObj(uid: $uid, name: $name, email: $email)';
+    return 'UserObj(uid: $uid, name: $name, email: $email, photoURL: $photoURL, number: $number)';
   }
 
   @override
@@ -153,7 +197,9 @@ class _$_UserObj implements _UserObj {
             other is _UserObj &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email));
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.photoURL, photoURL) &&
+            const DeepCollectionEquality().equals(other.number, number));
   }
 
   @override
@@ -161,7 +207,9 @@ class _$_UserObj implements _UserObj {
       runtimeType,
       const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email));
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(photoURL),
+      const DeepCollectionEquality().hash(number));
 
   @JsonKey(ignore: true)
   @override
@@ -175,8 +223,12 @@ class _$_UserObj implements _UserObj {
 }
 
 abstract class _UserObj implements UserObj {
-  factory _UserObj({required String uid, String? name, String? email}) =
-      _$_UserObj;
+  factory _UserObj(
+      {required String uid,
+      String? name,
+      String? email,
+      String? photoURL,
+      String? number}) = _$_UserObj;
 
   factory _UserObj.fromJson(Map<String, dynamic> json) = _$_UserObj.fromJson;
 
@@ -186,6 +238,10 @@ abstract class _UserObj implements UserObj {
   String? get name;
   @override
   String? get email;
+  @override
+  String? get photoURL;
+  @override
+  String? get number;
   @override
   @JsonKey(ignore: true)
   _$UserObjCopyWith<_UserObj> get copyWith =>
