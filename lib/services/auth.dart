@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:syboard/models/user_obj.dart';
+import 'package:syboard/services/service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,14 +17,19 @@ class AuthService {
     return _auth.userChanges().map(_userFromFirebase);
   }
 
-  UserObj? getCurrentUser(){
-    if(_auth.currentUser == null) return null;
-    UserObj tempUser = UserObj(uid: _auth.currentUser!.uid, name: _auth.currentUser?.displayName, email: _auth.currentUser?.email);
+  UserObj? getCurrentUser() {
+    if (_auth.currentUser == null) return null;
+    UserObj tempUser = UserObj(
+        uid: _auth.currentUser!.uid,
+        name: _auth.currentUser?.displayName,
+        email: _auth.currentUser?.email,
+        photoURL: _auth.currentUser?.photoURL,
+        number: _auth.currentUser?.phoneNumber);
     return tempUser;
   }
 
   Future changePassword(String newPassword) async {
-    try{
+    try {
       _auth.currentUser?.updatePassword(newPassword);
     } catch (e) {
       print(e.toString());
@@ -31,18 +37,16 @@ class AuthService {
   }
 
   Future<void> loginUser(String email, String password) async {
-
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password
-    );
+        email: email, password: password);
   }
 
   Future<void> signUpUser(String email, String password) async {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password
-    );
+        email: email, password: password);
+    User user = userCredential.user!;
+    Service.addUser (user.uid);
+
   }
 
   Future<void> signInAnon() async {
@@ -58,7 +62,8 @@ class AuthService {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -67,9 +72,9 @@ class AuthService {
     );
 
     // Once signed in, return the UserCredential
-    UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential result =
+        await FirebaseAuth.instance.signInWithCredential(credential);
     User user = result.user!;
-    await user.updatePhotoURL("https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png");
     return _userFromFirebase(user);
   }
 
@@ -81,7 +86,6 @@ class AuthService {
       return null;
     }
   }
-
 
   /*  ************************
       *** UPDATE USER INFO ***
@@ -119,6 +123,7 @@ class AuthService {
       return null;
     }
   }
+
   Future updateAvatar(File file) async {
     try {
       var ref = FirebaseStorage.instance.ref();
@@ -133,5 +138,4 @@ class AuthService {
       return null;
     }
   }
-
 }
