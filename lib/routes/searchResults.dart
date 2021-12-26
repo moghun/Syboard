@@ -57,15 +57,6 @@ class _SearchResult extends State<SearchResult> {
             Padding(
               padding: EdgeInsets.only(bottom: 25),
               child: Row(children: [
-                /*  TextField(
-                      controller: searchTextController,
-
-                    ),*/
-                /*IconButton(
-                        onPressed: () {
-                        },
-                        icon: Icon(Icons.search)
-                    ),*/
                 Expanded(
                     child: Padding(
                         padding: Dimen.regularPadding,
@@ -94,20 +85,13 @@ class _SearchResult extends State<SearchResult> {
                           widget.searchQuery = searchTextController.text;
                         });
                         getSearchedProduct();
-                        /*   Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SearchResult(analytics: widget.analytics,observer: widget.observer,searchQuery: searchTextController.text,)
-                                )
-                            );*/
                       }
                     },
                     icon: Icon(Icons.search)),
               ]),
             ),
             Text(
-              "Search Result",
+              "Search Results",
               style: kTextTitle,
             ),
             SingleChildScrollView(
@@ -122,7 +106,7 @@ class _SearchResult extends State<SearchResult> {
                                   productPreview(searchedProducts[index]),
                                   const SizedBox(width: 8)
                                 ]))
-                        : [Text("No product found")]),
+                        : [Text("No related product found")]),
               ),
             ),
           ],
