@@ -10,7 +10,7 @@ import 'package:syboard/routes/home.dart';
 import 'package:syboard/routes/categories.dart';
 import 'package:syboard/routes/cart.dart';
 import 'package:syboard/routes/favorites.dart';
-import 'package:syboard/routes/profile.dart';
+import 'package:syboard/routes/profile/profile_body.dart';
 
 class Index extends StatefulWidget {
   const Index({Key? key, required this.analytics, required this.observer})
