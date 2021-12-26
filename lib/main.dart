@@ -1,5 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/routes/profile/account_settings/account_change_avatar.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_name.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_password.dart';
 import 'package:syboard/routes/profile/edit_account.dart';
@@ -85,7 +86,8 @@ class AppBase extends StatelessWidget {
                 '/signup': (context) => SignUp(analytics: analytics, observer: observer),
                 '/edit_account': (context) => EditAccount(analytics: analytics, observer: observer),
                 '/profile/change_password': (context) => AccountSettingsPassword(),
-                '/profile/change_name': (context) => AccountSettingsName() // TO DO: add analytics
+                '/profile/change_name': (context) => AccountSettingsName(), // TO DO: add analytics
+                '/profile/change_avatar' : (context) => AccountSettingsPP(),
               },
             )
     );
