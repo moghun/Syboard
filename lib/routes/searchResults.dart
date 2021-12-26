@@ -20,21 +20,25 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResult extends State<SearchResult> {
-  //ProductPreview
 
   Service db = Service();
   static List<Product> searchedProducts = [];
-
-  getAllProduct() async {
-    searchedProducts = await db.getSearchResults("vu");
+  String searchedItem; //Submitted item to search
+  
+  getSearchedProduct() async {
+    setState((){
+      searchedProducts = await db.getSearchResults(searchedItem);
+    });
+  }
+  
+  getFirstSearchedProduct() async {
+    searchedProducts = await db.getSearchResults('u');
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("aaaa");
-    getAllProduct();
+    getFirstSearchedProduct();
   }
 
   @override
