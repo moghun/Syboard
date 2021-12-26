@@ -45,8 +45,6 @@ class AuthService {
   Future<void> signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
-      User user = result.user!;
-      await user.updatePhotoURL("https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png");
     } catch (e) {
       print(e.toString());
     }
