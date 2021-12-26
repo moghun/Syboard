@@ -12,6 +12,8 @@ import 'package:syboard/routes/cart.dart';
 import 'package:syboard/routes/favorites.dart';
 import 'package:syboard/routes/profile/profile_body.dart';
 
+import 'models/user_obj.dart';
+
 class Index extends StatefulWidget {
   const Index({Key? key, required this.analytics, required this.observer})
       : super(key: key);
@@ -51,7 +53,7 @@ class _IndexState extends State<Index> {
   //BottomNavigation
 
   void _onBottomTabPress(int index) {
-    final user = Provider.of<User?>(context, listen: false);
+    final user = Provider.of<UserObj?>(context, listen: false);
     if (user == null && index == 4) {
       Navigator.popAndPushNamed(context, '/login');
     } else {

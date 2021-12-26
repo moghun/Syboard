@@ -1,5 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_avatar.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_name.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_password.dart';
@@ -72,9 +73,9 @@ class AppBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User?>.value(
+    return StreamProvider<UserObj?>.value(
         initialData: null,
-       value: AuthService().user,
+       value: AuthService().getCurrentUser,
        child: MaterialApp(
               debugShowCheckedModeBanner: false,
          navigatorObservers: <NavigatorObserver> [observer],

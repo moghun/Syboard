@@ -13,12 +13,7 @@ class AuthService {
     return user;
   }
 
-  Stream<User?> get user {
-    return _auth.userChanges().map(_userFromFirebase);
-  }
-
-  UserObj? getCurrentUser() {
-    if (_auth.currentUser == null) return null;
+  UserObj? _userFromLocal (User? user) {
     UserObj tempUser = UserObj(
         uid: _auth.currentUser!.uid,
         name: _auth.currentUser?.displayName,
@@ -26,6 +21,10 @@ class AuthService {
         photoURL: _auth.currentUser?.photoURL,
         number: _auth.currentUser?.phoneNumber);
     return tempUser;
+  }
+
+  Stream<UserObj?> get getCurrentUser {
+    return _auth.userChanges().map(_userFromLocal);
   }
 
   Future changePassword(String newPassword) async {

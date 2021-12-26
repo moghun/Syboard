@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    UserObj? currentUser = authService.getCurrentUser();
+    UserObj? currentUser = Provider.of<UserObj?>(context);
     String pp = currentUser?.photoURL ?? "https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png";
     return Scaffold(
         body: SafeArea(

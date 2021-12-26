@@ -18,11 +18,14 @@ class EditAccount extends StatefulWidget {
 }
 
 class _EditAccountState extends State<EditAccount> {
-  List<AccountListItem> _itemList = <AccountListItem>[];
+  static List<AccountListItem> _itemList = <AccountListItem>[];
   Future<void> start() async {
     final prefs = await SharedPreferences.getInstance();
 
-    bool hasProvider = (prefs.getBool('hasProvider') ?? false);
+    bool hasProvider = false;
+    setState(() {
+      hasProvider = (prefs.getBool('hasProvider') ?? false);
+    });
     print(hasProvider);
     if (hasProvider) {
       _itemList = <AccountListItem>[

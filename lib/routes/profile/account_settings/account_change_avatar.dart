@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,7 @@ class _AccountSettingsPPState extends State<AccountSettingsPP> {
             CircleAvatar(
               radius: 50,
               backgroundImage:
-              NetworkImage(Provider.of<User?>(context)!.photoURL!),
+              NetworkImage(Provider.of<UserObj?>(context)!.photoURL!),
             ),
             Icon(
               Icons.edit,
