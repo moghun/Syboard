@@ -62,7 +62,7 @@ class Service {
 
     ).get();
 
-    products.docs.forEach((doc) => {
+    products.docs.forEach((doc) {
       list.add(Product(
       imgURL: doc["imgURL"],
       productName: doc["productName"],
