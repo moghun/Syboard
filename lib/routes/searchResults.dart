@@ -48,7 +48,7 @@ class _SearchResult extends State<SearchResult> {
           children: [
           ],
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.primary,
         elevation: 2.0,
       ),
       body: SingleChildScrollView(
