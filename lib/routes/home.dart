@@ -22,55 +22,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //ProductPreview
 
-  static final _productPreviewList = <Product>[
-    Product(
-        imgURL:
-            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
-        productName: "Nvidia Geforce GTX1050ti",
-        rating: 5,
-        price: 100.99,
-        seller: "Vatan PC",
-        description: "",
-        onSale: false),
-    Product(
-        imgURL:
-            "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
-        productName: "MSI Prestige Notebook",
-        rating: 3.9,
-        price: 2000.99,
-        seller: "İtopya.com",
-        description: "",
-        onSale: false),
-    Product(
-        imgURL:
-            "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
-        productName: "Gaming PC",
-        rating: 4.4,
-        price: 1000.99,
-        seller: "Hasan Hüseyin",
-        description: "",
-        onSale: false),
-    Product(
-        imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
-        productName: "Gaming PC",
-        rating: 4.5,
-        price: 12.99,
-        seller: "Seller2",
-        description: "",
-        onSale: false),
-    Product(
-        imgURL:
-            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
-        productName: "Gaming Monitor",
-        rating: 4.7,
-        price: 179.99,
-        seller: "Seller1",
-        description: "",
-        onSale: false),
-  ];
-
   Service db = Service();
-  List<Product> allProducts = [];
+  static List<Product> allProducts = [];
 
   getAllProduct() async {
     allProducts = await db.getProducts();
@@ -80,12 +33,12 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("aaaa");
     getAllProduct();
   }
 
   @override
   Widget build(BuildContext context) {
-    // db.addProduct('elma', 4.9, 'pazarci', 7, true, 'golden elma', 'deneme', 10);
 
     return Scaffold(
       appBar: AppBar(
