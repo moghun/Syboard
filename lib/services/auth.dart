@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:syboard/models/user_obj.dart';
 
@@ -10,7 +13,7 @@ class AuthService {
   }
 
   Stream<User?> get user {
-    return _auth.authStateChanges().map(_userFromFirebase);
+    return _auth.userChanges().map(_userFromFirebase);
   }
 
   UserObj? getCurrentUser(){
@@ -65,7 +68,8 @@ class AuthService {
 
     // Once signed in, return the UserCredential
     UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
-    User? user = result.user;
+    User user = result.user!;
+    await user.updatePhotoURL("https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png");
     return _userFromFirebase(user);
   }
 
@@ -77,4 +81,57 @@ class AuthService {
       return null;
     }
   }
+
+
+  /*  ************************
+      *** UPDATE USER INFO ***
+      ************************ */
+
+  Future updatePassword(String oldPass, String newPass) async {
+    AuthCredential cred = EmailAuthProvider.credential(
+        email: _auth.currentUser!.email!, password: oldPass);
+    try {
+      await _auth.currentUser!.reauthenticateWithCredential(cred);
+      await _auth.currentUser!.updatePassword(newPass);
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future updateName(String newName) async {
+    try {
+      await _auth.currentUser!.updateDisplayName(newName);
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future updateMail(String newMail, String pass) async {
+    AuthCredential cred = EmailAuthProvider.credential(
+        email: _auth.currentUser!.email!, password: pass);
+    try {
+      await _auth.currentUser!.reauthenticateWithCredential(cred);
+      await _auth.currentUser!.updateEmail(newMail);
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+  Future updateAvatar(File file) async {
+    try {
+      var ref = FirebaseStorage.instance.ref();
+      String filepath =
+          "/profileImages/${_auth.currentUser!.uid}${extension(file.path)}";
+      await ref.child(filepath).putFile(file);
+      String ppURL = await ref.child(filepath).getDownloadURL();
+      await _auth.currentUser!.updatePhotoURL(ppURL);
+      return true;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
 }
