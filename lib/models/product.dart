@@ -1,14 +1,24 @@
-class Product {
-  String imgURL;
-  String productName;
-  String seller;
-  double rating;
-  double price;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Product(
-      {required this.imgURL,
-        required this.productName,
-        required this.rating,
-        required this.price,
-        this.seller = "Anonymous"});
+part 'product.freezed.dart';
+part 'product.g.dart';
+
+@freezed
+class Product with _$Product{
+
+  factory Product({
+
+  required String productName,
+  required double rating,
+  required String seller,
+  required double price,
+  required bool onSale,
+  required String description,
+  required String imgURL,
+  double? oldPrice,
+  }) = _Product;
+
+  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  //Map<String, dynamic> toJson() => _$ProductToJson(this);
 }
+
