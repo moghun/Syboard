@@ -18,9 +18,9 @@ class EditAccount extends StatefulWidget {
 class _EditAccountState extends State<EditAccount> {
 
   static final _itemList = <AccountListItem>[
-    AccountListItem(icon: const Icon(Icons.person), name: "My User Information", route: '/'),
+    AccountListItem(icon: const Icon(Icons.person), name: "My User Information", route: '/profile/change_name'),
     AccountListItem(icon: const Icon(Icons.insert_photo), name: "Change profile picture", route: '/'),
-    AccountListItem(icon: const Icon(Icons.lock), name: "Change password", route: '/change_password'),
+    AccountListItem(icon: const Icon(Icons.lock), name: "Change password", route: '/profile/change_password'),
     AccountListItem(icon: const Icon(Icons.highlight_remove), name: "Delete Account", route: '/'),
   ];
 
