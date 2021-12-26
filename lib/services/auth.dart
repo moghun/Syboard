@@ -45,6 +45,8 @@ class AuthService {
   Future<void> signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
+      User user = result.user!;
+      await user.updatePhotoURL("https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png");
     } catch (e) {
       print(e.toString());
     }
@@ -65,7 +67,8 @@ class AuthService {
 
     // Once signed in, return the UserCredential
     UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
-    User? user = result.user;
+    User user = result.user!;
+    await user.updatePhotoURL("https://i.ibb.co/4Vw6XL0/logo-JPGblue-removebg.png");
     return _userFromFirebase(user);
   }
 
@@ -74,6 +77,39 @@ class AuthService {
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
+      return null;
+    }
+  }
+
+  Future updatePassword(String oldPass, String newPass) async {
+    AuthCredential cred = EmailAuthProvider.credential(
+        email: _auth.currentUser!.email!, password: oldPass);
+    try {
+      await _auth.currentUser!.reauthenticateWithCredential(cred);
+      await _auth.currentUser!.updatePassword(newPass);
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future updateName(String newName) async {
+    try {
+      await _auth.currentUser!.updateDisplayName(newName);
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future updateMail(String newMail, String pass) async {
+    AuthCredential cred = EmailAuthProvider.credential(
+        email: _auth.currentUser!.email!, password: pass);
+    try {
+      await _auth.currentUser!.reauthenticateWithCredential(cred);
+      await _auth.currentUser!.updateEmail(newMail);
+      return true;
+    } catch (e) {
       return null;
     }
   }
