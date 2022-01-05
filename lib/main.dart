@@ -8,6 +8,7 @@ import 'package:syboard/routes/profile/account_settings/account_change_avatar.da
 import 'package:syboard/routes/profile/account_settings/account_change_name.dart';
 import 'package:syboard/routes/profile/account_settings/account_change_password.dart';
 import 'package:syboard/routes/profile/edit_account.dart';
+import 'package:syboard/routes/sell_product.dart';
 
 import 'package:syboard/routes/signup.dart';
 import 'package:syboard/routes/welcome.dart';
@@ -19,6 +20,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:provider/provider.dart';
 import 'package:syboard/services/auth.dart';
+import 'package:syboard/views/sell_product/add_product.dart';
 import 'index.dart';
 
 void main() async {
@@ -106,6 +108,8 @@ class AppBase extends StatelessWidget {
             '/profile/change_name': (context) =>
                 AccountSettingsName(), // TO DO: add analytics
             '/profile/change_avatar': (context) => AccountSettingsPP(),
+            '/sell_product': (context) => SellProduct(),
+            '/sell_product/add_product': (context) => AddProduct()
           },
         ));
   }
