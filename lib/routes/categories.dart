@@ -16,16 +16,47 @@ class _CategoriesState extends State<Categories> {
       'title': 'Computer',
       "subCat": [
         {'title': 'Desktop'},
-        {'title': 'Notebook'}
+        {'title': 'Gaming Desktops'},
+        {'title': 'Notebook'},
+        {'title': 'Gaming Notebooks'},
+        {'title': 'All-in-One Computers'},
+        {'title': 'Workstation Systems'}
       ]
     },
     {
       'title': 'Components',
       "subCat": [
-        {'title': 'Mouse'},
-        {'title': 'Keyboard'}
+        {'title': 'CPUs'},
+        {'title': 'Memory'},
+        {'title': 'Motherboards'},
+        {'title': 'Computer Cases'},
+        {'title': 'Power Supplies'},
+        {'title': 'Video Cards'},
+        {'title': 'Fans & PC Cooling'},
+        {'title': 'SSDs'},
+        {'title': 'Hard Drives'},
+        {'title': 'USB Flash Drives & Memory Cards'},
       ]
-    }
+    },
+    {
+      'title': 'Peripherals',
+      "subCat": [
+        {'title': 'Monitor'},
+        {'title': 'Mouse'},
+        {'title': 'Keyboard'},
+        {'title': 'Gaming Chair'},
+      ]
+    },
+    {
+      'title': 'Consoles',
+      "subCat": [
+        {'title': 'PS5'},
+        {'title': 'PS4'},
+        {'title': 'PS3'},
+        {'title': 'Xbox One X'},
+        {'title': 'Xbox One S'},
+      ]
+    },
   ];
   var _selectedCat = 0;
   @override
