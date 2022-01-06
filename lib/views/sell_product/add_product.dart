@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:syboard/models/user_obj.dart';
+import 'package:syboard/services/service.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({Key? key, this.refreshFunc}) : super(key: key);
@@ -14,8 +16,11 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  //DBService db = DBService();
+  Service db = Service();
   String name = "";
+  String description = "";
+  bool onSale = false;
+  num oldPrice = 0;
   num price = 0;
   num stocks = 0;
   File? productPicture;
@@ -82,6 +87,10 @@ class _AddProductState extends State<AddProduct> {
             );
           }).toList())
       .toList();
+  static final _onSaleItems = [
+    DropdownMenuItem<bool>(value: true, child: Text('On Sale')),
+    DropdownMenuItem<bool>(value: false, child: Text('Not On Sale'))
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +104,15 @@ class _AddProductState extends State<AddProduct> {
           child: Column(
             children: [
               TextField(
-                decoration: const InputDecoration(hintText: "name"),
+                decoration: const InputDecoration(hintText: "Name"),
                 onChanged: (value) {
                   name = value;
+                },
+              ),
+              TextField(
+                decoration: const InputDecoration(hintText: "Description"),
+                onChanged: (value) {
+                  description = value;
                 },
               ),
               Row(
@@ -128,7 +143,7 @@ class _AddProductState extends State<AddProduct> {
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: "price"),
+                decoration: const InputDecoration(hintText: "Price"),
                 onChanged: (value) {
                   try {
                     price = num.parse(value);
@@ -137,9 +152,34 @@ class _AddProductState extends State<AddProduct> {
                   }
                 },
               ),
+              DropdownButton(
+                hint: const Text("Cn Sale?"),
+                isExpanded: true,
+                value: onSale,
+                items: _onSaleItems,
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    onSale = newValue!;
+                  });
+                },
+              ),
+              Visibility(
+                visible: onSale,
+                child:  TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "Old Price"),
+                  onChanged: (value) {
+                    try {
+                      oldPrice = num.parse(value);
+                    } catch (e) {
+                      oldPrice = 0;
+                    }
+                  },
+                )
+              ),
               TextField(
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: "stocks"),
+                decoration: const InputDecoration(hintText: "Stocks"),
                 onChanged: (value) {
                   try {
                     stocks = num.parse(value);
@@ -200,30 +240,39 @@ class _AddProductState extends State<AddProduct> {
                               ]);
                         });
                   } else {
-                    // var sellerRef = DBService.userCollection
-                    //     .doc(Provider.of<User?>(context, listen: false)!.uid);
-                    // await db.addProduct(_categories[_currentCategory!], name,
-                    //     price, sellerRef, _currentTag, productPicture!, stocks);
-                    // widget.refreshFunc!();
-                    // showDialog(
-                    //     context: context,
-                    //     builder: (BuildContext context2) {
-                    //       return AlertDialog(
-                    //           title: const Text("Success"),
-                    //           content:
-                    //               const Text("Your product has been added!"),
-                    //           actions: [
-                    //             TextButton(
-                    //               child: const Text("Ok"),
-                    //               onPressed: () {
-                    //                 Navigator.of(context2).pop();
-                    //                 Navigator.of(context).pop();
-                    //                 // Provider.of<BottomNav>(context, listen: false)
-                    //                 //     .switchTo(0);
-                    //               },
-                    //             )
-                    //           ]);
-                    //     });
+                    var sellerRef = Service.userCollection.doc(
+                        Provider.of<UserObj?>(context, listen: false)!.uid);
+                    await db.addProduct(
+                        _categories[_currentCategory!],
+                        name,
+                        price,
+                        sellerRef,
+                        _currentTag,
+                        productPicture!,
+                        stocks,
+                        description,
+                        onSale,
+                        oldPrice);
+                    widget.refreshFunc!();
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context2) {
+                          return AlertDialog(
+                              title: const Text("Success"),
+                              content:
+                                  const Text("Your product has been added!"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.of(context2).pop();
+                                    Navigator.of(context).pop();
+                                    // Provider.of<BottomNav>(context, listen: false)
+                                    //     .switchTo(0);
+                                  },
+                                )
+                              ]);
+                        });
                   }
                 },
                 icon: const Icon(Icons.add),
