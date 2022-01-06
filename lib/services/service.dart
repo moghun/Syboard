@@ -1,7 +1,9 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:syboard/models/product.dart';
 //import 'package:syboard/routes/notifications.dart';
 import 'package:syboard/models/notification_item.dart';
@@ -23,28 +25,33 @@ class Service {
   }
 
   Future addProduct(
-      String productName,
-      double rating,
-      String seller,
-      double price,
-      bool onSale,
+      String category,
+      String name,
+      num price,
+      DocumentReference seller,
+      String tag,
+      File picture,
+      num stocks,
       String description,
-      String imgURL,
-      double? oldPrice) async {
-    productCollection
-        .doc()
-        .set({
-          'productName': productName,
-          'rating': rating,
-          'seller': seller,
-          'price': price,
-          'onSale': onSale,
-          'description': description,
-          'imgURL': imgURL,
-          'oldPrice': oldPrice
-        })
-        .then((value) => print('Product added'))
-        .catchError((error) => print('Error: ${error.toString()}'));
+      bool onSale,
+      num? oldPrice) async {
+    var productRef = await productCollection.add({
+      'productName': name,
+      'rating': 0.0,
+      'seller': seller,
+      'price': price,
+      'onSale': onSale,
+      'description': description,
+      'imgURL': "",
+      'oldPrice': oldPrice
+    });
+
+    var ref = FirebaseStorage.instance.ref();
+    String filepath =
+        "/productImages/${productRef.id}${extension(picture.path)}";
+    await ref.child(filepath).putFile(picture);
+    String productPictureURL = await ref.child(filepath).getDownloadURL();
+    await productRef.update({"imgURL": productPictureURL});
   }
 
   Future<List<Product>> getProducts() async {
@@ -56,7 +63,7 @@ class Service {
           productName: doc["productName"],
           rating: doc["rating"],
           price: doc["price"],
-          seller: doc["seller"],
+          seller: "aaaa",
           description: doc["description"],
           onSale: false));
     });
