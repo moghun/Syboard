@@ -23,13 +23,12 @@ class MyProducts extends StatefulWidget {
 }
 
 class _MyProductsState extends State<MyProducts> {
-
   TextEditingController searchTextController = TextEditingController();
 
   Future<List<Product>> getAProducts() async {
     Service db = Service();
     var sellerRef =
-    Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
+        Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
     var productsDocs =
         (await db.productCollection.where("seller", isEqualTo: sellerRef).get())
             .docs;
@@ -39,18 +38,22 @@ class _MyProductsState extends State<MyProducts> {
       DocumentReference sellerRef = currentProductDoc.get("seller");
       String sellerName = (await sellerRef.get()).get("sellerName");
       var currentProduct = Product(
-          imgURL: currentProductDoc.get("imgURL"),
+          pid: currentProductDoc.id,
+          imgURL: currentProductDoc["imgURL"],
           productName: currentProductDoc.get("productName"),
           rating: currentProductDoc.get("rating"),
           price: currentProductDoc.get("price"),
           seller: sellerName,
           description: currentProductDoc.get("description"),
-          onSale: false);
+          category: currentProductDoc["category"],
+          tag: currentProductDoc["tag"],
+          onSale: currentProductDoc["onSale"],
+          oldPrice: currentProductDoc["oldPrice"] ?? 0);
+
       productsList.add(currentProduct);
     }
     return productsList;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,7 @@ class _MyProductsState extends State<MyProducts> {
                       children: List.generate(
                           allProducts.length,
                           (index) => Row(children: [
-                                editProductPreview(allProducts[index]),
+                                editProductPreview(allProducts[index], context),
                                 const SizedBox(width: 8)
                               ])),
                     ),

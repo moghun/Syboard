@@ -61,18 +61,22 @@ class Service {
       DocumentReference sellerRef = doc["seller"];
       String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
       list.add(Product(
+          pid: doc.id,
           imgURL: doc["imgURL"],
           productName: doc["productName"],
           rating: doc["rating"],
           price: doc["price"],
           seller: sname,
           description: doc["description"],
+          category: doc["category"],
+          tag: doc["tag"],
           onSale: false));
     });
     return list;
   }
+
   Future<List<Product>> getSearchResults(query) async {
-  List<Product> list = [];
+    List<Product> list = [];
     /*   var products = await FirebaseFirestore.instance.collection('products')
         .where('productName', isGreaterThanOrEqualTo: query,
 
@@ -88,12 +92,15 @@ class Service {
         DocumentReference sellerRef = doc["seller"];
         String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
         list.add(Product(
+            pid: doc.id,
             imgURL: doc["imgURL"],
             productName: doc["productName"],
             rating: doc["rating"],
             price: doc["price"],
             seller: sname,
             description: doc["description"],
+            category: doc["category"],
+            tag: doc["tag"],
             onSale: false));
       }
     });
