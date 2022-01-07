@@ -113,6 +113,7 @@ class Service {
           description: doc["description"],
           category: doc["category"],
           tag: doc["tag"],
+          stocks: doc["stocks"],
           onSale: false));
     });
     return list;
@@ -144,6 +145,7 @@ class Service {
             description: doc["description"],
             category: doc["category"],
             tag: doc["tag"],
+            stocks: doc["stocks"],
             onSale: false));
       }
     });

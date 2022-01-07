@@ -26,6 +26,7 @@ class _CartState extends State<Cart> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -38,6 +39,7 @@ class _CartState extends State<Cart> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -50,6 +52,7 @@ class _CartState extends State<Cart> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -61,6 +64,7 @@ class _CartState extends State<Cart> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -73,6 +77,7 @@ class _CartState extends State<Cart> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
   ];
 

@@ -48,6 +48,7 @@ class _MyProductsState extends State<MyProducts> {
           category: currentProductDoc["category"],
           tag: currentProductDoc["tag"],
           onSale: currentProductDoc["onSale"],
+          stocks: currentProductDoc["stocks"],
           oldPrice: currentProductDoc["oldPrice"] ?? 0);
 
       productsList.add(currentProduct);

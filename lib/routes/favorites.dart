@@ -25,6 +25,7 @@ class _FavoritesState extends State<Favorites> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -37,6 +38,7 @@ class _FavoritesState extends State<Favorites> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -49,6 +51,7 @@ class _FavoritesState extends State<Favorites> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
         pid: "asda",
@@ -59,6 +62,7 @@ class _FavoritesState extends State<Favorites> {
         seller: "Seller2",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         description: "",
         onSale: false),
     Product(
@@ -72,6 +76,7 @@ class _FavoritesState extends State<Favorites> {
         description: "",
         category: "Computer",
         tag: "All",
+        stocks: 100,
         onSale: false),
   ];
 
