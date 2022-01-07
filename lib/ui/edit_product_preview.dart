@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:syboard/views/sell_product/edit_product.dart';
+
+Service db = Service();
 
 Widget editProductPreview(Product product, context) {
   return SizedBox(
@@ -45,7 +48,6 @@ Widget editProductPreview(Product product, context) {
                       textAlign: TextAlign.center,
                     ),
                   ),
-
                   Container(
                       margin: const EdgeInsets.only(top: 8.0),
                       child: Text("\$ ${product.price}")),
@@ -62,19 +64,41 @@ Widget editProductPreview(Product product, context) {
             iconSize: 20,
             icon: const Icon(Icons.edit_outlined),
             color: Colors.black,
-            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (a)=> EditProduct(product: product)));},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (a) => EditProduct(product: product)));
+            },
           ),
         ),
         Positioned(
           top: 24,
           right: -8,
           child: IconButton(
-            splashRadius: 30,
-            iconSize: 20,
-            icon: const Icon(Icons.delete_outlined),
-            color: Colors.red,
-            onPressed: () {},
-          ),
+              splashRadius: 30,
+              iconSize: 20,
+              icon: const Icon(Icons.delete_outlined),
+              color: Colors.red,
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: const Text("Caution!"),
+                          content: const Text(
+                              "Are you sure you want to delete this product?"),
+                          actions: [
+                            TextButton(
+                              child: const Text("DELETE"),
+                              onPressed: () async {
+                               await db.deleteProduct(product.pid);
+                               Navigator.pop(context);
+                              },
+                            )
+                          ]);
+                    });
+              }),
         ),
       ]));
 }
