@@ -43,7 +43,9 @@ class Service {
       'onSale': onSale,
       'description': description,
       'imgURL': "",
-      'oldPrice': oldPrice
+      'oldPrice': oldPrice,
+      'category': category,
+      'tag': tag,
     });
 
     var ref = FirebaseStorage.instance.ref();
@@ -52,6 +54,47 @@ class Service {
     await ref.child(filepath).putFile(picture);
     String productPictureURL = await ref.child(filepath).getDownloadURL();
     await productRef.update({"imgURL": productPictureURL});
+  }
+
+  Future editProduct(
+      String id,
+      String category,
+      String name,
+      num price,
+      String tag,
+      File? picture,
+      num stocks,
+      String description,
+      bool onSale,
+      num? oldPrice) async {
+    var productRef = productCollection.doc(id);
+    if (picture == null) {
+      productRef.update({
+        'productName': name,
+        'price': price,
+        'onSale': onSale,
+        'description': description,
+        'oldPrice': oldPrice,
+        'category': category,
+        'tag': tag,
+      });
+    } else {
+      String oldURL = (await productRef.get()).get("picture");
+      var ref = FirebaseStorage.instance.refFromURL(oldURL);
+      await ref.delete();
+      await ref.putFile(picture);
+      String productPictureURL = await ref.getDownloadURL();
+      await productRef.update({
+        'productName': name,
+        'price': price,
+        'onSale': onSale,
+        'description': description,
+        'oldPrice': oldPrice,
+        'category': category,
+        'tag': tag,
+        "picture": productPictureURL,
+      });
+    }
   }
 
   Future<List<Product>> getProducts() async {
