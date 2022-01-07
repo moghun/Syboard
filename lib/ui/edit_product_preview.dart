@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:syboard/views/sell_product/edit_product.dart';
 
-Widget editProductPreview(Product product) {
+Widget editProductPreview(Product product, context) {
   return SizedBox(
       width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
@@ -61,7 +62,7 @@ Widget editProductPreview(Product product) {
             iconSize: 20,
             icon: const Icon(Icons.edit_outlined),
             color: Colors.black,
-            onPressed: () {},
+            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (a)=> EditProduct(product: product)));},
           ),
         ),
         Positioned(
