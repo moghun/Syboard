@@ -96,6 +96,13 @@ class Service {
       });
     }
   }
+  Future deleteProduct(String pid) async {
+    var productRef = productCollection.doc(pid);
+    var pictureRef = FirebaseStorage.instance
+        .refFromURL((await productRef.get()).get("picture"));
+    await pictureRef.delete();
+    await productRef.delete();
+  }
 
   Future<List<Product>> getProducts() async {
     QuerySnapshot allProductsQuery = await productCollection.get();
