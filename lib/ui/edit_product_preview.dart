@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:syboard/views/sell_product/edit_product.dart';
 
-Widget productPreview(Product product) {
+Service db = Service();
+
+Widget editProductPreview(Product product, context, Function refreshFunction) {
   return SizedBox(
       width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
@@ -44,20 +48,6 @@ Widget productPreview(Product product) {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  RatingBar.builder(
-                    initialRating: product.rating.toDouble(),
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    itemSize: 12,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {},
-                  ),
                   Container(
                       margin: const EdgeInsets.only(top: 8.0),
                       child: Text("\$ ${product.price}")),
@@ -72,10 +62,44 @@ Widget productPreview(Product product) {
           child: IconButton(
             splashRadius: 30,
             iconSize: 20,
-            icon: const Icon(Icons.favorite),
-            color: Colors.red,
-            onPressed: () {},
+            icon: const Icon(Icons.edit_outlined),
+            color: Colors.black,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (a) => EditProduct(product: product)));
+            },
           ),
+        ),
+        Positioned(
+          top: 24,
+          right: -8,
+          child: IconButton(
+              splashRadius: 30,
+              iconSize: 20,
+              icon: const Icon(Icons.delete_outlined),
+              color: Colors.red,
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: const Text("Caution!"),
+                          content: const Text(
+                              "Are you sure you want to delete this product?"),
+                          actions: [
+                            TextButton(
+                              child: const Text("DELETE"),
+                              onPressed: () async {
+                               await db.deleteProduct(product.pid);
+                               refreshFunction();
+                               Navigator.pop(context);
+                              },
+                            )
+                          ]);
+                    });
+              }),
         ),
       ]));
 }

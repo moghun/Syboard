@@ -16,6 +16,7 @@ class _CartState extends State<Cart> {
   //CartItem
   static final _CartItemList = <Product>[
     Product(
+        pid: "asda",
         imgURL:
             "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
         productName: "Nvidia Geforce GTX1050ti",
@@ -23,8 +24,12 @@ class _CartState extends State<Cart> {
         price: 100.99,
         seller: "Vatan PC",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
             "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
         productName: "MSI Prestige Notebook",
@@ -32,8 +37,12 @@ class _CartState extends State<Cart> {
         price: 2000.99,
         seller: "İtopya.com",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
             "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
         productName: "Gaming PC",
@@ -41,16 +50,24 @@ class _CartState extends State<Cart> {
         price: 1000.99,
         seller: "Hasan Hüseyin",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
         productName: "Gaming PC",
         rating: 4.5,
         price: 12.99,
         seller: "Seller2",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
             "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
         productName: "Gaming Monitor",
@@ -58,6 +75,9 @@ class _CartState extends State<Cart> {
         price: 179.99,
         seller: "Seller1",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
   ];
 
@@ -72,7 +92,8 @@ class _CartState extends State<Cart> {
               style: kAppBarTitleTextStyle,
               textAlign: TextAlign.left,
             ),
-            const Text('  -  6 items', textScaleFactor: 0.8,style: TextStyle(color: Colors.black45))
+            const Text('  -  6 items',
+                textScaleFactor: 0.8, style: TextStyle(color: Colors.black45))
           ],
         ),
         backgroundColor: Colors.white,
@@ -99,7 +120,8 @@ class _CartState extends State<Cart> {
             child: Material(
                 color: Colors.white,
                 child: Padding(
-                  padding:  const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -109,8 +131,10 @@ class _CartState extends State<Cart> {
                         children: [
                           const Text('Total'),
                           const SizedBox(width: 8),
-                          Text('USD 295',
-                          style: kTextTitleMedium,),
+                          Text(
+                            'USD 295',
+                            style: kTextTitleMedium,
+                          ),
                         ],
                       ),
                       SizedBox(

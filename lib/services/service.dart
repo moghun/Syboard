@@ -1,7 +1,9 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:syboard/models/product.dart';
 //import 'package:syboard/routes/notifications.dart';
 import 'package:syboard/models/notification_item.dart';
@@ -16,48 +18,113 @@ class Service {
   static final CollectionReference notificationCollection =
       FirebaseFirestore.instance.collection('notifications');
 
-  static Future addUser(String uid) async {
+  static Future addUser(String uid, String? name) async {
     userCollection.doc(uid).set({
-      'notificationIDs': [1]
+      'notificationIDs': [1],
+      'sellerName': name
     });
   }
 
   Future addProduct(
-      String productName,
-      double rating,
-      String seller,
-      double price,
-      bool onSale,
+      String category,
+      String name,
+      num price,
+      DocumentReference seller,
+      String tag,
+      File picture,
+      num stocks,
       String description,
-      String imgURL,
-      double? oldPrice) async {
-    productCollection
-        .doc()
-        .set({
-          'productName': productName,
-          'rating': rating,
-          'seller': seller,
-          'price': price,
-          'onSale': onSale,
-          'description': description,
-          'imgURL': imgURL,
-          'oldPrice': oldPrice
-        })
-        .then((value) => print('Product added'))
-        .catchError((error) => print('Error: ${error.toString()}'));
+      bool onSale,
+      num? oldPrice) async {
+    var productRef = await productCollection.add({
+      'productName': name,
+      'rating': 0.0,
+      'seller': seller,
+      'price': price,
+      'onSale': onSale,
+      'description': description,
+      'imgURL': "",
+      'oldPrice': oldPrice,
+      'category': category,
+      'stocks': stocks,
+      'tag': tag,
+    });
+
+    var ref = FirebaseStorage.instance.ref();
+    String filepath =
+        "/productImages/${productRef.id}${extension(picture.path)}";
+    await ref.child(filepath).putFile(picture);
+    String productPictureURL = await ref.child(filepath).getDownloadURL();
+    await productRef.update({"imgURL": productPictureURL});
+  }
+
+  Future editProduct(
+      String id,
+      String category,
+      String name,
+      num price,
+      String tag,
+      File? picture,
+      num stocks,
+      String description,
+      bool onSale,
+      num? oldPrice) async {
+    var productRef = productCollection.doc(id);
+    if (picture == null) {
+      productRef.update({
+        'productName': name,
+        'price': price,
+        'onSale': onSale,
+        'description': description,
+        'oldPrice': oldPrice,
+        'category': category,
+        'stocks': stocks,
+        'tag': tag,
+      });
+    } else {
+      String oldURL = (await productRef.get()).get("picture");
+      var ref = FirebaseStorage.instance.refFromURL(oldURL);
+      await ref.delete();
+      await ref.putFile(picture);
+      String productPictureURL = await ref.getDownloadURL();
+      await productRef.update({
+        'productName': name,
+        'price': price,
+        'onSale': onSale,
+        'description': description,
+        'oldPrice': oldPrice,
+        'category': category,
+        'tag': tag,
+        'stocks': stocks,
+        "picture": productPictureURL,
+      });
+    }
+  }
+  Future deleteProduct(String pid) async {
+    var productRef = productCollection.doc(pid);
+    var pictureRef = FirebaseStorage.instance
+        .refFromURL((await productRef.get()).get("imgURL"));
+    await pictureRef.delete();
+    await productRef.delete();
   }
 
   Future<List<Product>> getProducts() async {
     QuerySnapshot allProductsQuery = await productCollection.get();
     List<Product> list = [];
-    allProductsQuery.docs.forEach((doc) {
+    allProductsQuery.docs.forEach((doc) async {
+      DocumentReference sellerRef = doc["seller"];
+      String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
       list.add(Product(
+          pid: doc.id,
           imgURL: doc["imgURL"],
           productName: doc["productName"],
           rating: doc["rating"],
           price: doc["price"],
-          seller: doc["seller"],
+          seller: sname,
           description: doc["description"],
+          category: doc["category"],
+          tag: doc["tag"],
+          stocks: doc["stocks"],
           onSale: false));
     });
     return list;
@@ -65,7 +132,6 @@ class Service {
 
   Future<List<Product>> getSearchResults(query) async {
     List<Product> list = [];
-
     /*   var products = await FirebaseFirestore.instance.collection('products')
         .where('productName', isGreaterThanOrEqualTo: query,
 
@@ -76,15 +142,21 @@ class Service {
     var products =
         await FirebaseFirestore.instance.collection('products').get();
 
-    products.docs.forEach((doc) {
+    products.docs.forEach((doc) async {
       if ((doc["productName"]).toString().contains(query)) {
+        DocumentReference sellerRef = doc["seller"];
+        String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
         list.add(Product(
+            pid: doc.id,
             imgURL: doc["imgURL"],
             productName: doc["productName"],
             rating: doc["rating"],
             price: doc["price"],
-            seller: doc["seller"],
+            seller: sname,
             description: doc["description"],
+            category: doc["category"],
+            tag: doc["tag"],
+            stocks: doc["stocks"],
             onSale: false));
       }
     });

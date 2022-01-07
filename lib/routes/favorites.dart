@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -17,48 +15,68 @@ class _FavoritesState extends State<Favorites> {
   //CartItem
   static final _FavoriteItemList = <Product>[
     Product(
+        pid: "asda",
         imgURL:
-        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
+            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
         productName: "Nvidia Geforce GTX1050ti",
         rating: 5,
         price: 100.99,
         seller: "Vatan PC",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
-        "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
+            "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
         productName: "MSI Prestige Notebook",
         rating: 3.9,
         price: 2000.99,
         seller: "İtopya.com",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
-        "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
+            "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
         productName: "Gaming PC",
         rating: 4.4,
         price: 1000.99,
         seller: "Hasan Hüseyin",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
     Product(
+        pid: "asda",
         imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
         productName: "Gaming PC",
         rating: 4.5,
         price: 12.99,
         seller: "Seller2",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         description: "",
         onSale: false),
     Product(
+        pid: "asda",
         imgURL:
-        "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
+            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
         productName: "Gaming Monitor",
         rating: 4.7,
         price: 179.99,
         seller: "Seller1",
         description: "",
+        category: "Computer",
+        tag: "All",
+        stocks: 100,
         onSale: false),
   ];
 
@@ -93,7 +111,6 @@ class _FavoritesState extends State<Favorites> {
                   return FavoriteItem(_FavoriteItemList[i]);
                 }),
           ),
-
         ],
       ),
     );

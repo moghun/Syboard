@@ -53,6 +53,15 @@ class _HomeState extends State<Home> {
                 color: Colors.black54,
                 size: 28,
               )),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/sell_product');
+              },
+              icon: const Icon(
+                Icons.sell_rounded,
+                color: AppColors.primary,
+                size: 28,
+              )),
           const SizedBox(width: 8)
         ],
         title: Row(
