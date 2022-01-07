@@ -36,17 +36,16 @@ Widget productPreview(Product product) {
                         style: kTextTitleSmall,
                         textAlign: TextAlign.center,
                       )),
-                Container(
-                   margin: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                        product.seller,
-                        style: kTextCaption,
-                        textAlign: TextAlign.center,
-                      ),
-                ),
-
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      product.seller,
+                      style: kTextCaption,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   RatingBar.builder(
-                    initialRating: product.rating,
+                    initialRating: product.rating.toDouble(),
                     minRating: 1,
                     direction: Axis.horizontal,
                     itemSize: 12,
