@@ -57,22 +57,22 @@ class Service {
   Future<List<Product>> getProducts() async {
     QuerySnapshot allProductsQuery = await productCollection.get();
     List<Product> list = [];
-    allProductsQuery.docs.forEach((doc) {
+    allProductsQuery.docs.forEach((doc) async {
+      DocumentReference sellerRef = doc["seller"];
+      String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
       list.add(Product(
           imgURL: doc["imgURL"],
           productName: doc["productName"],
           rating: doc["rating"],
           price: doc["price"],
-          seller: "aaaa",
+          seller: sname,
           description: doc["description"],
           onSale: false));
     });
     return list;
   }
-
   Future<List<Product>> getSearchResults(query) async {
-    List<Product> list = [];
-
+  List<Product> list = [];
     /*   var products = await FirebaseFirestore.instance.collection('products')
         .where('productName', isGreaterThanOrEqualTo: query,
 
@@ -83,14 +83,16 @@ class Service {
     var products =
         await FirebaseFirestore.instance.collection('products').get();
 
-    products.docs.forEach((doc) {
+    products.docs.forEach((doc) async {
       if ((doc["productName"]).toString().contains(query)) {
+        DocumentReference sellerRef = doc["seller"];
+        String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
         list.add(Product(
             imgURL: doc["imgURL"],
             productName: doc["productName"],
             rating: doc["rating"],
             price: doc["price"],
-            seller: doc["seller"],
+            seller: sname,
             description: doc["description"],
             onSale: false));
       }
