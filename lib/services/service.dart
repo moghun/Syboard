@@ -18,9 +18,10 @@ class Service {
   static final CollectionReference notificationCollection =
       FirebaseFirestore.instance.collection('notifications');
 
-  static Future addUser(String uid) async {
+  static Future addUser(String uid, String? name) async {
     userCollection.doc(uid).set({
-      'notificationIDs': [1]
+      'notificationIDs': [1],
+      'sellerName': name
     });
   }
 

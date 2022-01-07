@@ -44,8 +44,7 @@ class AuthService {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     User user = userCredential.user!;
-    Service.addUser (user.uid);
-
+    Service.addUser (user.uid, email);
   }
 
   Future<void> signInAnon() async {
@@ -74,7 +73,11 @@ class AuthService {
     UserCredential result =
         await FirebaseAuth.instance.signInWithCredential(credential);
     User user = result.user!;
-    return _userFromFirebase(user);
+    var userDoc = await Service.userCollection.doc(user.uid).get();
+    if(userDoc.exists){
+      return _userFromFirebase(user);
+    }
+    Service.addUser(user.uid, user.displayName);
   }
 
   Future signOut() async {
