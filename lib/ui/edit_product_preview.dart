@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:syboard/utils/styles.dart';
+import 'package:syboard/models/product.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+Widget editProductPreview(Product product) {
+  return SizedBox(
+      width: 180,
+      child: Stack(alignment: Alignment.center, children: <Widget>[
+        InkWell(
+          onTap: () {
+            print("Card Clicked");
+          },
+          child: Material(
+            color: Colors.white,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.black12, width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  Image.network(
+                    product.imgURL,
+                    height: 70,
+                    width: 75,
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(top: 10.0),
+                      height: 34,
+                      width: 180,
+                      child: Text(
+                        product.productName,
+                        style: kTextTitleSmall,
+                        textAlign: TextAlign.center,
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      product.seller,
+                      style: kTextCaption,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  Container(
+                      margin: const EdgeInsets.only(top: 8.0),
+                      child: Text("\$ ${product.price}")),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: -8,
+          right: -8,
+          child: IconButton(
+            splashRadius: 30,
+            iconSize: 20,
+            icon: const Icon(Icons.edit_outlined),
+            color: Colors.black,
+            onPressed: () {},
+          ),
+        ),
+        Positioned(
+          top: 16,
+          right: -8,
+          child: IconButton(
+            splashRadius: 30,
+            iconSize: 20,
+            icon: const Icon(Icons.delete_outlined),
+            color: Colors.red,
+            onPressed: () {},
+          ),
+        ),
+      ]));
+}
