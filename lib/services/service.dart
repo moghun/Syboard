@@ -45,6 +45,7 @@ class Service {
       'imgURL': "",
       'oldPrice': oldPrice,
       'category': category,
+      'stocks': stocks,
       'tag': tag,
     });
 
@@ -76,6 +77,7 @@ class Service {
         'description': description,
         'oldPrice': oldPrice,
         'category': category,
+        'stocks': stocks,
         'tag': tag,
       });
     } else {
@@ -92,6 +94,7 @@ class Service {
         'oldPrice': oldPrice,
         'category': category,
         'tag': tag,
+        'stocks': stocks,
         "picture": productPictureURL,
       });
     }
