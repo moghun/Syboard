@@ -23,13 +23,13 @@ class _$ProductTearOff {
 
   _Product call(
       {required String productName,
-      required double rating,
+      required num rating,
       required String seller,
-      required double price,
+      required num price,
       required bool onSale,
       required String description,
       required String imgURL,
-      double? oldPrice}) {
+      num? oldPrice}) {
     return _Product(
       productName: productName,
       rating: rating,
@@ -53,13 +53,13 @@ const $Product = _$ProductTearOff();
 /// @nodoc
 mixin _$Product {
   String get productName => throw _privateConstructorUsedError;
-  double get rating => throw _privateConstructorUsedError;
+  num get rating => throw _privateConstructorUsedError;
   String get seller => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  num get price => throw _privateConstructorUsedError;
   bool get onSale => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imgURL => throw _privateConstructorUsedError;
-  double? get oldPrice => throw _privateConstructorUsedError;
+  num? get oldPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,13 +72,13 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res>;
   $Res call(
       {String productName,
-      double rating,
+      num rating,
       String seller,
-      double price,
+      num price,
       bool onSale,
       String description,
       String imgURL,
-      double? oldPrice});
+      num? oldPrice});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       seller: seller == freezed
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       onSale: onSale == freezed
           ? _value.onSale
           : onSale // ignore: cast_nullable_to_non_nullable
@@ -132,7 +132,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as num?,
     ));
   }
 }
@@ -144,13 +144,13 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   $Res call(
       {String productName,
-      double rating,
+      num rating,
       String seller,
-      double price,
+      num price,
       bool onSale,
       String description,
       String imgURL,
-      double? oldPrice});
+      num? oldPrice});
 }
 
 /// @nodoc
@@ -181,7 +181,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       seller: seller == freezed
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -189,7 +189,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       onSale: onSale == freezed
           ? _value.onSale
           : onSale // ignore: cast_nullable_to_non_nullable
@@ -205,7 +205,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as num?,
     ));
   }
 }
@@ -229,11 +229,11 @@ class _$_Product implements _Product {
   @override
   final String productName;
   @override
-  final double rating;
+  final num rating;
   @override
   final String seller;
   @override
-  final double price;
+  final num price;
   @override
   final bool onSale;
   @override
@@ -241,7 +241,7 @@ class _$_Product implements _Product {
   @override
   final String imgURL;
   @override
-  final double? oldPrice;
+  final num? oldPrice;
 
   @override
   String toString() {
@@ -291,24 +291,24 @@ class _$_Product implements _Product {
 abstract class _Product implements Product {
   factory _Product(
       {required String productName,
-      required double rating,
+      required num rating,
       required String seller,
-      required double price,
+      required num price,
       required bool onSale,
       required String description,
       required String imgURL,
-      double? oldPrice}) = _$_Product;
+      num? oldPrice}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
   @override
   String get productName;
   @override
-  double get rating;
+  num get rating;
   @override
   String get seller;
   @override
-  double get price;
+  num get price;
   @override
   bool get onSale;
   @override
@@ -316,7 +316,7 @@ abstract class _Product implements Product {
   @override
   String get imgURL;
   @override
-  double? get oldPrice;
+  num? get oldPrice;
   @override
   @JsonKey(ignore: true)
   _$ProductCopyWith<_Product> get copyWith =>

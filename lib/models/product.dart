@@ -9,13 +9,13 @@ class Product with _$Product{
   factory Product({
 
   required String productName,
-  required double rating,
+  required num rating,
   required String seller,
-  required double price,
+  required num price,
   required bool onSale,
   required String description,
   required String imgURL,
-  double? oldPrice,
+  num? oldPrice,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);

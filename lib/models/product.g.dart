@@ -8,13 +8,13 @@ part of 'product.dart';
 
 _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       productName: json['productName'] as String,
-      rating: (json['rating'] as num).toDouble(),
+      rating: json['rating'] as num,
       seller: json['seller'] as String,
-      price: (json['price'] as num).toDouble(),
+      price: json['price'] as num,
       onSale: json['onSale'] as bool,
       description: json['description'] as String,
       imgURL: json['imgURL'] as String,
-      oldPrice: (json['oldPrice'] as num?)?.toDouble(),
+      oldPrice: json['oldPrice'] as num?,
     );
 
 Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
