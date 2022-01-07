@@ -7,7 +7,7 @@ import 'package:syboard/views/sell_product/edit_product.dart';
 
 Service db = Service();
 
-Widget editProductPreview(Product product, context) {
+Widget editProductPreview(Product product, context, Function refreshFunction) {
   return SizedBox(
       width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
@@ -93,6 +93,7 @@ Widget editProductPreview(Product product, context) {
                               child: const Text("DELETE"),
                               onPressed: () async {
                                await db.deleteProduct(product.pid);
+                               refreshFunction();
                                Navigator.pop(context);
                               },
                             )

@@ -80,7 +80,10 @@ class _MyProductsState extends State<MyProducts> {
                       children: List.generate(
                           allProducts.length,
                           (index) => Row(children: [
-                                editProductPreview(allProducts[index], context),
+                                editProductPreview(allProducts[index], context,
+                                    () {
+                                  setState(() {});
+                                }),
                                 const SizedBox(width: 8)
                               ])),
                     ),
