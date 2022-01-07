@@ -113,6 +113,14 @@ class AuthService {
       return null;
     }
   }
+  Future updateSellerName(String newName, String uid) async {
+    try {
+      await Service.userCollection.doc(uid).update({"sellerName": newName});
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
 
   Future updateMail(String newMail, String pass) async {
     AuthCredential cred = EmailAuthProvider.credential(
