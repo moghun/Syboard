@@ -7,7 +7,7 @@ part 'product.g.dart';
 class Product with _$Product{
 
   factory Product({
-
+  required String pid,
   required String productName,
   required num rating,
   required String seller,
@@ -15,6 +15,8 @@ class Product with _$Product{
   required bool onSale,
   required String description,
   required String imgURL,
+    required String category,
+    required String tag,
   num? oldPrice,
   }) = _Product;
 

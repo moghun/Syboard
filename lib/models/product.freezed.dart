@@ -22,15 +22,19 @@ class _$ProductTearOff {
   const _$ProductTearOff();
 
   _Product call(
-      {required String productName,
+      {required String pid,
+      required String productName,
       required num rating,
       required String seller,
       required num price,
       required bool onSale,
       required String description,
       required String imgURL,
+      required String category,
+      required String tag,
       num? oldPrice}) {
     return _Product(
+      pid: pid,
       productName: productName,
       rating: rating,
       seller: seller,
@@ -38,6 +42,8 @@ class _$ProductTearOff {
       onSale: onSale,
       description: description,
       imgURL: imgURL,
+      category: category,
+      tag: tag,
       oldPrice: oldPrice,
     );
   }
@@ -52,6 +58,7 @@ const $Product = _$ProductTearOff();
 
 /// @nodoc
 mixin _$Product {
+  String get pid => throw _privateConstructorUsedError;
   String get productName => throw _privateConstructorUsedError;
   num get rating => throw _privateConstructorUsedError;
   String get seller => throw _privateConstructorUsedError;
@@ -59,6 +66,8 @@ mixin _$Product {
   bool get onSale => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imgURL => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  String get tag => throw _privateConstructorUsedError;
   num? get oldPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,13 +80,16 @@ abstract class $ProductCopyWith<$Res> {
   factory $ProductCopyWith(Product value, $Res Function(Product) then) =
       _$ProductCopyWithImpl<$Res>;
   $Res call(
-      {String productName,
+      {String pid,
+      String productName,
       num rating,
       String seller,
       num price,
       bool onSale,
       String description,
       String imgURL,
+      String category,
+      String tag,
       num? oldPrice});
 }
 
@@ -91,6 +103,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? pid = freezed,
     Object? productName = freezed,
     Object? rating = freezed,
     Object? seller = freezed,
@@ -98,9 +111,15 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? onSale = freezed,
     Object? description = freezed,
     Object? imgURL = freezed,
+    Object? category = freezed,
+    Object? tag = freezed,
     Object? oldPrice = freezed,
   }) {
     return _then(_value.copyWith(
+      pid: pid == freezed
+          ? _value.pid
+          : pid // ignore: cast_nullable_to_non_nullable
+              as String,
       productName: productName == freezed
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -128,6 +147,14 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       imgURL: imgURL == freezed
           ? _value.imgURL
           : imgURL // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      tag: tag == freezed
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
               as String,
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
@@ -143,13 +170,16 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       __$ProductCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String productName,
+      {String pid,
+      String productName,
       num rating,
       String seller,
       num price,
       bool onSale,
       String description,
       String imgURL,
+      String category,
+      String tag,
       num? oldPrice});
 }
 
@@ -164,6 +194,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? pid = freezed,
     Object? productName = freezed,
     Object? rating = freezed,
     Object? seller = freezed,
@@ -171,9 +202,15 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? onSale = freezed,
     Object? description = freezed,
     Object? imgURL = freezed,
+    Object? category = freezed,
+    Object? tag = freezed,
     Object? oldPrice = freezed,
   }) {
     return _then(_Product(
+      pid: pid == freezed
+          ? _value.pid
+          : pid // ignore: cast_nullable_to_non_nullable
+              as String,
       productName: productName == freezed
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
@@ -202,6 +239,14 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.imgURL
           : imgURL // ignore: cast_nullable_to_non_nullable
               as String,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      tag: tag == freezed
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String,
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
@@ -214,18 +259,23 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Product implements _Product {
   _$_Product(
-      {required this.productName,
+      {required this.pid,
+      required this.productName,
       required this.rating,
       required this.seller,
       required this.price,
       required this.onSale,
       required this.description,
       required this.imgURL,
+      required this.category,
+      required this.tag,
       this.oldPrice});
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
       _$$_ProductFromJson(json);
 
+  @override
+  final String pid;
   @override
   final String productName;
   @override
@@ -241,11 +291,15 @@ class _$_Product implements _Product {
   @override
   final String imgURL;
   @override
+  final String category;
+  @override
+  final String tag;
+  @override
   final num? oldPrice;
 
   @override
   String toString() {
-    return 'Product(productName: $productName, rating: $rating, seller: $seller, price: $price, onSale: $onSale, description: $description, imgURL: $imgURL, oldPrice: $oldPrice)';
+    return 'Product(pid: $pid, productName: $productName, rating: $rating, seller: $seller, price: $price, onSale: $onSale, description: $description, imgURL: $imgURL, category: $category, tag: $tag, oldPrice: $oldPrice)';
   }
 
   @override
@@ -253,6 +307,7 @@ class _$_Product implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Product &&
+            const DeepCollectionEquality().equals(other.pid, pid) &&
             const DeepCollectionEquality()
                 .equals(other.productName, productName) &&
             const DeepCollectionEquality().equals(other.rating, rating) &&
@@ -262,12 +317,15 @@ class _$_Product implements _Product {
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
             const DeepCollectionEquality().equals(other.imgURL, imgURL) &&
+            const DeepCollectionEquality().equals(other.category, category) &&
+            const DeepCollectionEquality().equals(other.tag, tag) &&
             const DeepCollectionEquality().equals(other.oldPrice, oldPrice));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(pid),
       const DeepCollectionEquality().hash(productName),
       const DeepCollectionEquality().hash(rating),
       const DeepCollectionEquality().hash(seller),
@@ -275,6 +333,8 @@ class _$_Product implements _Product {
       const DeepCollectionEquality().hash(onSale),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imgURL),
+      const DeepCollectionEquality().hash(category),
+      const DeepCollectionEquality().hash(tag),
       const DeepCollectionEquality().hash(oldPrice));
 
   @JsonKey(ignore: true)
@@ -290,17 +350,22 @@ class _$_Product implements _Product {
 
 abstract class _Product implements Product {
   factory _Product(
-      {required String productName,
+      {required String pid,
+      required String productName,
       required num rating,
       required String seller,
       required num price,
       required bool onSale,
       required String description,
       required String imgURL,
+      required String category,
+      required String tag,
       num? oldPrice}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
+  @override
+  String get pid;
   @override
   String get productName;
   @override
@@ -315,6 +380,10 @@ abstract class _Product implements Product {
   String get description;
   @override
   String get imgURL;
+  @override
+  String get category;
+  @override
+  String get tag;
   @override
   num? get oldPrice;
   @override
