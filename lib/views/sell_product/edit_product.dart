@@ -76,17 +76,17 @@ class _EditProductState extends State<EditProduct> {
       .asMap()
       .entries
       .map((e) => DropdownMenuItem<int>(
-    value: e.key,
-    child: Text(e.value),
-  ))
+            value: e.key,
+            child: Text(e.value),
+          ))
       .toList();
   static final _tagItems = _tags
       .map((e) => e.map<DropdownMenuItem<String>>((String value) {
-    return DropdownMenuItem<String>(
-      value: value,
-      child: Text(value),
-    );
-  }).toList())
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList())
       .toList();
   static final _onSaleItems = [
     DropdownMenuItem<bool>(value: true, child: Text('On Sale')),
@@ -97,7 +97,12 @@ class _EditProductState extends State<EditProduct> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("aa");
+    name = widget.product.productName;
+    description = widget.product.description;
+    price = widget.product.price;
     onSale = widget.product.onSale;
+    oldPrice = widget.product.oldPrice ?? 0;
     _currentCategory = _categories.indexOf(widget.product.category);
     _currentTag = widget.product.tag;
   }
@@ -106,7 +111,7 @@ class _EditProductState extends State<EditProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Product"),
+        title: Text("Edit Product"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -114,14 +119,14 @@ class _EditProductState extends State<EditProduct> {
           child: Column(
             children: [
               TextField(
-                controller: TextEditingController(text: widget.product.productName),
+                controller: TextEditingController(text: name),
                 decoration: const InputDecoration(hintText: "Name"),
                 onChanged: (value) {
                   name = value;
                 },
               ),
               TextField(
-                controller: TextEditingController(text: widget.product.description),
+                controller: TextEditingController(text: description),
                 decoration: const InputDecoration(hintText: "Description"),
                 onChanged: (value) {
                   description = value;
@@ -134,10 +139,10 @@ class _EditProductState extends State<EditProduct> {
                     onPressed: () async {
                       final ImagePicker _picker = ImagePicker();
                       final XFile? image =
-                      await _picker.pickImage(source: ImageSource.gallery);
+                          await _picker.pickImage(source: ImageSource.gallery);
                       setState(() {
                         productPicture =
-                        image == null ? null : File(image.path);
+                            image == null ? null : File(image.path);
                       });
                     },
                     label: const Text("Set Picture"),
@@ -154,7 +159,7 @@ class _EditProductState extends State<EditProduct> {
                 ],
               ),
               TextField(
-                controller: TextEditingController(text: "${widget.product.price}"),
+                controller: TextEditingController(text: "$price"),
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: "Price"),
                 onChanged: (value) {
@@ -178,9 +183,9 @@ class _EditProductState extends State<EditProduct> {
               ),
               Visibility(
                   visible: onSale,
-                  child:  TextField(
+                  child: TextField(
                     keyboardType: TextInputType.number,
-                    controller: TextEditingController(text: "${widget.product.oldPrice}"),
+                    controller: TextEditingController(text: "$oldPrice"),
                     decoration: const InputDecoration(hintText: "Old Price"),
                     onChanged: (value) {
                       try {
@@ -189,11 +194,10 @@ class _EditProductState extends State<EditProduct> {
                         oldPrice = 0;
                       }
                     },
-                  )
-              ),
+                  )),
               // TextField(
               //   keyboardType: TextInputType.number,
-              //   controller: TextEditingController(text: "${widget.product.}"),
+              //   controller: TextEditingController(text: "${widget.product.stocks}"),
               //   decoration: const InputDecoration(hintText: "Stocks"),
               //   onChanged: (value) {
               //     try {
@@ -234,9 +238,7 @@ class _EditProductState extends State<EditProduct> {
               OutlinedButton.icon(
                 onPressed: () async {
                   if (name == "" ||
-                      productPicture == null ||
                       price == 0 ||
-                      stocks == 0 ||
                       _currentCategory == null) {
                     showDialog(
                         context: context,
@@ -255,15 +257,13 @@ class _EditProductState extends State<EditProduct> {
                               ]);
                         });
                   } else {
-                    var sellerRef = Service.userCollection.doc(
-                        Provider.of<UserObj?>(context, listen: false)!.uid);
-                    await db.addProduct(
+                    await db.editProduct(
+                      widget.product.pid,
                         _categories[_currentCategory!],
                         name,
                         price,
-                        sellerRef,
                         _currentTag,
-                        productPicture!,
+                        productPicture,
                         stocks,
                         description,
                         onSale,
@@ -274,7 +274,7 @@ class _EditProductState extends State<EditProduct> {
                           return AlertDialog(
                               title: const Text("Success"),
                               content:
-                              const Text("Your product has been added!"),
+                                  const Text("Your product has been added!"),
                               actions: [
                                 TextButton(
                                   child: const Text("Ok"),
@@ -289,8 +289,8 @@ class _EditProductState extends State<EditProduct> {
                         });
                   }
                 },
-                icon: const Icon(Icons.add),
-                label: const Text("Add Product"),
+                icon: const Icon(Icons.save),
+                label: const Text("Update Product"),
               )
             ],
           ),
