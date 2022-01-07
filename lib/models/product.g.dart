@@ -17,6 +17,7 @@ _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       imgURL: json['imgURL'] as String,
       category: json['category'] as String,
       tag: json['tag'] as String,
+      stocks: json['stocks'] as num,
       oldPrice: json['oldPrice'] as num?,
     );
 
@@ -32,5 +33,6 @@ Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
       'imgURL': instance.imgURL,
       'category': instance.category,
       'tag': instance.tag,
+      'stocks': instance.stocks,
       'oldPrice': instance.oldPrice,
     };

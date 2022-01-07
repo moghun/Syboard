@@ -32,6 +32,7 @@ class _$ProductTearOff {
       required String imgURL,
       required String category,
       required String tag,
+      required num stocks,
       num? oldPrice}) {
     return _Product(
       pid: pid,
@@ -44,6 +45,7 @@ class _$ProductTearOff {
       imgURL: imgURL,
       category: category,
       tag: tag,
+      stocks: stocks,
       oldPrice: oldPrice,
     );
   }
@@ -68,6 +70,7 @@ mixin _$Product {
   String get imgURL => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get tag => throw _privateConstructorUsedError;
+  num get stocks => throw _privateConstructorUsedError;
   num? get oldPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -90,6 +93,7 @@ abstract class $ProductCopyWith<$Res> {
       String imgURL,
       String category,
       String tag,
+      num stocks,
       num? oldPrice});
 }
 
@@ -113,6 +117,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? imgURL = freezed,
     Object? category = freezed,
     Object? tag = freezed,
+    Object? stocks = freezed,
     Object? oldPrice = freezed,
   }) {
     return _then(_value.copyWith(
@@ -156,6 +161,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as String,
+      stocks: stocks == freezed
+          ? _value.stocks
+          : stocks // ignore: cast_nullable_to_non_nullable
+              as num,
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
@@ -180,6 +189,7 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String imgURL,
       String category,
       String tag,
+      num stocks,
       num? oldPrice});
 }
 
@@ -204,6 +214,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? imgURL = freezed,
     Object? category = freezed,
     Object? tag = freezed,
+    Object? stocks = freezed,
     Object? oldPrice = freezed,
   }) {
     return _then(_Product(
@@ -247,6 +258,10 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as String,
+      stocks: stocks == freezed
+          ? _value.stocks
+          : stocks // ignore: cast_nullable_to_non_nullable
+              as num,
       oldPrice: oldPrice == freezed
           ? _value.oldPrice
           : oldPrice // ignore: cast_nullable_to_non_nullable
@@ -269,6 +284,7 @@ class _$_Product implements _Product {
       required this.imgURL,
       required this.category,
       required this.tag,
+      required this.stocks,
       this.oldPrice});
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
@@ -295,11 +311,13 @@ class _$_Product implements _Product {
   @override
   final String tag;
   @override
+  final num stocks;
+  @override
   final num? oldPrice;
 
   @override
   String toString() {
-    return 'Product(pid: $pid, productName: $productName, rating: $rating, seller: $seller, price: $price, onSale: $onSale, description: $description, imgURL: $imgURL, category: $category, tag: $tag, oldPrice: $oldPrice)';
+    return 'Product(pid: $pid, productName: $productName, rating: $rating, seller: $seller, price: $price, onSale: $onSale, description: $description, imgURL: $imgURL, category: $category, tag: $tag, stocks: $stocks, oldPrice: $oldPrice)';
   }
 
   @override
@@ -319,6 +337,7 @@ class _$_Product implements _Product {
             const DeepCollectionEquality().equals(other.imgURL, imgURL) &&
             const DeepCollectionEquality().equals(other.category, category) &&
             const DeepCollectionEquality().equals(other.tag, tag) &&
+            const DeepCollectionEquality().equals(other.stocks, stocks) &&
             const DeepCollectionEquality().equals(other.oldPrice, oldPrice));
   }
 
@@ -335,6 +354,7 @@ class _$_Product implements _Product {
       const DeepCollectionEquality().hash(imgURL),
       const DeepCollectionEquality().hash(category),
       const DeepCollectionEquality().hash(tag),
+      const DeepCollectionEquality().hash(stocks),
       const DeepCollectionEquality().hash(oldPrice));
 
   @JsonKey(ignore: true)
@@ -360,6 +380,7 @@ abstract class _Product implements Product {
       required String imgURL,
       required String category,
       required String tag,
+      required num stocks,
       num? oldPrice}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
@@ -384,6 +405,8 @@ abstract class _Product implements Product {
   String get category;
   @override
   String get tag;
+  @override
+  num get stocks;
   @override
   num? get oldPrice;
   @override
