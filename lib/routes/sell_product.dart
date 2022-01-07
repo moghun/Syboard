@@ -14,7 +14,6 @@ class SellProduct extends StatefulWidget {
 
 class _SellProductState extends State<SellProduct>
     with TickerProviderStateMixin {
-  int _currentTab = 0;
 
   void refreshFunc() {
     setState(() {});
@@ -22,52 +21,30 @@ class _SellProductState extends State<SellProduct>
 
   @override
   Widget build(BuildContext context) {
-    print("deneme");
     return DefaultTabController(
-      length: 2,
-      child: Scaffold(
+        length: 2,
+        child: Scaffold(
           appBar: AppBar(
             titleTextStyle: kAppBarTitleTextStyle,
             toolbarHeight: 55,
             centerTitle: true,
-            title: const Text("Add/Increase Products"),
+            title: const Text("Sell Products"),
             backgroundColor: AppColors.primary,
             elevation: 0.0,
-            bottom: TabBar(
-              onTap: (value) {
-                setState(() {
-                  _currentTab = value;
-                });
-              },
-              tabs: const [
-                Tab(text: "My Products"),
-                Tab(text: "Check Stocks"),
-              ],
-            ),
           ),
-          // body: TabBarView(
-          //   children: [
-          //     MyProducts(
-          //       refreshFunc: refreshFunc,
-          //     ),
-          //     const MyStocks()
-          //   ],
-          // ),
-          floatingActionButton: Visibility(
-            visible: _currentTab == 0,
-            child: FloatingActionButton.extended(
-                backgroundColor: AppColors.primary,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => AddProduct(
-                            refreshFunc: refreshFunc,
-                          )));
-                },
-                label: const Text("New"),
-                icon: const Icon(Icons.add)),
-          )),
-    );
+          body: MyProducts(),
+          floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: AppColors.primary,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => AddProduct(
+                              refreshFunc: refreshFunc,
+                            )));
+              },
+              label: const Text("New"),
+              icon: const Icon(Icons.add)),
+        ));
   }
 }
