@@ -66,7 +66,7 @@ Widget editProductPreview(Product product, context) {
           ),
         ),
         Positioned(
-          top: 16,
+          top: 24,
           right: -8,
           child: IconButton(
             splashRadius: 30,
