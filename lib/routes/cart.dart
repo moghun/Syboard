@@ -188,15 +188,17 @@ class _CartState extends State<Cart> {
                             onSurface: Colors.grey,
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => Checkout(
-                                          sum: sum,
-                                          CartItemList: _CartItemList,
-                                          CartAmount: _CartAmount,
-                                          deleteCart: _deleteCart,
-                                        )));
+                            if (_CartAmount.isNotEmpty) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => Checkout(
+                                            sum: sum,
+                                            CartItemList: _CartItemList,
+                                            CartAmount: _CartAmount,
+                                            deleteCart: _deleteCart,
+                                          )));
+                            }
                           },
                         ),
                       )
