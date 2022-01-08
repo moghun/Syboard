@@ -23,6 +23,7 @@ class _CartState extends State<Cart> {
   List<Product> _CartItemList = <Product>[];
   List<bool> _CartFavorites = [];
   late SharedPreferences prefs;
+  double sum = 0;
 
   Future getProducts() async {
     var value = await CartObj.getItems();
@@ -31,6 +32,7 @@ class _CartState extends State<Cart> {
       currentProduct = await getTheProduct(value[0][i]);
       _CartItemList.add(currentProduct);
       _CartAmount.add(int.parse(value[1][i]));
+      sum = sum + currentProduct.price.toDouble()*_CartAmount[i];
       if(isFavorite(value[0][i])) {
         _CartFavorites.add(true);
       } else {
@@ -124,14 +126,17 @@ class _CartState extends State<Cart> {
                         setState(() {
                           if (type == "add") {
                             _CartAmount[i] = _CartAmount[i] + 1;
+                            sum = sum + _CartItemList[i].price;
                           } else if (type == "remove") {
                             _CartAmount[i] = _CartAmount[i] - 1;
+                            sum = sum - _CartItemList[i].price;
                             if (_CartAmount[i] == 0) {
                               _CartItemList.removeAt(i);
                               _CartAmount.removeAt(i);
                             }
                           } else if (type == "delete") {
                             // delete
+                            sum = sum - _CartItemList[i].price*_CartAmount[i];
                             _CartItemList.removeAt(i);
                             _CartAmount.removeAt(i);
                           }
@@ -157,7 +162,7 @@ class _CartState extends State<Cart> {
                           const Text('Total'),
                           const SizedBox(width: 8),
                           Text(
-                            'USD 295',
+                            '$sum USD',
                             style: kTextTitleMedium,
                           ),
                         ],
