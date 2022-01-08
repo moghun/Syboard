@@ -177,7 +177,7 @@ class _CartState extends State<Cart> {
                             onSurface: Colors.grey,
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Checkout()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Checkout(sum: sum)));
                           },
                         ),
                       )
