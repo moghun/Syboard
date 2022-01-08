@@ -108,6 +108,24 @@ class Service {
     await productRef.delete();
   }
 
+  Future<Product> getTheProduct (String pid) async {
+    var doc = await productCollection.doc(pid).get();
+    Product product = Product(
+        pid: doc.id,
+        category: doc["category"],
+        description: doc["description"],
+        imgURL: doc["imgURL"],
+        onSale: doc["onSale"],
+        price: doc["price"],
+        productName: doc["productName"],
+        rating: doc["rating"],
+        seller: "sa",
+        stocks: doc["stocks"],
+        tag: doc["tag"],
+    );
+    return product;
+  }
+
   Future<List<Product>> getProducts() async {
     QuerySnapshot allProductsQuery = await productCollection.get();
     List<Product> list = [];
