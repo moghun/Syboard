@@ -3,11 +3,8 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syboard/models/user_obj.dart';
-import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/dimension.dart';
-import 'package:syboard/utils/styles.dart';
-import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/edit_product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -26,11 +23,10 @@ class _MyProductsState extends State<MyProducts> {
   TextEditingController searchTextController = TextEditingController();
 
   Future<List<Product>> getAProducts() async {
-    Service db = Service();
     var sellerRef =
         Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
     var productsDocs =
-        (await db.productCollection.where("seller", isEqualTo: sellerRef).get())
+        (await Service.productCollection.where("seller", isEqualTo: sellerRef).get())
             .docs;
     List<Product> productsList = <Product>[];
     for (var i = 0; i < productsDocs.length; i++) {
