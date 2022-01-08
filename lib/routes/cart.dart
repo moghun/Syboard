@@ -7,6 +7,7 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/cart_item.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:syboard/views/checkout.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -74,7 +75,6 @@ class _CartState extends State<Cart> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getPrefs();
     getProducts().then((value) {
@@ -172,7 +172,7 @@ class _CartState extends State<Cart> {
                             onSurface: Colors.grey,
                           ),
                           onPressed: () {
-                            print('Pressed');
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Checkout()));
                           },
                         ),
                       )
