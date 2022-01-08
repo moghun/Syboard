@@ -7,6 +7,7 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/cart_item.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:syboard/views/checkout.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class _CartState extends State<Cart> {
   List<Product> _CartItemList = <Product>[];
   List<bool> _CartFavorites = [];
   late SharedPreferences prefs;
+  double sum = 0;
 
   Future getProducts() async {
     var value = await CartObj.getItems();
@@ -30,7 +32,8 @@ class _CartState extends State<Cart> {
       currentProduct = await getTheProduct(value[0][i]);
       _CartItemList.add(currentProduct);
       _CartAmount.add(int.parse(value[1][i]));
-      if(isFavorite(value[0][i])) {
+      sum = sum + currentProduct.price.toDouble() * _CartAmount[i];
+      if (isFavorite(value[0][i])) {
         _CartFavorites.add(true);
       } else {
         _CartFavorites.add(false);
@@ -44,6 +47,16 @@ class _CartState extends State<Cart> {
 
   Future getPrefs() async {
     prefs = await SharedPreferences.getInstance();
+  }
+
+  Future _deleteCart() async {
+    prefs.setStringList("cart", []);
+    setState(() {
+      _CartItemList = [];
+      _CartAmount = [];
+      _CartFavorites = [];
+      sum = 0;
+    });
   }
 
   handleFavorites(String pid) {
@@ -62,19 +75,19 @@ class _CartState extends State<Cart> {
       prefs.setStringList("favorites", temp);
     }
   }
-  bool isFavorite (String pid){
+
+  bool isFavorite(String pid) {
     if (prefs.getStringList("favorites") == null) {
       return false;
     } else if (prefs.getStringList("favorites")!.contains(pid)) {
       return true;
     } else {
-     return false;
+      return false;
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getPrefs();
     getProducts().then((value) {
@@ -93,7 +106,7 @@ class _CartState extends State<Cart> {
               style: kAppBarTitleTextStyle,
               textAlign: TextAlign.left,
             ),
-            const Text('  -  6 items',
+            Text('  -  ${_CartAmount.length} items',
                 textScaleFactor: 0.8, style: TextStyle(color: Colors.black45))
           ],
         ),
@@ -124,14 +137,17 @@ class _CartState extends State<Cart> {
                         setState(() {
                           if (type == "add") {
                             _CartAmount[i] = _CartAmount[i] + 1;
+                            sum = sum + _CartItemList[i].price;
                           } else if (type == "remove") {
                             _CartAmount[i] = _CartAmount[i] - 1;
+                            sum = sum - _CartItemList[i].price;
                             if (_CartAmount[i] == 0) {
                               _CartItemList.removeAt(i);
                               _CartAmount.removeAt(i);
                             }
                           } else if (type == "delete") {
                             // delete
+                            sum = sum - _CartItemList[i].price * _CartAmount[i];
                             _CartItemList.removeAt(i);
                             _CartAmount.removeAt(i);
                           }
@@ -157,7 +173,7 @@ class _CartState extends State<Cart> {
                           const Text('Total'),
                           const SizedBox(width: 8),
                           Text(
-                            'USD 295',
+                            '$sum USD',
                             style: kTextTitleMedium,
                           ),
                         ],
@@ -172,7 +188,17 @@ class _CartState extends State<Cart> {
                             onSurface: Colors.grey,
                           ),
                           onPressed: () {
-                            print('Pressed');
+                            if (_CartAmount.isNotEmpty) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => Checkout(
+                                            sum: sum,
+                                            CartItemList: _CartItemList,
+                                            CartAmount: _CartAmount,
+                                            deleteCart: _deleteCart,
+                                          )));
+                            }
                           },
                         ),
                       )

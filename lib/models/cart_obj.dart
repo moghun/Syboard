@@ -1,4 +1,3 @@
-import 'package:syboard/ui/product_preview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartObj {
@@ -70,5 +69,9 @@ class CartObj {
     _createCart(instance);
     var basket = instance.getStringList("cart");
     return basket!.contains(pid);
+  }
+  static Future deleteCart() async {
+    var instance = await SharedPreferences.getInstance();
+    instance.setStringList("cart", []);
   }
 }

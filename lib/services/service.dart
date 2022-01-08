@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +8,7 @@ import 'package:syboard/models/product.dart';
 import 'package:syboard/models/notification_item.dart';
 
 class Service {
-  final CollectionReference productCollection =
+  static final CollectionReference productCollection =
       FirebaseFirestore.instance.collection('products');
 
   static final CollectionReference userCollection =
@@ -17,6 +16,17 @@ class Service {
 
   static final CollectionReference notificationCollection =
       FirebaseFirestore.instance.collection('notifications');
+
+  static final CollectionReference ordersCollection =
+      FirebaseFirestore.instance.collection("orders");
+
+  static DocumentReference getProductReference(String id) {
+    return FirebaseFirestore.instance.collection("products").doc(id);
+  }
+
+  static Future<DocumentReference> getSellerReferenceByPID(String pid) async {
+    return (await productCollection.doc(pid).get())["seller"];
+  }
 
   static Future addUser(String uid, String? name) async {
     userCollection.doc(uid).set({
@@ -100,6 +110,7 @@ class Service {
       });
     }
   }
+
   Future deleteProduct(String pid) async {
     var productRef = productCollection.doc(pid);
     var pictureRef = FirebaseStorage.instance
@@ -108,20 +119,22 @@ class Service {
     await productRef.delete();
   }
 
-  Future<Product> getTheProduct (String pid) async {
+  Future<Product> getTheProduct(String pid) async {
     var doc = await productCollection.doc(pid).get();
+    DocumentReference sellerRef = doc["seller"];
+    String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
     Product product = Product(
-        pid: doc.id,
-        category: doc["category"],
-        description: doc["description"],
-        imgURL: doc["imgURL"],
-        onSale: doc["onSale"],
-        price: doc["price"],
-        productName: doc["productName"],
-        rating: doc["rating"],
-        seller: "sa",
-        stocks: doc["stocks"],
-        tag: doc["tag"],
+      pid: doc.id,
+      category: doc["category"],
+      description: doc["description"],
+      imgURL: doc["imgURL"],
+      onSale: doc["onSale"],
+      price: doc["price"],
+      productName: doc["productName"],
+      rating: doc["rating"],
+      seller: sname,
+      stocks: doc["stocks"],
+      tag: doc["tag"],
     );
     return product;
   }

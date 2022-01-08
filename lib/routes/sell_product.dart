@@ -25,7 +25,6 @@ class _SellProductState extends State<SellProduct>
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            titleTextStyle: kAppBarTitleTextStyle,
             toolbarHeight: 55,
             centerTitle: true,
             title: const Text("Sell Products"),
