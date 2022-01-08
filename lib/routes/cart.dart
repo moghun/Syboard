@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/models/cart_obj.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/product.dart';
@@ -13,73 +15,33 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  Service db = Service();
   //CartItem
-  static final _CartItemList = <Product>[
-    Product(
-        pid: "asda",
-        imgURL:
-            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/msi/thumb/v2-84267-6_large.jpg",
-        productName: "Nvidia Geforce GTX1050ti",
-        rating: 5,
-        price: 100.99,
-        seller: "Vatan PC",
-        description: "",
-        category: "Computer",
-        tag: "All",
-        stocks: 100,
-        onSale: false),
-    Product(
-        pid: "asda",
-        imgURL:
-            "https://www.incehesap.com/resim/urun/202109/6145d6afce4703.99445409_pgnkeiolfmqhj_500.jpg",
-        productName: "MSI Prestige Notebook",
-        rating: 3.9,
-        price: 2000.99,
-        seller: "İtopya.com",
-        description: "",
-        category: "Computer",
-        tag: "All",
-        stocks: 100,
-        onSale: false),
-    Product(
-        pid: "asda",
-        imgURL:
-            "https://m.media-amazon.com/images/I/91LSF1iZUFL._AC_SL1500_.jpg",
-        productName: "Gaming PC",
-        rating: 4.4,
-        price: 1000.99,
-        seller: "Hasan Hüseyin",
-        description: "",
-        category: "Computer",
-        tag: "All",
-        stocks: 100,
-        onSale: false),
-    Product(
-        pid: "asda",
-        imgURL: "https://static.sinerji.gen.tr/Images/MD/N8H-da-s1.jpg",
-        productName: "Gaming PC",
-        rating: 4.5,
-        price: 12.99,
-        seller: "Seller2",
-        description: "",
-        category: "Computer",
-        tag: "All",
-        stocks: 100,
-        onSale: false),
-    Product(
-        pid: "asda",
-        imgURL:
-            "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/asus/thumb/118533_large.jpg",
-        productName: "Gaming Monitor",
-        rating: 4.7,
-        price: 179.99,
-        seller: "Seller1",
-        description: "",
-        category: "Computer",
-        tag: "All",
-        stocks: 100,
-        onSale: false),
-  ];
+  List<int> _CartAmount = [];
+  List<Product> _CartItemList = <Product>[];
+
+  Future getProducts() async {
+    var value = await CartObj.getItems();
+    Product currentProduct;
+    for (int i = 0; i < value[0].length; i++) {
+      currentProduct = await getTheProduct(value[0][i]);
+      _CartItemList.add(currentProduct);
+      _CartAmount.add(int.parse(value[1][i]));
+    }
+  }
+
+  Future<Product> getTheProduct(pid) async {
+    return await db.getTheProduct(pid);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProducts().then((value) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +73,24 @@ class _CartState extends State<Cart> {
                 shrinkWrap: true,
                 itemCount: _CartItemList.length,
                 itemBuilder: (context, i) {
-                  return CartItem(_CartItemList[i]);
+                  return CartItem(_CartItemList[i], _CartAmount[i],
+                      (String type) {
+                    setState(() {
+                      if(type == "add")
+                      _CartAmount[i] = _CartAmount[i]+1;
+                      else if (type == "remove"){
+                        _CartAmount[i] = _CartAmount[i]-1;
+                        if(_CartAmount[i] == 0){
+                          _CartItemList.removeAt(i);
+                          _CartAmount.removeAt(i);
+                        }
+                      }
+                      else{ // delete
+                        _CartItemList.removeAt(i);
+                        _CartAmount.removeAt(i);
+                      }
+                    });
+                  });
                 }),
           ),
           const Divider(thickness: 1, height: 1, color: Colors.black12),

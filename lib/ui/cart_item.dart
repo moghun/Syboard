@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/models/cart_obj.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 
-Widget CartItem(Product product) {
+Widget CartItem(Product product, int amount, Function refreshFunction) {
   return SizedBox(
     width: 180,
     child: Container(
@@ -69,7 +70,10 @@ Widget CartItem(Product product) {
                                       size: 20,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () {
+                                    CartObj.deleteItem(product.pid);
+                                    refreshFunction("delete");
+                                  },
                                 ),
                               ),
                             ),
@@ -112,12 +116,15 @@ Widget CartItem(Product product) {
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () {
+                                    CartObj.removeItem(product.pid);
+                                    refreshFunction("remove");
+                                  },
                                 ),
                               ),
                             ),
                             const SizedBox(width: 12),
-                            const Text("2"),
+                            Text("${amount}"),
                             const SizedBox(width: 12),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
@@ -130,7 +137,10 @@ Widget CartItem(Product product) {
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () {
+                                    CartObj.addItem(product.pid);
+                                    refreshFunction("add");
+                                  },
                                 ),
                               ),
                             ),
