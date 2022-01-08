@@ -38,7 +38,7 @@ class _CartState extends State<Cart> {
     }
   }
 
-  Future<Product> getTheProduct(pid) async {
+  Future<Product> getTheProduct(String pid) async {
     return await db.getTheProduct(pid);
   }
 
