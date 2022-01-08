@@ -106,7 +106,7 @@ class _CartState extends State<Cart> {
               style: kAppBarTitleTextStyle,
               textAlign: TextAlign.left,
             ),
-            const Text('  -  6 items',
+            Text('  -  ${_CartAmount.length} items',
                 textScaleFactor: 0.8, style: TextStyle(color: Colors.black45))
           ],
         ),
