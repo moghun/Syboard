@@ -32,8 +32,8 @@ class _CartState extends State<Cart> {
       currentProduct = await getTheProduct(value[0][i]);
       _CartItemList.add(currentProduct);
       _CartAmount.add(int.parse(value[1][i]));
-      sum = sum + currentProduct.price.toDouble()*_CartAmount[i];
-      if(isFavorite(value[0][i])) {
+      sum = sum + currentProduct.price.toDouble() * _CartAmount[i];
+      if (isFavorite(value[0][i])) {
         _CartFavorites.add(true);
       } else {
         _CartFavorites.add(false);
@@ -47,6 +47,16 @@ class _CartState extends State<Cart> {
 
   Future getPrefs() async {
     prefs = await SharedPreferences.getInstance();
+  }
+
+  Future _deleteCart() async {
+    prefs.setStringList("cart", []);
+    setState(() {
+      _CartItemList = [];
+      _CartAmount = [];
+      _CartFavorites = [];
+      sum = 0;
+    });
   }
 
   handleFavorites(String pid) {
@@ -65,13 +75,14 @@ class _CartState extends State<Cart> {
       prefs.setStringList("favorites", temp);
     }
   }
-  bool isFavorite (String pid){
+
+  bool isFavorite(String pid) {
     if (prefs.getStringList("favorites") == null) {
       return false;
     } else if (prefs.getStringList("favorites")!.contains(pid)) {
       return true;
     } else {
-     return false;
+      return false;
     }
   }
 
@@ -136,7 +147,7 @@ class _CartState extends State<Cart> {
                             }
                           } else if (type == "delete") {
                             // delete
-                            sum = sum - _CartItemList[i].price*_CartAmount[i];
+                            sum = sum - _CartItemList[i].price * _CartAmount[i];
                             _CartItemList.removeAt(i);
                             _CartAmount.removeAt(i);
                           }
@@ -177,7 +188,15 @@ class _CartState extends State<Cart> {
                             onSurface: Colors.grey,
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Checkout(sum: sum)));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => Checkout(
+                                          sum: sum,
+                                          CartItemList: _CartItemList,
+                                          CartAmount: _CartAmount,
+                                          deleteCart: _deleteCart,
+                                        )));
                           },
                         ),
                       )
