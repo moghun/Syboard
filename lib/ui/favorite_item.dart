@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:syboard/models/cart_obj.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 
-Widget FavoriteItem(Product product) {
+Widget FavoriteItem(Product product, Function removeFavorite, int position) {
   return SizedBox(
     width: 180,
     child: Container(
@@ -68,7 +69,9 @@ Widget FavoriteItem(Product product) {
                                   size: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                removeFavorite(product.pid, position);
+                              },
                             ),
                           ),
                         ),
@@ -89,7 +92,9 @@ Widget FavoriteItem(Product product) {
                                 side: const BorderSide(
                                     width: 1.0, color: AppColors.primary),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                CartObj.addItem(product.pid);
+                              },
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
