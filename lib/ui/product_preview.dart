@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syboard/models/cart_obj.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+addToCart(String pid) async {
+
+}
 
 Widget productPreview(Product product) {
   return SizedBox(
@@ -9,7 +15,7 @@ Widget productPreview(Product product) {
       child: Stack(alignment: Alignment.center, children: <Widget>[
         InkWell(
           onTap: () {
-            print("Card Clicked");
+            CartObj.addItem(product.pid);
           },
           child: Material(
             color: Colors.white,
