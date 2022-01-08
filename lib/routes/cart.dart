@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/models/cart_obj.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
@@ -19,6 +20,8 @@ class _CartState extends State<Cart> {
   //CartItem
   List<int> _CartAmount = [];
   List<Product> _CartItemList = <Product>[];
+  List<bool> _CartFavorites = [];
+  late SharedPreferences prefs;
 
   Future getProducts() async {
     var value = await CartObj.getItems();
@@ -27,17 +30,53 @@ class _CartState extends State<Cart> {
       currentProduct = await getTheProduct(value[0][i]);
       _CartItemList.add(currentProduct);
       _CartAmount.add(int.parse(value[1][i]));
+      if(isFavorite(value[0][i])) {
+        _CartFavorites.add(true);
+      } else {
+        _CartFavorites.add(false);
+      }
     }
   }
 
-  Future<Product> getTheProduct(pid) async {
+  Future<Product> getTheProduct(String pid) async {
     return await db.getTheProduct(pid);
+  }
+
+  Future getPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  handleFavorites(String pid) {
+    if (prefs.getStringList("favorites") == null) {
+      print("created");
+      prefs.setStringList("favorites", [pid]);
+    } else if (prefs.getStringList("favorites")!.contains(pid)) {
+      print("deleted");
+      var temp = prefs.getStringList("favorites")!;
+      temp.remove(pid);
+      prefs.setStringList("favorites", temp);
+    } else {
+      print("added");
+      var temp = prefs.getStringList("favorites")!;
+      temp.add(pid);
+      prefs.setStringList("favorites", temp);
+    }
+  }
+  bool isFavorite (String pid){
+    if (prefs.getStringList("favorites") == null) {
+      return false;
+    } else if (prefs.getStringList("favorites")!.contains(pid)) {
+      return true;
+    } else {
+     return false;
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPrefs();
     getProducts().then((value) {
       setState(() {});
     });
@@ -73,24 +112,31 @@ class _CartState extends State<Cart> {
                 shrinkWrap: true,
                 itemCount: _CartItemList.length,
                 itemBuilder: (context, i) {
-                  return CartItem(_CartItemList[i], _CartAmount[i],
-                      (String type) {
-                    setState(() {
-                      if(type == "add")
-                      _CartAmount[i] = _CartAmount[i]+1;
-                      else if (type == "remove"){
-                        _CartAmount[i] = _CartAmount[i]-1;
-                        if(_CartAmount[i] == 0){
-                          _CartItemList.removeAt(i);
-                          _CartAmount.removeAt(i);
+                  return CartItem(
+                      product: _CartItemList[i],
+                      amount: _CartAmount[i],
+                      favorite: _CartFavorites[i],
+                      refreshFunction: (String type) {
+                        if (type == "favorite") {
+                          handleFavorites(_CartItemList[i].pid);
+                          return;
                         }
-                      }
-                      else{ // delete
-                        _CartItemList.removeAt(i);
-                        _CartAmount.removeAt(i);
-                      }
-                    });
-                  });
+                        setState(() {
+                          if (type == "add") {
+                            _CartAmount[i] = _CartAmount[i] + 1;
+                          } else if (type == "remove") {
+                            _CartAmount[i] = _CartAmount[i] - 1;
+                            if (_CartAmount[i] == 0) {
+                              _CartItemList.removeAt(i);
+                              _CartAmount.removeAt(i);
+                            }
+                          } else if (type == "delete") {
+                            // delete
+                            _CartItemList.removeAt(i);
+                            _CartAmount.removeAt(i);
+                          }
+                        });
+                      });
                 }),
           ),
           const Divider(thickness: 1, height: 1, color: Colors.black12),
