@@ -26,10 +26,15 @@ class _HomeState extends State<Home> {
   TextEditingController searchTextController = TextEditingController();
 
   Service db = Service();
-  static List<Product> allProducts = [];
+  List<Product> allProducts = [];
 
-  getAllProduct() async {
-    allProducts = await db.getProducts();
+  Future getAllProduct() async {
+    List<Product> temp = await db.getProducts();
+    print(temp.length);
+    setState(() {
+      allProducts = temp;
+      print(allProducts.length);
+    });
   }
 
   @override
@@ -105,14 +110,14 @@ class _HomeState extends State<Home> {
                             hintText: "Search...",
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
+                              BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
                                 color: Colors.grey,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(color: AppColors.primary),
                             ),
                           ),
@@ -124,10 +129,10 @@ class _HomeState extends State<Home> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SearchResult(
-                                      analytics: widget.analytics,
-                                      observer: widget.observer,
-                                      searchQuery: searchTextController.text,
-                                    )));
+                                  analytics: widget.analytics,
+                                  observer: widget.observer,
+                                  searchQuery: searchTextController.text,
+                                )));
                       }
                     },
                     icon: Icon(Icons.search)),
@@ -144,10 +149,10 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: List.generate(
                       allProducts.length,
-                      (index) => Row(children: [
-                            productPreview(allProducts[index]),
-                            const SizedBox(width: 8)
-                          ])),
+                          (index) => Row(children: [
+                        productPreview(allProducts[index]),
+                        const SizedBox(width: 8)
+                      ])),
                 ),
               ),
             ),

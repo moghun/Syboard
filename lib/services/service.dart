@@ -129,7 +129,7 @@ class Service {
   Future<List<Product>> getProducts() async {
     QuerySnapshot allProductsQuery = await productCollection.get();
     List<Product> list = [];
-    allProductsQuery.docs.forEach((doc) async {
+    for (var doc in allProductsQuery.docs) {
       DocumentReference sellerRef = doc["seller"];
       String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
       list.add(Product(
@@ -144,7 +144,8 @@ class Service {
           tag: doc["tag"],
           stocks: doc["stocks"],
           onSale: false));
-    });
+    }
+    print("DB: " + list.length.toString());
     return list;
   }
 
@@ -160,7 +161,7 @@ class Service {
     var products =
         await FirebaseFirestore.instance.collection('products').get();
 
-    products.docs.forEach((doc) async {
+    for (var doc in products.docs) {
       if ((doc["productName"]).toString().contains(query)) {
         DocumentReference sellerRef = doc["seller"];
         String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
@@ -177,7 +178,7 @@ class Service {
             stocks: doc["stocks"],
             onSale: false));
       }
-    });
+    }
 
     return list;
   }

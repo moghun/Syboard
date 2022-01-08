@@ -26,7 +26,7 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   var routes = [
-    Home(),
+    const Home(),
     const Categories(),
     const Cart(),
     const Favorites(),
