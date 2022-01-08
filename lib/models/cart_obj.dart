@@ -36,6 +36,26 @@ class CartObj {
 
   static Future removeItem(String pid) async {
     var instance = await SharedPreferences.getInstance();
+    _createCart(instance);
+    var basket = instance.getStringList("cart")!;
+    var basketAmount = instance.getStringList("cartAmount")!;
+    if (await isInCart(pid)) {
+      int position = basket.indexOf(pid);
+      int amount = int.parse(basketAmount[position]) - 1;
+      print(amount);
+      if(amount == 0) {
+        deleteItem(pid);
+        return;
+      }
+      basketAmount[position] = amount.toString();
+    }
+    instance.setStringList("cart", basket);
+    instance.setStringList("cartAmount", basketAmount);
+  }
+
+
+  static Future deleteItem(String pid) async {
+    var instance = await SharedPreferences.getInstance();
     var basket = instance.getStringList("cart");
     var basketAmount = instance.getStringList("cartAmount")!;
     int position = basket!.indexOf(pid);
