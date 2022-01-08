@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syboard/utils/color.dart';
+import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/utils/styles.dart';
 
 class Checkout extends StatefulWidget {
@@ -26,8 +27,98 @@ class _CheckoutState extends State<Checkout> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                Container(child: Text("sa")),
-                Container(child: Text("as"))
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                            padding: Dimen.regularPadding,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                hintText: "Card Number",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: AppColors.primary),
+                                ),
+                              ),
+                            ))),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                            padding: Dimen.regularPadding,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                hintText: "Card Holder",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: AppColors.primary),
+                                ),
+                              ),
+                            ))),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                            padding: Dimen.regularPadding,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                hintText: "Expiration Date",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: AppColors.primary),
+                                ),
+                              ),
+                            ))),
+                    Expanded(
+                        child: Padding(
+                            padding: Dimen.regularPadding,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                hintText: "CVV Code",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: AppColors.primary),
+                                ),
+                              ),
+                            ))),
+                  ],
+                ),
               ],
             ),
           ),
