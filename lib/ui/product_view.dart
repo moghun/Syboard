@@ -121,6 +121,39 @@ class _ProductViewState extends State<ProductView> {
                 ),
               ),
             ])),
+            Spacer(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent),
+              ),
+              child: Row(
+                children: [
+                  Text((() {
+                    if (widget.product.onSale == true) {
+                      return widget.product.oldPrice.toString() + "TL";
+                    }
+                    return "";
+                  })(),
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.7,
+                          decoration: TextDecoration.lineThrough)),
+                  Text(
+                    " " + widget.product.price.toString() + "TL",
+                    style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.7),
+                  )
+                ],
+              ),
+
+            )
           ],
         ));
   }
