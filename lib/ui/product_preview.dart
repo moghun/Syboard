@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/models/cart_obj.dart';
+
+import 'package:syboard/ui/product_view.dart';
+
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 
 addToCart(String pid) async {
 
 }
 
-Widget productPreview(Product product) {
+
+Widget productPreview(Product product, BuildContext context) {
+
   return SizedBox(
       width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
         InkWell(
           onTap: () {
-            CartObj.addItem(product.pid);
+
+            Navigator.push(context , MaterialPageRoute(builder: (context)=> ProductView( product: product) ) );
+            print("Card Clicked");
+
           },
           child: Material(
             color: Colors.white,

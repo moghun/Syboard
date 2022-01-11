@@ -35,6 +35,7 @@ class _HomeState extends State<Home> {
       allProducts = temp;
       print(allProducts.length);
     });
+    allProducts.forEach((element) {print(element.productName.toString() + element.onSale.toString());});
   }
 
   @override
@@ -149,10 +150,12 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: List.generate(
                       allProducts.length,
-                          (index) => Row(children: [
-                        productPreview(allProducts[index]),
-                        const SizedBox(width: 8)
-                      ])),
+
+                      (index) => Row(children: [
+                            productPreview(allProducts[index],context),
+                            const SizedBox(width: 8)
+                          ])),
+
                 ),
               ),
             ),
