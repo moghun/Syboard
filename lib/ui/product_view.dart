@@ -89,6 +89,21 @@ class _ProductViewState extends State<ProductView> {
                         Icon(Icons.star, color: Colors.yellow.shade700),
                         Text(widget.product.rating.toString())
                       ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Seller:",
+                          style: kTextTitleSmall,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              print("Seller Page");
+                            },
+                            child: Text(
+                              widget.product.seller.toString(),
+                            )),
+                      ],
                     )
                   ],
                 ),
