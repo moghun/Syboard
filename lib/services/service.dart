@@ -130,6 +130,7 @@ class Service {
       imgURL: doc["imgURL"],
       onSale: doc["onSale"],
       price: doc["price"],
+      oldPrice: doc["oldPrice"],
       productName: doc["productName"],
       rating: doc["rating"],
       seller: sname,
@@ -156,9 +157,11 @@ class Service {
           category: doc["category"],
           tag: doc["tag"],
           stocks: doc["stocks"],
-          onSale: false));
+          oldPrice: doc["oldPrice"],
+          onSale: doc["onSale"]));
     }
     print("DB: " + list.length.toString());
+    print(list);
     return list;
   }
 
