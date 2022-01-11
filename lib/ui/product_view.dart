@@ -104,7 +104,19 @@ class _ProductViewState extends State<ProductView> {
                               widget.product.seller.toString(),
                             )),
                       ],
-                    )
+                    ),
+                    Text(
+                      "Description",
+                      style: kTextTitle,
+                    ),
+                    Text(
+                      widget.product.description.toString(),
+                      style: kTextTitleSmall,
+                    ),
+                    Text(
+                      "Comments",
+                      style: kTextTitle,
+                    ),
                   ],
                 ),
               ),
