@@ -151,6 +151,13 @@ class _ProductViewState extends State<ProductView> {
                         letterSpacing: -0.7),
                   ),
                   Spacer(),
+                  IconButton(
+                    splashRadius: 30,
+                    iconSize: 27,
+                    icon: const Icon(Icons.favorite),
+                    color: Colors.red,
+                    onPressed: () {},
+                  ),
                   OutlinedButton(
                     onPressed: () {
                       CartObj.addItem(widget.product.pid);
