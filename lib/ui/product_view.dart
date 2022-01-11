@@ -149,6 +149,23 @@ class _ProductViewState extends State<ProductView> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.7),
+                  ),
+                  Spacer(),
+                  OutlinedButton(
+                    onPressed: () {
+                      CartObj.addItem(widget.product.pid);
+                      print("Add to Cart");
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        'Add To Cart',
+                        style: kButtonDarkTextStyle,
+                      ),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                    ),
                   )
                 ],
               ),
