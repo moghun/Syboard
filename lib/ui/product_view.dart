@@ -84,7 +84,10 @@ class _ProductViewState extends State<ProductView> {
                         Text(
                           widget.product.productName.toString(),
                           style: kHeadingTextStyle,
-                        )
+                        ),
+                        Spacer(),
+                        Icon(Icons.star, color: Colors.yellow.shade700),
+                        Text(widget.product.rating.toString())
                       ],
                     )
                   ],
