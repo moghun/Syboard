@@ -9,23 +9,19 @@ import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-
-addToCart(String pid) async {
-
-}
-
+addToCart(String pid) async {}
 
 Widget productPreview(Product product, BuildContext context) {
-
   return SizedBox(
       width: 180,
       child: Stack(alignment: Alignment.center, children: <Widget>[
         InkWell(
           onTap: () {
-
-            Navigator.push(context , MaterialPageRoute(builder: (context)=> ProductView( product: product) ) );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProductView(product: product)));
             print("Card Clicked");
-
           },
           child: Material(
             color: Colors.white,
@@ -82,16 +78,16 @@ Widget productPreview(Product product, BuildContext context) {
             ),
           ),
         ),
-        Positioned(
-          top: -8,
-          right: -8,
-          child: IconButton(
-            splashRadius: 30,
-            iconSize: 20,
-            icon: const Icon(Icons.favorite),
-            color: Colors.red,
-            onPressed: () {},
-          ),
-        ),
+        // Positioned(
+        //   top: -8,
+        //   right: -8,
+        //   child: IconButton(
+        //     splashRadius: 30,
+        //     iconSize: 20,
+        //     icon: const Icon(Icons.favorite),
+        //     color: Colors.red,
+        //     onPressed: () {},
+        //   ),
+        // ),
       ]));
 }

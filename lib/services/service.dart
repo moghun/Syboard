@@ -134,6 +134,7 @@ class Service {
       rating: doc["rating"],
       seller: sname,
       stocks: doc["stocks"],
+      oldPrice: doc["oldPrice"],
       tag: doc["tag"],
     );
     return product;
@@ -157,7 +158,8 @@ class Service {
           category: doc["category"],
           tag: doc["tag"],
           stocks: doc["stocks"],
-          onSale: false));
+          onSale: doc["onSale"],
+          oldPrice: doc["oldPrice"]));
     }
     print("DB: " + list.length.toString());
     return list;
