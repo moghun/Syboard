@@ -115,6 +115,14 @@ class AuthService {
   }
   Future updateSellerName(String newName, String uid) async {
     try {
+      var response = await Service.userCollection.where('sellerName', isEqualTo: newName).get();
+      for (var doc in response.docs){
+       if(doc["sellerName"] == newName){
+          return false;
+        }
+
+      }
+      
       await Service.userCollection.doc(uid).update({"sellerName": newName});
       return true;
     } catch (e) {
