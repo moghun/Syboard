@@ -3,7 +3,7 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/views/sell_product/add_product.dart';
 import 'package:syboard/views/sell_product/my_products.dart';
-import 'package:syboard/views/sell_product/my_stocks.dart';
+// import 'package:syboard/views/sell_product/my_stocks.dart';
 
 class SellProduct extends StatefulWidget {
   const SellProduct({Key? key}) : super(key: key);

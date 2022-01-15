@@ -144,7 +144,8 @@ class Service {
     List<Product> list = [];
     for (var doc in allProductsQuery.docs) {
       DocumentReference sellerRef = doc["seller"];
-      String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
+      var sellerRefGetter = await sellerRef.get();
+      String sname = sellerRefGetter.get("sellerName") ?? "unknown";
       list.add(Product(
           pid: doc.id,
           imgURL: doc["imgURL"],
