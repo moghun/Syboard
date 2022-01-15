@@ -59,7 +59,8 @@ class _EditAccountState extends State<EditAccount> {
         // AccountListItem(
         //     icon: const Icon(Icons.highlight_remove),
         //     name: "Delete Account",
-        //     route: '/'),
+        //     route: '/profile/delete_account'),
+
       ];
     }
   }

@@ -103,7 +103,7 @@ class _SearchResult extends State<SearchResult> {
                         ? List.generate(
                             searchedProducts.length,
                             (index) => Row(children: [
-                                  productPreview(searchedProducts[index]),
+                                  productPreview(searchedProducts[index], context),
                                   const SizedBox(width: 8)
                                 ]))
                         : [Text("No related product found")]),
