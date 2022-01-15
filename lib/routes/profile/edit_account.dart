@@ -56,10 +56,10 @@ class _EditAccountState extends State<EditAccount> {
             icon: const Icon(Icons.lock),
             name: "Change password",
             route: '/profile/change_password'),
-        AccountListItem(
-            icon: const Icon(Icons.highlight_remove),
-            name: "Delete Account",
-            route: '/profile/delete_account'),
+        // AccountListItem(
+        //     icon: const Icon(Icons.highlight_remove),
+        //     name: "Delete Account",
+        //     route: '/profile/delete_account'),
 
       ];
     }

@@ -158,22 +158,9 @@ class AuthService {
   }
   
   
-  Future deleteAccount(String? pass, bool hasProvider) async {
-    AuthCredential cred;
-    if (hasProvider) {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
-      cred = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-    } else {
-      cred = EmailAuthProvider.credential(
-          email: _auth.currentUser!.email!, password: pass!);
-    }
+  Future deleteAccount() async {
     try {
-      await _auth.currentUser!.reauthenticateWithCredential(cred);
+      print(_auth.currentUser);
       await _auth.currentUser!.delete();
       return true;
     } catch (e) {
