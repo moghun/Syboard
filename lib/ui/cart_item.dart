@@ -4,9 +4,14 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
 
-
 class CartItem extends StatefulWidget {
-  CartItem({Key? key, required this.product, required this.amount, required this.refreshFunction, required this.favorite}) : super(key: key);
+  CartItem(
+      {Key? key,
+      required this.product,
+      required this.amount,
+      required this.refreshFunction,
+      required this.favorite})
+      : super(key: key);
   final Product product;
   int amount;
   final Function refreshFunction;
@@ -18,7 +23,7 @@ class CartItem extends StatefulWidget {
 class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       width: 180,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -90,7 +95,6 @@ class _CartItemState extends State<CartItem> {
                                   ),
                                 ),
                               ),
-
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Material(
@@ -99,15 +103,20 @@ class _CartItemState extends State<CartItem> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Icon(
-                                       widget.favorite ? Icons.favorite : Icons.favorite_border,
-                                        color: widget.favorite ? Colors.red : Colors.grey,
+                                        widget.favorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: widget.favorite
+                                            ? Colors.red
+                                            : Colors.grey,
                                         size: 20,
                                       ),
                                     ),
                                     onTap: () {
                                       widget.refreshFunction("favorite");
                                       setState(() {
-                                        widget.favorite = widget.favorite ? false : true;
+                                        widget.favorite =
+                                            widget.favorite ? false : true;
                                       });
                                     },
                                   ),
@@ -177,8 +186,7 @@ class _CartItemState extends State<CartItem> {
           ),
         ),
       ),
-    );;
+    );
+    ;
   }
 }
-
-
