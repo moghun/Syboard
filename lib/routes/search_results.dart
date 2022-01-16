@@ -40,6 +40,28 @@ class _SearchResult extends State<SearchResult> {
     getSearchedProduct();
   }
 
+  sortByName(){
+     searchedProducts.sort((a, b)  => (a.productName).compareTo(b.productName));
+    setState(() {
+      searchedProducts = searchedProducts;
+    });
+
+  }
+   sortPriceAsc(){
+      searchedProducts.sort((a, b)  => (a.price) < (b.price) ? -1 : 1);
+                    setState(() {
+                      searchedProducts = searchedProducts;
+                    });
+
+  }
+   sortPriceDesc(){
+     searchedProducts.sort((a, b)  => (a.price) < (b.price) ? 1 : -1);
+                    setState(() {
+                      searchedProducts = searchedProducts;
+                    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +112,31 @@ class _SearchResult extends State<SearchResult> {
                     icon: Icon(Icons.search)),
               ]),
             ),
+            Row(
+              
+              children: [
+                SizedBox(width: 10,),
+                OutlinedButton(
+                  
+                  onPressed: () => {
+                    sortByName()
+                }, child: Text(
+                  "By Name"
+                )),
+                 SizedBox(width: 10,),
+                OutlinedButton(onPressed: () => {
+                 sortPriceAsc()
+                }, child: Text(
+                  "Price asc"
+                )),
+                 SizedBox(width: 10,),
+                OutlinedButton(onPressed: () => {
+                  sortPriceDesc()
+                }, child: Text(
+                  "Price des"
+                ))
+              ],
+            ),
             Text(
               "Search Results",
               style: kTextTitle,
@@ -98,13 +145,13 @@ class _SearchResult extends State<SearchResult> {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: Dimen.regularPadding,
-                child: Row(
+                child: Column(
                     children: searchedProducts.length > 0
                         ? List.generate(
                             searchedProducts.length,
-                            (index) => Row(children: [
-                                  productPreview(searchedProducts[index]),
-                                  const SizedBox(width: 8)
+                            (index) => Column(children: [
+                                  productPreview(searchedProducts[index], context),
+                                  SizedBox(height: 10,)
                                 ]))
                         : [Text("No related product found")]),
               ),

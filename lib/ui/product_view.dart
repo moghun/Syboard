@@ -11,6 +11,7 @@ import 'package:syboard/models/cart_obj.dart';
 import 'package:syboard/ui/product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductView extends StatefulWidget {
   const ProductView(
@@ -29,6 +30,48 @@ class _ProductViewState extends State<ProductView> {
   //ProductPreview
 
   Service db = Service();
+  late SharedPreferences prefs;
+  late bool favorite;
+
+  Future getPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  handleFavorites(String pid) {
+    if (prefs.getStringList("favorites") == null) {
+      print("created");
+      prefs.setStringList("favorites", [pid]);
+    } else if (prefs.getStringList("favorites")!.contains(pid)) {
+      print("deleted");
+      var temp = prefs.getStringList("favorites")!;
+      temp.remove(pid);
+      prefs.setStringList("favorites", temp);
+    } else {
+      print("added");
+      var temp = prefs.getStringList("favorites")!;
+      temp.add(pid);
+      prefs.setStringList("favorites", temp);
+    }
+  }
+
+  isFavorite(String pid) async {
+    if (prefs.getStringList("favorites") == null) {
+      favorite = false;
+    } else if (prefs.getStringList("favorites")!.contains(pid)) {
+      favorite = true;
+    } else {
+      favorite = false;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPrefs().then((value) {
+      isFavorite(widget.product.pid);
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +110,23 @@ class _ProductViewState extends State<ProductView> {
           children: [
             SingleChildScrollView(
                 child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2.7,
-                    child: Image.network(widget.product.imgURL)),
+              SafeArea(
+                child: Center(
+                  child: InteractiveViewer(
+                    alignPanAxis: true,
+                    panEnabled: false,
+                    minScale: 1,
+                    maxScale: 3,
+                    child: Image.network(
+                      widget.product.imgURL,
+                      width: MediaQuery.of(context).size.width * 1.6,
+                      height: MediaQuery.of(context).size.height / 2.6,
+                    ),
+                  ),
+                ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(8, 0, 10, 5),
+                padding: const EdgeInsets.fromLTRB(8, 0, 10, 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -154,12 +205,21 @@ class _ProductViewState extends State<ProductView> {
                   IconButton(
                     splashRadius: 30,
                     iconSize: 27,
-                    icon: const Icon(Icons.favorite),
-                    color: Colors.red,
-                    onPressed: () {},
+                    icon: Icon(
+                      favorite ? Icons.favorite : Icons.favorite_border,
+                      color: favorite ? Colors.red : Colors.grey,
+                      size: 27,
+                    ),
+                    onPressed: () {
+                      handleFavorites(widget.product.pid);
+                      setState(() {
+                        favorite = favorite ? false : true;
+                      });
+                    },
                   ),
                   OutlinedButton(
                     onPressed: () {
+                      print(widget.product.onSale);
                       CartObj.addItem(widget.product.pid);
                       print("Add to Cart");
                     },
@@ -176,12 +236,8 @@ class _ProductViewState extends State<ProductView> {
                   )
                 ],
               ),
-
             )
           ],
         ));
   }
 }
-
-
-

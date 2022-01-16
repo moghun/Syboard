@@ -1,6 +1,7 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/notifications.dart';
+import 'package:syboard/routes/profile/account_settings/account_delete.dart';
 
 import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/models/user_obj.dart';
@@ -108,6 +109,7 @@ class AppBase extends StatelessWidget {
             '/profile/change_name': (context) =>
                 AccountSettingsName(), // TO DO: add analytics
             '/profile/change_avatar': (context) => AccountSettingsPP(),
+            //  '/profile/delete_account': (context) => AccountDeletePP(),
             '/sell_product': (context) => SellProduct(),
             '/sell_product/add_product': (context) => AddProduct()
           },

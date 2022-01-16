@@ -16,7 +16,7 @@ class AccountSettingsName extends StatefulWidget {
 class _AccountSettingsNameState extends State<AccountSettingsName> {
   final _formKey = GlobalKey<FormState>();
   String name = "";
-  String sellerName = "anan";
+  String sellerName = "anonymous";
   final AuthService _auth = AuthService();
   Service db = Service();
 
@@ -165,7 +165,8 @@ class _AccountSettingsNameState extends State<AccountSettingsName> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      if (await _auth.updateSellerName(sellerName, Provider.of<UserObj?>(context, listen: false)!.uid) == null) {
+                      var updateResult = await _auth.updateSellerName(sellerName, Provider.of<UserObj?>(context, listen: false)!.uid);
+                      if (updateResult == null) {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -182,7 +183,25 @@ class _AccountSettingsNameState extends State<AccountSettingsName> {
                                     )
                                   ]);
                             });
-                      } else {
+                      }else if (!updateResult) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                  title: const Text("Name Change Error"),
+                                  content: const Text(
+                                      "This seller name is taken already. Please use another one"),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ]);
+                            });
+                      } 
+                      else {
                         FocusScope.of(context).unfocus();
                         showDialog(
                             context: context,
