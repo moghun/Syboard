@@ -11,6 +11,7 @@ import 'package:syboard/ui/edit_product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:syboard/utils/styles.dart';
+import 'package:syboard/views/sell_history.dart';
 
 class MyProducts extends StatefulWidget {
   const MyProducts({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -121,6 +122,8 @@ class _MyProductsState extends State<MyProducts> {
 
   @override
   Widget build(BuildContext context) {
+    UserObj? currentUser = Provider.of<UserObj?>(context);
+
     return FutureBuilder(
         future: getAProducts(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -140,7 +143,7 @@ class _MyProductsState extends State<MyProducts> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Your Current Rating' ,
+                    Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating :" ,
                   style: kTextTitleMedium,
                     
                     ),
@@ -188,19 +191,20 @@ class _MyProductsState extends State<MyProducts> {
 
                  Column(
                   children: [
-                     Text('Sold Products' ,
+                     Text("${currentUser?.name ?? currentUser!.email!}'s All Products",
                   style: kTextTitle,
                     
                     ),
+                    // SellHistory(uid:  Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid).toString()),
                     SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
                       padding: Dimen.regularPadding,
                       child: Row(
                         children: List.generate(
-                            productsSold.length,
+                            allProducts.length,
                             (index) => Row(children: [
-                                  editProductPreview(productsSold[index], context,
+                                  editProductPreview(allProducts[index], context,
                                       () {
                                     setState(() {});
                                   }),

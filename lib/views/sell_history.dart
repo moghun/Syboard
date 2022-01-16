@@ -21,12 +21,10 @@ class _SellHistoryState extends State<SellHistory> {
         .get();
     for (var element in o.docs) {
       DocumentReference currentProduct = element.get("product");
-      DocumentReference currentBuyer = element.get("buyer");
-      String currentProductName = (await currentProduct.get()).get("name");
+      String currentProductName = (await currentProduct.get()).get("productName");
       num currentProductPrice = (await currentProduct.get()).get("price");
-      String currentBuyerName = (await currentBuyer.get()).get("name");
       String currentProductPicture =
-      (await currentProduct.get()).get("picture");
+      (await currentProduct.get()).get("imgURL");
       String currentPid = currentProduct.id;
       orders.add(Order(
           //buyer: currentBuyerName,
