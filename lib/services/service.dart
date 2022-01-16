@@ -122,7 +122,7 @@ class Service {
   Future<Product> getTheProduct(String pid) async {
     var doc = await productCollection.doc(pid).get();
     DocumentReference sellerRef = doc["seller"];
-    String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
+    String sname = (await sellerRef.get()).get("sellerName") ?? "undefined";
     Product product = Product(
       pid: doc.id,
       category: doc["category"],
@@ -180,7 +180,7 @@ class Service {
         await FirebaseFirestore.instance.collection('products').get();
 
     for (var doc in products.docs) {
-      if ((doc["productName"]).toString().contains(query)) {
+      if ((doc["productName"]).toString().toLowerCase().contains(query.toString().toLowerCase())) {
         DocumentReference sellerRef = doc["seller"];
         String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
         list.add(Product(
@@ -194,7 +194,7 @@ class Service {
             category: doc["category"],
             tag: doc["tag"],
             stocks: doc["stocks"],
-            onSale: false));
+            onSale: doc["onSale"]));
       }
     }
 

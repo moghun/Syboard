@@ -153,7 +153,7 @@ class _AddProductState extends State<AddProduct> {
                 },
               ),
               DropdownButton(
-                hint: const Text("Cn Sale?"),
+                hint: const Text("On Sale?"),
                 isExpanded: true,
                 value: onSale,
                 items: _onSaleItems,

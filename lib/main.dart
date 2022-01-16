@@ -2,6 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:syboard/routes/notifications.dart';
 import 'package:syboard/routes/profile/account_settings/account_delete.dart';
+import 'package:syboard/routes/profile/buy_sell_history.dart';
 
 import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/models/user_obj.dart';
@@ -111,7 +112,8 @@ class AppBase extends StatelessWidget {
             '/profile/change_avatar': (context) => AccountSettingsPP(),
             //  '/profile/delete_account': (context) => AccountDeletePP(),
             '/sell_product': (context) => SellProduct(),
-            '/sell_product/add_product': (context) => AddProduct()
+            '/sell_product/add_product': (context) => AddProduct(),
+            '/profile/buy_sell_history': (context) => BuySellHistory()
           },
         ));
   }

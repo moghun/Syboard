@@ -33,7 +33,7 @@ class _ProfileState extends State<Profile> {
         icon: Icon(Icons.local_shipping_outlined,
             color: Colors.black.withOpacity(0.7)),
         name: 'My Orders',
-        route: '/'),
+        route: '/profile/buy_sell_history'),
     AccountListItem(
         icon: Icon(Icons.favorite_border, color: Colors.black.withOpacity(0.7)),
         name: 'My Favorites',

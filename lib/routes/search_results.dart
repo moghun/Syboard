@@ -1,3 +1,4 @@
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,22 @@ class SearchResult extends StatefulWidget {
 class _SearchResult extends State<SearchResult> {
   Service db = Service();
   List<Product> searchedProducts = [];
+   List<Product> categoryItems = [];
   TextEditingController searchTextController = TextEditingController();
 
+  String dropdownvalue = 'Computer';   
+  bool onSaleSelected = false;
+    
+    // List of items in our dropdown menu
+  var categories = [ "Computer", "Components", "Peripherals", "Consoles"];
+
   getSearchedProduct() async {
+
     var result = await db.getSearchResults(widget.searchQuery);
     setState(() {
       searchedProducts = result;
+      categoryItems = result;
+      onSaleSelected = false;
     });
   }
 
@@ -60,6 +71,46 @@ class _SearchResult extends State<SearchResult> {
                       searchedProducts = searchedProducts;
                     });
 
+  }
+  
+  filterByCategory(String? category){
+     
+ List<Product> catProducts = [];
+     searchedProducts.forEach((item) => {
+        if(item.category == category){
+          catProducts.add(item)
+        }
+        
+     });
+     setState(() {
+          categoryItems = catProducts;
+          onSaleSelected = false;
+    });
+     
+     
+    
+  }
+
+    filterOnSale(){
+     if(onSaleSelected){
+List<Product> catProducts = [];
+     categoryItems.forEach((item) => {
+        if(item.onSale == true){
+          catProducts.add(item)
+        },
+
+        
+     });
+     setState(() {
+          categoryItems = catProducts;
+    });
+     }
+     else {
+       setState(() {
+          categoryItems = searchedProducts;
+    });
+     }
+     
   }
 
   @override
@@ -115,7 +166,7 @@ class _SearchResult extends State<SearchResult> {
             Row(
               
               children: [
-                SizedBox(width: 10,),
+                SizedBox(width: 5,),
                 OutlinedButton(
                   
                   onPressed: () => {
@@ -123,34 +174,83 @@ class _SearchResult extends State<SearchResult> {
                 }, child: Text(
                   "By Name"
                 )),
-                 SizedBox(width: 10,),
+                 SizedBox(width: 5,),
                 OutlinedButton(onPressed: () => {
                  sortPriceAsc()
                 }, child: Text(
                   "Price asc"
                 )),
-                 SizedBox(width: 10,),
+                 SizedBox(width: 5,),
                 OutlinedButton(onPressed: () => {
                   sortPriceDesc()
                 }, child: Text(
                   "Price des"
-                ))
+                )),
+                SizedBox(width: 5,),
+                 OutlinedButton(
+                   
+                   onPressed: () => {
+                     setState(() {
+                      onSaleSelected = !onSaleSelected;
+
+                     }),
+                  filterOnSale()
+                }, child: Text(
+                  onSaleSelected ? "All" :
+                  "On Sale"
+                )),
+               
               ],
             ),
             Text(
               "Search Results",
               style: kTextTitle,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                 Text(
+              "Filter by category",
+              style: kTextTitleSmall,
+             ),
+             SizedBox( width: 20,),
+             DropdownButton(
+                
+                  // Initial Value
+                  value: dropdownvalue,
+                    
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.keyboard_arrow_down),    
+                    
+                  // Array list of items
+                  items: categories.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(item),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) { 
+                   setState(() {
+                  dropdownvalue = newValue!;
+                });
+                    filterByCategory(dropdownvalue);
+                  },
+            ),
+              ],
+            ),
+            
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: Dimen.regularPadding,
                 child: Column(
-                    children: searchedProducts.length > 0
+                    children: categoryItems.length > 0
                         ? List.generate(
-                            searchedProducts.length,
+                            categoryItems.length,
                             (index) => Column(children: [
-                                  productPreview(searchedProducts[index], context),
+                                  productPreview(categoryItems[index], context),
                                   SizedBox(height: 10,)
                                 ]))
                         : [Text("No related product found")]),
