@@ -1,3 +1,4 @@
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +30,18 @@ class _SearchResult extends State<SearchResult> {
   TextEditingController searchTextController = TextEditingController();
 
   String dropdownvalue = 'Computer';   
+  bool onSaleSelected = false;
     
     // List of items in our dropdown menu
   var categories = [ "Computer", "Components", "Peripherals", "Consoles"];
 
   getSearchedProduct() async {
+
     var result = await db.getSearchResults(widget.searchQuery);
     setState(() {
       searchedProducts = result;
       categoryItems = result;
+      onSaleSelected = false;
     });
   }
 
@@ -71,7 +75,7 @@ class _SearchResult extends State<SearchResult> {
   
   filterByCategory(String? category){
      
-     List<Product> catProducts = [];
+ List<Product> catProducts = [];
      searchedProducts.forEach((item) => {
         if(item.category == category){
           catProducts.add(item)
@@ -80,23 +84,33 @@ class _SearchResult extends State<SearchResult> {
      });
      setState(() {
           categoryItems = catProducts;
+          onSaleSelected = false;
     });
+     
+     
+    
   }
 
     filterOnSale(){
-     
-     List<Product> catProducts = [];
-     searchedProducts.forEach((item) => {
+     if(onSaleSelected){
+List<Product> catProducts = [];
+     categoryItems.forEach((item) => {
         if(item.onSale == true){
           catProducts.add(item)
         },
-       print(item.toJson().toString())
 
         
      });
      setState(() {
           categoryItems = catProducts;
     });
+     }
+     else {
+       setState(() {
+          categoryItems = searchedProducts;
+    });
+     }
+     
   }
 
   @override
@@ -173,9 +187,16 @@ class _SearchResult extends State<SearchResult> {
                   "Price des"
                 )),
                 SizedBox(width: 5,),
-                 OutlinedButton(onPressed: () => {
+                 OutlinedButton(
+                   
+                   onPressed: () => {
+                     setState(() {
+                      onSaleSelected = !onSaleSelected;
+
+                     }),
                   filterOnSale()
                 }, child: Text(
+                  onSaleSelected ? "All" :
                   "On Sale"
                 )),
                

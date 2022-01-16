@@ -122,7 +122,7 @@ class Service {
   Future<Product> getTheProduct(String pid) async {
     var doc = await productCollection.doc(pid).get();
     DocumentReference sellerRef = doc["seller"];
-    String sname = (await sellerRef.get()).get("sellerName") ?? "hello";
+    String sname = (await sellerRef.get()).get("sellerName") ?? "undefined";
     Product product = Product(
       pid: doc.id,
       category: doc["category"],
