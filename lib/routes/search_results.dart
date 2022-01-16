@@ -61,6 +61,18 @@ class _SearchResult extends State<SearchResult> {
                     });
 
   }
+  
+     getCatItems(String inCategory){
+     
+     var catProducts = [];
+     searchedProducts.forEach((item) => 
+        if(item.category == inCategory){
+          catProducts.add(item);
+        });
+                    setState(() {
+                      searchedProducts = catProducts;
+                    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +146,12 @@ class _SearchResult extends State<SearchResult> {
                   sortPriceDesc()
                 }, child: Text(
                   "Price des"
+                )),
+                SizedBox(width: 10,),
+                OutlinedButton(onPressed: () => {
+                 sortPriceAsc()
+                }, child: Text(
+                  "Filter"
                 ))
               ],
             ),
