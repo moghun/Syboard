@@ -87,11 +87,31 @@ class _GiveRatingState extends State<GiveRating> {
           thickness: 3,
         ),
         OutlinedButton(
-            onPressed: () {},
-            child: Text("Send Rating", style: kButtonDarkTextStyle),
-            style: OutlinedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-            )),
+          onPressed: () async {
+            await showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                      title: const Text("Rating Submitted"),
+                      content:  Text(
+                          "Your rating for your purchase of product "+ widget.order.productName.toString() +" is submitted. Thanks",style: kTextTitle),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(_);
+                            },
+                            child: const Text("OK"))
+                      ],
+                    ));
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Send Rating",
+            style: kButtonDarkTextStyle,
+          ),
+          style: OutlinedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+          ),
+        ),
       ]),
     );
   }
