@@ -5,7 +5,7 @@ import 'package:syboard/models/order.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class GiveRating extends StatefulWidget {
-  const GiveRating ({Key? key, required this.order}) : super(key: key);
+  const GiveRating({Key? key, required this.order}) : super(key: key);
 
   final Order order;
 
@@ -49,8 +49,16 @@ class _GiveRatingState extends State<GiveRating> {
         backgroundColor: Colors.white,
         elevation: 2.0,
       ),
-      body: Column(
-          children: [
+      body: Column(children: [
+        Text(
+            "Please select a rating for the product " +
+                widget.order.productName.toString(),
+            style: kTextTitleMedium),
+        Divider(
+          color: AppColors.primary,
+          height: 20,
+          thickness: 3,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -61,9 +69,10 @@ class _GiveRatingState extends State<GiveRating> {
               allowHalfRating: true,
               direction: Axis.horizontal,
               ratingWidget: RatingWidget(
-                full:  Icon(Icons.star, color:Colors.yellow.shade700),
-                half:  Icon(Icons.star_half,color:Colors.yellow.shade700),
-                empty: Icon(Icons.star_border_outlined,color:Colors.yellow.shade700),
+                full: Icon(Icons.star, color: Colors.yellow.shade700),
+                half: Icon(Icons.star_half, color: Colors.yellow.shade700),
+                empty: Icon(Icons.star_border_outlined,
+                    color: Colors.yellow.shade700),
               ),
               itemPadding: const EdgeInsets.symmetric(horizontal: 5.0),
               onRatingUpdate: (value) {
