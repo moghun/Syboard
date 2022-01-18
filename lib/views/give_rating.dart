@@ -81,6 +81,17 @@ class _GiveRatingState extends State<GiveRating> {
             ),
           ],
         ),
+        Divider(
+          color: AppColors.primary,
+          height: 20,
+          thickness: 3,
+        ),
+        OutlinedButton(
+            onPressed: () {},
+            child: Text("Send Rating", style: kButtonDarkTextStyle),
+            style: OutlinedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+            )),
       ]),
     );
   }
