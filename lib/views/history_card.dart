@@ -57,8 +57,20 @@ class _HistoryCardState extends State<HistoryCard> {
                           ),
                         ),
                       ],
-                    )
-                  ],
+                    ),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          'Give Rating',
+                          style: kButtonDarkTextStyle,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                      ),
+                    )],
                 ),
                 // order ile alakali ekstra seyler buraya, rating
               ],
