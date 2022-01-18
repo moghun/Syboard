@@ -49,6 +49,30 @@ class _GiveRatingState extends State<GiveRating> {
         backgroundColor: Colors.white,
         elevation: 2.0,
       ),
+      body: Column(
+          children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RatingBar(
+              minRating: 1,
+              initialRating: 1,
+              itemCount: 5,
+              allowHalfRating: true,
+              direction: Axis.horizontal,
+              ratingWidget: RatingWidget(
+                full:  Icon(Icons.star, color:Colors.yellow.shade700),
+                half:  Icon(Icons.star_half,color:Colors.yellow.shade700),
+                empty: Icon(Icons.star_border_outlined,color:Colors.yellow.shade700),
+              ),
+              itemPadding: const EdgeInsets.symmetric(horizontal: 5.0),
+              onRatingUpdate: (value) {
+                rating = value;
+              },
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }
