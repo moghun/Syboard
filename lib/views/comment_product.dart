@@ -72,7 +72,23 @@ class _CommentProductState extends State<CommentProduct> {
             thickness: 3,
           ),
           OutlinedButton(
-            onPressed: ()  {},
+            onPressed: ()  async {
+              await showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text("Comment Submitted"),
+                    content:  Text(
+                        "Your comment for your purchase of product "+ widget.order.productName.toString() +" is submitted to comment approval system. Your comment will be shown after it is approved by the seller. Thanks",style: kTextTitle),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(_);
+                          },
+                          child: const Text("OK"))
+                    ],
+                  ));
+              Navigator.pop(context);
+            },
             child: Text(
               "Send Comment",
               style: kButtonDarkTextStyle,
