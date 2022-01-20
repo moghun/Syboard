@@ -13,6 +13,7 @@ class CommentProduct extends StatefulWidget {
 }
 
 class _CommentProductState extends State<CommentProduct> {
+  String currentComment = "";
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,14 @@ class _CommentProductState extends State<CommentProduct> {
         ),
         backgroundColor: Colors.white,
         elevation: 2.0,
+      ),
+      body: TextField(
+        keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+            hintText: "Please enter your comment"),
+        onChanged: (value) {
+          currentComment = value;
+        },
       ),
     );
   }
