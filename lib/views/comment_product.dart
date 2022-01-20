@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/order.dart';
@@ -14,6 +15,7 @@ class CommentProduct extends StatefulWidget {
 
 class _CommentProductState extends State<CommentProduct> {
   String currentComment = "";
+  Service database = Service();
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class _CommentProductState extends State<CommentProduct> {
           ),
           OutlinedButton(
             onPressed: ()  async {
+              database.addProductComment(widget.order.orderID, currentComment);
               await showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
