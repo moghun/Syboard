@@ -6,6 +6,8 @@ import 'package:syboard/utils/dimension.dart';
 import 'package:expandable/expandable.dart';
 import 'package:syboard/views/give_rating.dart';
 
+import 'comment_product.dart';
+
 class HistoryCard extends StatefulWidget {
   const HistoryCard({
     Key? key,
@@ -78,7 +80,14 @@ class _HistoryCardState extends State<HistoryCard> {
                       ),
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CommentProduct(
+                                  order: widget.order,
+                                )));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
