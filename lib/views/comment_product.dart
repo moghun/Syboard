@@ -48,13 +48,25 @@ class _CommentProductState extends State<CommentProduct> {
         backgroundColor: Colors.white,
         elevation: 2.0,
       ),
-      body: TextField(
-        keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
-            hintText: "Please enter your comment"),
-        onChanged: (value) {
-          currentComment = value;
-        },
+      body: Column(
+        children: [   Text(
+            "Please enter your comment for the product " +
+                widget.order.productName.toString(),
+            style: kTextTitleMedium),
+          Divider(
+            color: AppColors.primary,
+            height: 20,
+            thickness: 3,
+          ),
+          TextField(
+            keyboardType: TextInputType.text,
+            decoration: const InputDecoration(
+                hintText: "Please enter your comment"),
+            onChanged: (value) {
+              currentComment = value;
+            },
+          ),
+        ],
       ),
     );
   }
