@@ -66,6 +66,21 @@ class _CommentProductState extends State<CommentProduct> {
               currentComment = value;
             },
           ),
+          Divider(
+            color: AppColors.primary,
+            height: 20,
+            thickness: 3,
+          ),
+          OutlinedButton(
+            onPressed: ()  {},
+            child: Text(
+              "Send Comment",
+              style: kButtonDarkTextStyle,
+            ),
+            style: OutlinedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+            ),
+          ),
         ],
       ),
     );
