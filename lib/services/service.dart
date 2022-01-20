@@ -54,6 +54,16 @@ class Service {
       });
     }
 
+  Future addProductComment(
+      String orderID,
+      String currentComment)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'comment': currentComment,
+    });
+  }
+
   Future addProduct(
       String category,
       String name,
