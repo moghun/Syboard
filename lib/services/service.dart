@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -34,6 +35,24 @@ class Service {
       'sellerName': name
     });
   }
+
+  Future updateProductRating(
+      String productID,
+     num ratingGiven)
+    async {
+      var productRef = productCollection.doc(productID);
+      num timesRated = (await productRef.get()).get("timesRated") ?? 0;
+      num currentRating = (await productRef.get()).get("rating") ?? 0;
+      num totalRating= timesRated * currentRating;
+      timesRated++;
+      totalRating+= ratingGiven;
+      totalRating/= timesRated;
+      num finalRating = totalRating;
+      productRef.update({
+        'timesRated': timesRated,
+        'rating': finalRating,
+      });
+    }
 
   Future addProduct(
       String category,
@@ -90,6 +109,7 @@ class Service {
         'category': category,
         'stocks': stocks,
         'tag': tag,
+        'rating': price,
       });
     } else {
       String oldURL = (await productRef.get()).get("picture");
