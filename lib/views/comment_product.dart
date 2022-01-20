@@ -76,11 +76,16 @@ class _CommentProductState extends State<CommentProduct> {
               await showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                    title: const Text("Comment Submitted"),
+                    title: Text((() {
+                      if (currentComment=="") {
+                        return "Comment field is empty ";
+                      }
+                      return "Comment Submitted";
+                    })()),
                     content:
                     Text((() {
                       if (currentComment=="") {
-                        return "Comment field cannot be empty. Please enter a comment";
+                        return "Comment field cannot be empty. Please enter a comment.";
                       }
                       return "Your comment for your purchase of product "+ widget.order.productName.toString() +" is submitted to comment approval system. Your comment will be shown after it is approved by the seller. Thanks";
                     })(), style: kTextTitle),
