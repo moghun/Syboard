@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/order.dart';
@@ -14,7 +15,8 @@ class GiveRating extends StatefulWidget {
 }
 
 class _GiveRatingState extends State<GiveRating> {
-  num rating = 0;
+  Service db = Service();
+  num rating = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class _GiveRatingState extends State<GiveRating> {
         ),
         OutlinedButton(
           onPressed: () async {
+            db.updateProductRating(widget.order.pid, rating);
             await showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
