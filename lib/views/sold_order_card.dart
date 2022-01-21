@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/order.dart';
@@ -23,6 +24,7 @@ class SoldOrderCard extends StatefulWidget {
 class _SoldOrderCardState extends State<SoldOrderCard> {
   ExpandableController panelController =
       ExpandableController(initialExpanded: false);
+  Service database = Service();
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +72,13 @@ class _SoldOrderCardState extends State<SoldOrderCard> {
                                     OutlinedButton(
                                       onPressed: () async{
                                         if(!widget.order.commentApproved){
-
+                                          database.approveComment(widget.order.orderID);
                                         }
                                         await showDialog(
                                             context: context,
                                             builder: (_) => AlertDialog(
                                           title:  Text((() {
-                                            if(widget.order.commentApproved)
+                                            if(!widget.order.commentApproved)
                                             {
                                               return "Comment Approved";
                                             }
@@ -84,11 +86,11 @@ class _SoldOrderCardState extends State<SoldOrderCard> {
                                           })(),),
                                           content:
                                           Text((() {
-                                            if(widget.order.commentApproved)
+                                            if(!widget.order.commentApproved)
                                             {
-                                              return "You have approved the comment of this order. The comment will now be visible to the users. Thanks";
+                                              return "You have approved the comment of this order. The comment will now be visible to the users. Thanks.";
                                             }
-                                            return "You have approved this comment before. It is already visible to users.";
+                                            return "You have approved this comment before. The comment is already visible to users.";
                                           })(), style: kTextTitle),
                                           actions: [
                                             TextButton(
