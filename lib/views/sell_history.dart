@@ -38,6 +38,7 @@ class _SellHistoryState extends State<SellHistory> {
           orderID: element.id,
           comment: "",
           isCommented: true,
+          isRated: true,
       ));
     }
     return orders;
