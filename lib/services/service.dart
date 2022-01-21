@@ -82,6 +82,15 @@ class Service {
     });
   }
 
+  Future setOrderRating(
+      String orderID,
+      num givenRating)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'rating': givenRating,
+    });
+  }
 
   Future addProduct(
       String category,
