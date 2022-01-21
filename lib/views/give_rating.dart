@@ -90,7 +90,10 @@ class _GiveRatingState extends State<GiveRating> {
         ),
         OutlinedButton(
           onPressed: () async {
-            db.updateProductRating(widget.order.pid, rating);
+            if(!widget.order.isRated){
+              db.updateProductRating(widget.order.pid, rating);
+              db.updateOrderAsRated(widget.order.orderID);
+            }
             await showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
