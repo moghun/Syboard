@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/models/cart_obj.dart';
 
 import 'package:syboard/ui/product_view.dart';
+import 'package:syboard/utils/color.dart';
 
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/models/product.dart';
@@ -72,7 +73,28 @@ Widget productPreview(Product product, BuildContext context) {
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 8.0),
-                      child: Text("\$ ${product.price}")),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text((() {
+                              if (product.onSale == true) {
+                                return product.oldPrice.toString() + "TL";
+                              }
+                              return "";
+                            })(),
+                                style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: -0.7,
+                                    decoration: TextDecoration.lineThrough)),
+                            Text(
+                              " " + product.price.toString() + "TL",
+                              style: const TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: -0.7),
+                            ),
+                          ])),
                 ],
               ),
             ),
