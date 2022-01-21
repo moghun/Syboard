@@ -93,6 +93,7 @@ class _GiveRatingState extends State<GiveRating> {
             if(!widget.order.isRated){
               db.updateProductRating(widget.order.pid, rating);
               db.updateOrderAsRated(widget.order.orderID);
+              db.setOrderRating(widget.order.orderID, rating);
             }
             await showDialog(
                 context: context,
