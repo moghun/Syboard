@@ -54,6 +54,55 @@ class Service {
       });
     }
 
+  Future addProductComment(
+      String orderID,
+      String currentComment)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'comment': currentComment,
+    });
+  }
+
+  Future updateOrderAsCommented(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isCommented': true,
+    });
+  }
+
+  Future updateOrderAsRated(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isRated': true,
+    });
+  }
+
+  Future setOrderRating(
+      String orderID,
+      num givenRating)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'rating': givenRating,
+    });
+  }
+
+  Future approveComment(
+      String orderID,)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'commentApproved': true,
+    });
+  }
+
+
+
   Future addProduct(
       String category,
       String name,

@@ -191,7 +191,12 @@ class _CheckoutState extends State<Checkout> {
                                               widget.CartItemList[i].pid),
                                       "product": Service.getProductReference(
                                           widget.CartItemList[i].pid),
-                                      "purchaseDate": Timestamp.now()
+                                      "purchaseDate": Timestamp.now(),
+                                      "comment": "",
+                                      "isCommented": false,
+                                      "rating": 0,
+                                      "isRated": false,
+                                      "commentApproved": false,
                                     });
                                     final productRef =
                                         Service.getProductReference(
@@ -216,7 +221,12 @@ class _CheckoutState extends State<Checkout> {
                                               widget.CartItemList[i].pid),
                                       "product": Service.getProductReference(
                                           widget.CartItemList[i].pid),
-                                      "purchaseDate": Timestamp.now()
+                                      "purchaseDate": Timestamp.now(),
+                                      "comment": "",
+                                      "isCommented": false,
+                                      "rating": 0,
+                                      "isRated": false,
+                                      "commentApproved": false,
                                     });
                                     final productRef =
                                         Service.getProductReference(
