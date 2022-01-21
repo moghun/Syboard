@@ -76,6 +76,7 @@ class _CommentProductState extends State<CommentProduct> {
           OutlinedButton(
             onPressed: ()  async {
               database.addProductComment(widget.order.orderID, currentComment);
+              database.updateOrderAsCommented(widget.order.orderID);
               await showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
