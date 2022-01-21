@@ -3,6 +3,7 @@ import 'package:syboard/models/order.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/views/history_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:syboard/views/sold_order_card.dart';
 
 class SellHistory extends StatefulWidget {
   const SellHistory({Key? key, required this.uid}) : super(key: key);
@@ -60,7 +61,7 @@ class _SellHistoryState extends State<SellHistory> {
             scrollDirection: Axis.vertical,
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              return HistoryCard(order: orders[index]);
+              return SoldOrderCard(order: orders[index]);
             },
           );
         });
