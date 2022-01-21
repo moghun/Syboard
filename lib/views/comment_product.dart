@@ -75,8 +75,10 @@ class _CommentProductState extends State<CommentProduct> {
           ),
           OutlinedButton(
             onPressed: ()  async {
-              database.addProductComment(widget.order.orderID, currentComment);
-              database.updateOrderAsCommented(widget.order.orderID);
+              if(currentComment != ""){
+                database.addProductComment(widget.order.orderID, currentComment);
+                database.updateOrderAsCommented(widget.order.orderID);
+              }
               await showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
@@ -84,12 +86,20 @@ class _CommentProductState extends State<CommentProduct> {
                       if (currentComment=="") {
                         return "Comment field is empty ";
                       }
+                      else if(widget.order.isCommented)
+                      {
+                        return "Product commented before";
+                      }
                       return "Comment Submitted";
                     })()),
                     content:
                     Text((() {
                       if (currentComment=="") {
                         return "Comment field cannot be empty. Please enter a comment.";
+                      }
+                      else if(widget.order.isCommented)
+                      {
+                        return "You have already submitted a comment your purchase of product "+ widget.order.productName.toString()+" before. You can comment product only once. Thanks for your previous comment.";
                       }
                       return "Your comment for your purchase of product "+ widget.order.productName.toString() +" is submitted to comment approval system. Your comment will be shown after it is approved by the seller. Thanks";
                     })(), style: kTextTitle),
