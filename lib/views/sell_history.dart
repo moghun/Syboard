@@ -36,6 +36,8 @@ class _SellHistoryState extends State<SellHistory> {
           purchaseDate: element.get("purchaseDate"),
           amount: element.get("amount"),
           orderID: element.id,
+          comment: "",
+          isCommented: true,
       ));
     }
     return orders;
