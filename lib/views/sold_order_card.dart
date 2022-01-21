@@ -68,7 +68,37 @@ class _SoldOrderCardState extends State<SoldOrderCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [Text("Comment: "+widget.order.comment,style: kTextTitleSmall,),
                                     OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+                                        if(!widget.order.commentApproved){
+
+                                        }
+                                        await showDialog(
+                                            context: context,
+                                            builder: (_) => AlertDialog(
+                                          title:  Text((() {
+                                            if(widget.order.commentApproved)
+                                            {
+                                              return "Comment Approved";
+                                            }
+                                            return "Comment Approved Before";
+                                          })(),),
+                                          content:
+                                          Text((() {
+                                            if(widget.order.commentApproved)
+                                            {
+                                              return "You have approved the comment of this order. The comment will now be visible to the users. Thanks";
+                                            }
+                                            return "You have approved this comment before. It is already visible to users.";
+                                          })(), style: kTextTitle),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(_);
+                                                },
+                                                child: const Text("OK"))
+                                          ],
+                                        ));
+                                      },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: Text(
