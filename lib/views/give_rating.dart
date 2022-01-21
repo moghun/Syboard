@@ -94,9 +94,21 @@ class _GiveRatingState extends State<GiveRating> {
             await showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                      title: const Text("Rating Submitted"),
-                      content:  Text(
-                          "Your rating for your purchase of product "+ widget.order.productName.toString() +" is submitted. Thanks",style: kTextTitle),
+                      title:  Text((() {
+                        if(!widget.order.isRated)
+                        {
+                          return "Rating Submitted";
+                        }
+                        return "Product Rated Before";
+                      })(),),
+                      content:
+                      Text((() {
+                        if(!widget.order.isRated)
+                        {
+                          return "Your rating for your purchase of product "+ widget.order.productName.toString() +" is submitted. Thanks";
+                        }
+                        return "You have already rated your purchase of product "+ widget.order.productName.toString() +" before. You can rate a product only once. Thanks for your previous rating.";
+                      })(), style: kTextTitle),
                       actions: [
                         TextButton(
                             onPressed: () {
