@@ -11,6 +11,8 @@ class Order {
   String comment;
   bool isCommented;
   bool isRated;
+  num rating;
+  bool commentApproved;
 
   Order(
       {required this.orderID,
@@ -22,5 +24,7 @@ class Order {
       required this.purchaseDate,
       required this.comment,
       required this.isCommented,
-      required this.isRated});
+      required this.isRated,
+      required this.rating,
+      required this.commentApproved});
 }
