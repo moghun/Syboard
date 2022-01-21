@@ -8,6 +8,8 @@ class Order {
   num price;
   num amount;
   Timestamp purchaseDate;
+  String comment;
+  bool isCommented;
 
   Order(
       {required this.orderID,
@@ -16,5 +18,7 @@ class Order {
       required this.pid,
       required this.price,
       required this.amount,
-      required this.purchaseDate});
+      required this.purchaseDate,
+      required this.comment,
+      required this.isCommented});
 }
