@@ -75,7 +75,7 @@ class _CommentProductState extends State<CommentProduct> {
           ),
           OutlinedButton(
             onPressed: ()  async {
-              if(currentComment != ""){
+              if(currentComment != "" && !widget.order.isCommented){
                 database.addProductComment(widget.order.orderID, currentComment);
                 database.updateOrderAsCommented(widget.order.orderID);
               }
