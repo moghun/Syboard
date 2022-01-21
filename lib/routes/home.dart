@@ -35,7 +35,9 @@ class _HomeState extends State<Home> {
       allProducts = temp;
       print(allProducts.length);
     });
-    allProducts.forEach((element) {print(element.productName.toString() + element.onSale.toString());});
+    allProducts.forEach((element) {
+      print(element.productName.toString() + element.onSale.toString());
+    });
   }
 
   @override
@@ -111,14 +113,14 @@ class _HomeState extends State<Home> {
                             hintText: "Search...",
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
                                 color: Colors.grey,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(10.0)),
+                                  BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(color: AppColors.primary),
                             ),
                           ),
@@ -130,10 +132,10 @@ class _HomeState extends State<Home> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SearchResult(
-                                  analytics: widget.analytics,
-                                  observer: widget.observer,
-                                  searchQuery: searchTextController.text,
-                                )));
+                                      analytics: widget.analytics,
+                                      observer: widget.observer,
+                                      searchQuery: searchTextController.text,
+                                    )));
                       }
                     },
                     icon: Icon(Icons.search)),
@@ -150,12 +152,32 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: List.generate(
                       allProducts.length,
-
                       (index) => Row(children: [
-                            productPreview(allProducts[index],context),
+                            productPreview(allProducts[index], context),
                             const SizedBox(width: 8)
                           ])),
-
+                ),
+              ),
+            ),
+            Text(
+              "Products on Sale",
+              style: kTextTitle,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: Dimen.regularPadding,
+                child: Row(
+                  children: List.generate(
+                      allProducts.length,
+                      (index) => Row(children: [
+                            (allProducts[index].onSale)
+                                ? Container(
+                                    margin: EdgeInsets.only(right: 8),
+                                    child: productPreview(
+                                        allProducts[index], context))
+                                : Container(),
+                          ])),
                 ),
               ),
             ),
