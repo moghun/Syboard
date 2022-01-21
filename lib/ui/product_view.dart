@@ -138,7 +138,7 @@ class _ProductViewState extends State<ProductView> {
                         ),
                         Spacer(),
                         Icon(Icons.star, color: Colors.yellow.shade700),
-                        Text(widget.product.rating.toString())
+                        Text(widget.product.rating.toStringAsFixed(1))
                       ],
                     ),
                     Row(
