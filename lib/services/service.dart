@@ -64,6 +64,15 @@ class Service {
     });
   }
 
+  Future updateOrderAsCommented(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isCommented': true,
+    });
+  }
+
   Future addProduct(
       String category,
       String name,
