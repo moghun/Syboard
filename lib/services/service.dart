@@ -92,6 +92,17 @@ class Service {
     });
   }
 
+  Future approveComment(
+      String orderID,)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'commentApproved': true,
+    });
+  }
+
+
+
   Future addProduct(
       String category,
       String name,
