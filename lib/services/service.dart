@@ -73,6 +73,16 @@ class Service {
     });
   }
 
+  Future updateOrderAsRated(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isRated': true,
+    });
+  }
+
+
   Future addProduct(
       String category,
       String name,
