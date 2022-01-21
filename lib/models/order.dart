@@ -10,6 +10,7 @@ class Order {
   Timestamp purchaseDate;
   String comment;
   bool isCommented;
+  bool isRated;
 
   Order(
       {required this.orderID,
@@ -20,5 +21,6 @@ class Order {
       required this.amount,
       required this.purchaseDate,
       required this.comment,
-      required this.isCommented});
+      required this.isCommented,
+      required this.isRated});
 }
