@@ -32,6 +32,8 @@ class BuyHistory extends StatelessWidget {
           purchaseDate: element.get("purchaseDate"),
         amount: element.get("amount"),
         orderID: element.id,
+        comment: "",
+        isCommented: true,
       ));
     }
     return orders;
