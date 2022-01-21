@@ -34,6 +34,7 @@ class BuyHistory extends StatelessWidget {
         orderID: element.id,
         comment: "",
         isCommented: true,
+        isRated: true,
       ));
     }
     return orders;
