@@ -205,7 +205,6 @@ class Service {
       rating: doc["rating"],
       seller: sname,
       stocks: doc["stocks"],
-      oldPrice: doc["oldPrice"],
       tag: doc["tag"],
     );
     return product;
