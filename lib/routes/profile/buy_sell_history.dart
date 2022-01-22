@@ -24,7 +24,7 @@ class _BuySellHistoryState extends State<BuySellHistory> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          titleTextStyle: kAppBarTitleTextStyle,
+          titleTextStyle: kHeadingTextStyleWhite,
           toolbarHeight: 55,
           centerTitle: true,
           title: const Text("Buy/Sell History"),

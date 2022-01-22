@@ -9,6 +9,14 @@ final kHeadingTextStyle = GoogleFonts.dmSans(
   letterSpacing: -0.7,
 );
 
+final kHeadingTextStyleWhite = GoogleFonts.dmSans(
+  color: Colors.white,
+  fontWeight: FontWeight.w900,
+  fontSize: 30.0,
+  letterSpacing: -0.7,
+);
+
+
 final kLogoTextStyle = GoogleFonts.dmSans(
   color: AppColors.primary,
   fontWeight: FontWeight.w900,
