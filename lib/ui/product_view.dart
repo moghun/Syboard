@@ -189,6 +189,11 @@ class _ProductViewState extends State<ProductView> {
                       "Description",
                       style: kTextTitle,
                     ),
+                    Divider(
+                      color: AppColors.primary,
+                      height: 10,
+                      thickness: 3,
+                    ),
                     Text(
                       widget.product.description.toString(),
                       style: kTextTitleSmall,
@@ -196,6 +201,11 @@ class _ProductViewState extends State<ProductView> {
                     Text(
                       "Comments",
                       style: kTextTitle,
+                    ),
+                    Divider(
+                      color: AppColors.primary,
+                      height: 10,
+                      thickness: 3,
                     ),
                     FutureBuilder(
                         future: getComments(),
