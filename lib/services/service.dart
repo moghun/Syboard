@@ -265,7 +265,7 @@ class Service {
             oldPrice: doc["oldPrice"]));
       }
 
-      if ((doc["category"]).toString().toLowerCase().contains(query.toString().toLowerCase()))
+      if ((doc["tag"]).toString().toLowerCase().contains(query.toString().toLowerCase()))
           {
             DocumentReference sellerRef = doc["seller"];
             String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
@@ -283,6 +283,24 @@ class Service {
                 onSale: doc["onSale"],
                 oldPrice: doc["oldPrice"]));
           }
+      if ((doc["category"]).toString().toLowerCase().contains(query.toString().toLowerCase()))
+      {
+        DocumentReference sellerRef = doc["seller"];
+        String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
+        list.add(Product(
+            pid: doc.id,
+            imgURL: doc["imgURL"],
+            productName: doc["productName"],
+            rating: doc["rating"],
+            price: doc["price"],
+            seller: sname,
+            description: doc["description"],
+            category: doc["category"],
+            tag: doc["tag"],
+            stocks: doc["stocks"],
+            onSale: doc["onSale"],
+            oldPrice: doc["oldPrice"]));
+      }
     }
 
     return list;

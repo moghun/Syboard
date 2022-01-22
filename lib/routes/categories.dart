@@ -160,8 +160,8 @@ class _CategoriesState extends State<Categories> {
                                         builder: (context) => SearchResult(
                                           analytics: widget.analytics,
                                           observer: widget.observer,
-                                          //searchQuery: "${categories[_selectedCat]['subCat'][i]['title']}"
-                                          searchQuery: "${categories[_selectedCat]['title']}",
+                                          searchQuery: "${categories[_selectedCat]['subCat'][i]['title']}"
+                                          //searchQuery: "${categories[_selectedCat]['title']}",
                                         )));
                             },
                             child: Container(
