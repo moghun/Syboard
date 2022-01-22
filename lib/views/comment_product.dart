@@ -43,11 +43,11 @@ class _CommentProductState extends State<CommentProduct> {
             const SizedBox(width: 8),
             Text(
               'Syboard',
-              style: kHeadingTextStyle,
+              style: kHeadingTextStyleWhite,
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.primary,
         elevation: 2.0,
       ),
       body: Column(
