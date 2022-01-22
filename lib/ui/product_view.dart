@@ -285,6 +285,20 @@ class _ProductViewState extends State<ProductView> {
                       print(widget.product.onSale);
                       CartObj.addItem(widget.product.pid);
                       print("Add to Cart");
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                        title: Text("Added To Cart"),
+                        content:
+                        Text("Product "+widget.product.productName+" is added to your cart. Thanks.", style: kTextTitle),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(_);
+                              },
+                              child: const Text("OK"))
+                        ],
+                      ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
