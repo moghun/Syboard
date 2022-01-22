@@ -31,6 +31,7 @@ class _CategoriesState extends State<Categories> {
       'title': 'Components',
       "subCat": [
         {'title': 'CPUs'},
+        {'title': 'GPUs'},
         {'title': 'Memory'},
         {'title': 'Motherboards'},
         {'title': 'Computer Cases'},
