@@ -200,11 +200,11 @@ class Service {
       imgURL: doc["imgURL"],
       onSale: doc["onSale"],
       price: doc["price"],
+      oldPrice: doc["oldPrice"],
       productName: doc["productName"],
       rating: doc["rating"],
       seller: sname,
       stocks: doc["stocks"],
-      oldPrice: doc["oldPrice"],
       tag: doc["tag"],
     );
     return product;
@@ -228,10 +228,11 @@ class Service {
           category: doc["category"],
           tag: doc["tag"],
           stocks: doc["stocks"],
-          onSale: doc["onSale"],
-          oldPrice: doc["oldPrice"]));
+          oldPrice: doc["oldPrice"],
+          onSale: doc["onSale"]));
     }
     print("DB: " + list.length.toString());
+    print(list);
     return list;
   }
 
