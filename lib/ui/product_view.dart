@@ -12,6 +12,8 @@ import 'package:syboard/ui/product_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syboard/models/order.dart';
+import 'package:syboard/views/comment_card.dart';
 
 class ProductView extends StatefulWidget {
   const ProductView(
@@ -28,6 +30,33 @@ class ProductView extends StatefulWidget {
 
 class _ProductViewState extends State<ProductView> {
   //ProductPreview
+  Future<List<Order>> getComments() async {
+    List<Order> orders = <Order>[];
+    var productRef = Service.productCollection.doc(widget.product.pid);
+    var o = await Service.ordersCollection
+        .where("product", isEqualTo: productRef)
+        .where("commentApproved", isEqualTo: true)
+        .get();
+    for (var element in o.docs) {
+      orders.add(Order(
+        //oid: element.id,
+        //reviewed: element.get("reviewed"),
+        url: widget.product.imgURL,
+        productName: widget.product.productName,
+        pid: widget.product.pid,
+        price: widget.product.price,
+        purchaseDate: element.get("purchaseDate"),
+        amount: element.get("amount"),
+        orderID: element.id,
+        comment: element.get("comment"),
+        isCommented: element.get("isCommented"),
+        isRated: element.get("isRated"),
+        rating: element.get("rating"),
+        commentApproved: element.get("commentApproved"),
+      ));
+    }
+    return orders;
+  }
 
   Service db = Service();
   late SharedPreferences prefs;
@@ -99,11 +128,11 @@ class _ProductViewState extends State<ProductView> {
               const SizedBox(width: 8),
               Text(
                 'Syboard',
-                style: kHeadingTextStyle,
+                style: kHeadingTextStyleWhite,
               ),
             ],
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.primary,
           elevation: 2.0,
         ),
         body: Column(
@@ -138,7 +167,7 @@ class _ProductViewState extends State<ProductView> {
                         ),
                         Spacer(),
                         Icon(Icons.star, color: Colors.yellow.shade700),
-                        Text(widget.product.rating.toString())
+                        Text(widget.product.rating.toStringAsFixed(1))
                       ],
                     ),
                     Row(
@@ -168,6 +197,30 @@ class _ProductViewState extends State<ProductView> {
                       "Comments",
                       style: kTextTitle,
                     ),
+                    FutureBuilder(
+                        future: getComments(),
+                        builder: (context, AsyncSnapshot asyncSnapshot) {
+                          if (!asyncSnapshot.hasData)
+                            return const Text("Loading Comments");
+                          List<Order> orders = asyncSnapshot.data;
+                          if (orders.isEmpty) {
+                            return const Center(
+                                child: Text("No Comment has been made"));
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: orders.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                  child: Column(
+                                children: [
+                                  CommentCard(order: orders[index]),
+                                ],
+                              ));
+                            },
+                          );
+                        }),
                   ],
                 ),
               ),

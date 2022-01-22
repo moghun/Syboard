@@ -4,6 +4,9 @@ import 'package:syboard/utils/color.dart';
 import 'package:syboard/models/order.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:expandable/expandable.dart';
+import 'package:syboard/views/give_rating.dart';
+
+import 'comment_product.dart';
 
 class HistoryCard extends StatefulWidget {
   const HistoryCard({
@@ -57,8 +60,45 @@ class _HistoryCardState extends State<HistoryCard> {
                           ),
                         ),
                       ],
-                    )
-                  ],
+                    ),
+                    OutlinedButton(
+                      onPressed: () { Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => GiveRating(
+                                order: widget.order,
+                              )));},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          'Give Rating',
+                          style: kButtonDarkTextStyle,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CommentProduct(
+                                  order: widget.order,
+                                )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          'Comment Product',
+                          style: kButtonDarkTextStyle,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                      ),
+                    )],
                 ),
                 // order ile alakali ekstra seyler buraya, rating
               ],

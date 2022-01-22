@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -35,6 +36,73 @@ class Service {
     });
   }
 
+  Future updateProductRating(
+      String productID,
+     num ratingGiven)
+    async {
+      var productRef = productCollection.doc(productID);
+      num timesRated = (await productRef.get()).get("timesRated") ?? 0;
+      num currentRating = (await productRef.get()).get("rating") ?? 0;
+      num totalRating= timesRated * currentRating;
+      timesRated++;
+      totalRating+= ratingGiven;
+      totalRating/= timesRated;
+      num finalRating = totalRating;
+      productRef.update({
+        'timesRated': timesRated,
+        'rating': finalRating,
+      });
+    }
+
+  Future addProductComment(
+      String orderID,
+      String currentComment)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'comment': currentComment,
+    });
+  }
+
+  Future updateOrderAsCommented(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isCommented': true,
+    });
+  }
+
+  Future updateOrderAsRated(
+      String orderID)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'isRated': true,
+    });
+  }
+
+  Future setOrderRating(
+      String orderID,
+      num givenRating)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'rating': givenRating,
+    });
+  }
+
+  Future approveComment(
+      String orderID,)
+  async {
+    var OrderRef = ordersCollection.doc(orderID);
+    OrderRef.update({
+      'commentApproved': true,
+    });
+  }
+
+
+
   Future addProduct(
       String category,
       String name,
@@ -58,6 +126,7 @@ class Service {
       'category': category,
       'stocks': stocks,
       'tag': tag,
+      'timesRated': 0,
     });
 
     var ref = FirebaseStorage.instance.ref();
@@ -90,6 +159,7 @@ class Service {
         'category': category,
         'stocks': stocks,
         'tag': tag,
+        'rating': price,
       });
     } else {
       String oldURL = (await productRef.get()).get("picture");
