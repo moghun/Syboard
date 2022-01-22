@@ -27,7 +27,6 @@ class MyProducts extends StatefulWidget {
 class _MyProductsState extends State<MyProducts> {
   TextEditingController searchTextController = TextEditingController();
 
-  double _rating = 0.0;
   List<Product> productsOnSale = [];
 
   Future<List<Product>> getAProducts() async {
@@ -62,44 +61,6 @@ class _MyProductsState extends State<MyProducts> {
     return productsList;
   }
 
-/*
-  // getSoldProducts() async {
-  //   var sellerRef =
-  //       Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
-  //   var productsDocs =
-  //       (await Service.ordersCollection.where("seller", isEqualTo: sellerRef).get())
-  //           .docs;
-  //   List<Product> productsList = <Product>[];
-  //   for (var i = 0; i < productsDocs.length; i++) {
-  //     var element = productsDocs[i];
-  //     print(element);
-  //     DocumentReference currentProduct = element.get("product");
-  //     String sellerName = (await sellerRef.get()).get("sellerName");
-
-  //     var currentP = await Service().getTheProduct(currentProduct.id);
-  //     // Product(
-  //     //     pid: currentProduct.id,
-  //     //     imgURL: (await currentProduct.get())["imgURL"],
-  //     //     productName:(await currentProduct.get()).get("productName"),
-  //     //     rating: (await currentProduct.get()).get("rating"),
-  //     //     price: (await currentProduct.get()).get("price"),
-  //     //     seller: sellerName,
-  //     //     description: (await currentProduct.get()).get("description"),
-  //     //     category: (await currentProduct.get())["category"],
-  //     //     tag: (await currentProduct.get())["tag"],
-  //     //     onSale: (await currentProduct.get())["onSale"],
-  //     //     stocks: (await currentProduct.get())["stocks"],
-  //     //     oldPrice: (await currentProduct.get())["oldPrice"] ?? 0);
-
-  //     productsList.add(currentP);
-  //     print(currentP);
-  //   }
-
-  //   setState(() {
-  //     productsSold = productsList;
-  //   });
-
-  // }
 
   Future<List<Order>> getOrders() async {
     print("SOLD PRODUCT: ---");
@@ -135,7 +96,7 @@ class _MyProductsState extends State<MyProducts> {
       ));
     }
     return orders;
-  }*/
+  }
 
   filterProductsOnSale(List<Product> pAll){
 
@@ -147,9 +108,9 @@ class _MyProductsState extends State<MyProducts> {
 
 
      });
-     setState(() {
-          productsOnSale = catProducts;
-    });
+    //  setState(() {
+    //       productsOnSale = catProducts;
+    // });
 
 
   }
@@ -164,16 +125,23 @@ class _MyProductsState extends State<MyProducts> {
     UserObj? currentUser = Provider.of<UserObj?>(context);
 
     return FutureBuilder(
-        future: getAProducts(),
-        builder: (context, AsyncSnapshot snapshot) {
+        future: Future.wait([getAProducts(),getOrders()]),
+        builder: (context, AsyncSnapshot<List<List<dynamic>>> snapshot) {
           if (!snapshot.hasData) {
             return const Text("Loading..");
-          } else if (snapshot.data.isEmpty) {
+          } else if (((snapshot.data)?[0])!.isEmpty) {
             return const Center(
                 child:
                     Text("You are not selling any products. Try adding some!"));
           }
-          List<Product>  allProducts = snapshot.data;
+          List<Product>  allProducts = (snapshot.data)?[0] as List<Product>;
+          List<Order>  soldProducts = (snapshot.data)?[1] as List<Order>;
+          double total = 0.0;
+          double _rating = 0.0;
+          soldProducts.forEach((order){
+            total += order.rating;
+          });
+          _rating = total / soldProducts.length;
 
           return Scaffold(
             body:  Padding(
@@ -185,7 +153,7 @@ class _MyProductsState extends State<MyProducts> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating :" ,
+                    Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating" ,
                   style: kTextTitleMedium,
 
                     ),
@@ -204,32 +172,32 @@ class _MyProductsState extends State<MyProducts> {
                   )
                   ],
                 ),
-/*
-                SizedBox(height: 30,),
-                Column(
-                  children: [
-                    Text('Products Sold' ,
-                      style: kTextTitle,
 
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: Dimen.regularPadding,
-                        child: Row(
-                          children: List.generate(
-                              soldProducts.length,
-                                  (index) => Row(children: [
+                // SizedBox(height: 30,),
+                // Column(
+                //   children: [
+                //     Text('Products Sold' ,
+                //       style: kTextTitle,
 
-                                    SoldOrderCard(order: soldProducts[index]),
-                                const SizedBox(width: 8)
-                              ])),
-                        ),
-                      ),
-                    )   ,
-                  ],
-                ),
-*/
+                //     ),
+                //     SingleChildScrollView(
+                //       scrollDirection: Axis.horizontal,
+                //       child: Padding(
+                //         padding: Dimen.regularPadding,
+                //         child: Row(
+                //           children: List.generate(
+                //               soldProducts.length,
+                //                   (index) => Row(children: [
+
+                //                     SoldOrderCard(order: soldProducts[index]),
+                //                 const SizedBox(width: 8)
+                //               ])),
+                //         ),
+                //       ),
+                //     )   ,
+                //   ],
+                // ),
+
                 SizedBox(height: 30,),
                 Column(
                   children: [
