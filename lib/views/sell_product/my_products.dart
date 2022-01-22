@@ -176,18 +176,21 @@ class _MyProductsState extends State<MyProducts> {
           List<Product>  allProducts = snapshot.data;
 
           return Scaffold(
-            body:  SingleChildScrollView(
+            body:  Padding(
+              padding: const EdgeInsets.all(8),
+              child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating :" ,
                   style: kTextTitleMedium,
 
                     ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                         Text( _rating.toString(),
                   style: kTextTitleMedium,
@@ -257,7 +260,7 @@ class _MyProductsState extends State<MyProducts> {
 
                  Column(
                   children: [
-                     Text("${currentUser?.name ?? currentUser!.email!}'s All Products",
+                     Text("All Products",
                   style: kTextTitle,
 
                     ),
@@ -284,7 +287,9 @@ class _MyProductsState extends State<MyProducts> {
               ],
             ),
             )
-          );
+          ,
+              )
+            );
         });
   }
 }
