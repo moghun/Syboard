@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syboard/models/order.dart';
 import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/services/service.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:syboard/utils/styles.dart';
 import 'package:syboard/views/sell_history.dart';
+import 'package:syboard/views/sold_order_card.dart';
 
 class MyProducts extends StatefulWidget {
   const MyProducts({Key? key, this.analytics, this.observer}) : super(key: key);
@@ -25,12 +27,12 @@ class MyProducts extends StatefulWidget {
 class _MyProductsState extends State<MyProducts> {
   TextEditingController searchTextController = TextEditingController();
 
+  double _rating = 0.0;
   List<Product> productsOnSale = [];
-  List<Product> productsSold = [];
 
   Future<List<Product>> getAProducts() async {
     var sellerRef =
-        Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
+    Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
     var productsDocs =
         (await Service.productCollection.where("seller", isEqualTo: sellerRef).get())
             .docs;
@@ -55,11 +57,12 @@ class _MyProductsState extends State<MyProducts> {
 
       productsList.add(currentProduct);
     }
-  filterProductsOnSale(productsList);
+    filterProductsOnSale(productsList);
 
     return productsList;
   }
 
+/*
   // getSoldProducts() async {
   //   var sellerRef =
   //       Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
@@ -87,7 +90,7 @@ class _MyProductsState extends State<MyProducts> {
   //     //     onSale: (await currentProduct.get())["onSale"],
   //     //     stocks: (await currentProduct.get())["stocks"],
   //     //     oldPrice: (await currentProduct.get())["oldPrice"] ?? 0);
-    
+
   //     productsList.add(currentP);
   //     print(currentP);
   //   }
@@ -95,24 +98,60 @@ class _MyProductsState extends State<MyProducts> {
   //   setState(() {
   //     productsSold = productsList;
   //   });
-   
+
   // }
 
+  Future<List<Order>> getOrders() async {
+    print("SOLD PRODUCT: ---");
+
+    List<Order> orders = [];
+    final user = Provider.of<UserObj?>(context);
+    var sellerRef = Service.userCollection.doc(user?.uid);
+    var o = await Service.ordersCollection
+        .where("seller", isEqualTo: sellerRef)
+        .get();
+    for (var element in o.docs) {
+      DocumentReference currentProduct = element.get("product");
+      String currentProductName = (await currentProduct.get()).get("productName");
+      num currentProductPrice = (await currentProduct.get()).get("price");
+      String currentProductPicture =
+      (await currentProduct.get()).get("imgURL");
+      String currentPid = currentProduct.id;
+      orders.add(Order(
+        //buyer: currentBuyerName,
+        //oid: element.id,
+          url: currentProductPicture,
+          productName: currentProductName,
+          pid: currentPid,
+          price: currentProductPrice,
+          purchaseDate: element.get("purchaseDate"),
+          amount: element.get("amount"),
+          orderID: element.id,
+          comment: element.get("comment"),
+          isCommented: element.get("isCommented"),
+          isRated: element.get("isRated"),
+          rating: element.get("rating"),
+          commentApproved: element.get("commentApproved")
+      ));
+    }
+    return orders;
+  }*/
+
   filterProductsOnSale(List<Product> pAll){
-   
+
     List<Product> catProducts = [];
      pAll.forEach((item) => {
         if(item.onSale == true){
           catProducts.add(item)
         },
 
-        
+
      });
      setState(() {
           productsOnSale = catProducts;
     });
-    
-     
+
+
   }
 
   @override
@@ -134,24 +173,28 @@ class _MyProductsState extends State<MyProducts> {
                 child:
                     Text("You are not selling any products. Try adding some!"));
           }
-          List<Product> allProducts = snapshot.data;
+          List<Product>  allProducts = snapshot.data;
+
           return Scaffold(
-            body:  SingleChildScrollView(
+            body:  Padding(
+              padding: const EdgeInsets.all(8),
+              child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating :" ,
                   style: kTextTitleMedium,
-                    
+
                     ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                        Text("5.0" ,
+                        Text( _rating.toString(),
                   style: kTextTitleMedium,
-                    
+
                     ),
                     Icon(
                       Icons.star,
@@ -161,12 +204,38 @@ class _MyProductsState extends State<MyProducts> {
                   )
                   ],
                 ),
+/*
+                SizedBox(height: 30,),
+                Column(
+                  children: [
+                    Text('Products Sold' ,
+                      style: kTextTitle,
+
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: Dimen.regularPadding,
+                        child: Row(
+                          children: List.generate(
+                              soldProducts.length,
+                                  (index) => Row(children: [
+
+                                    SoldOrderCard(order: soldProducts[index]),
+                                const SizedBox(width: 8)
+                              ])),
+                        ),
+                      ),
+                    )   ,
+                  ],
+                ),
+*/
                 SizedBox(height: 30,),
                 Column(
                   children: [
                      Text('Products On Sale' ,
                   style: kTextTitle,
-                    
+
                     ),
                     SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -191,9 +260,9 @@ class _MyProductsState extends State<MyProducts> {
 
                  Column(
                   children: [
-                     Text("${currentUser?.name ?? currentUser!.email!}'s All Products",
+                     Text("All Products",
                   style: kTextTitle,
-                    
+
                     ),
                     // SellHistory(uid:  Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid).toString()),
                     SingleChildScrollView(
@@ -206,7 +275,6 @@ class _MyProductsState extends State<MyProducts> {
                             (index) => Row(children: [
                                   editProductPreview(allProducts[index], context,
                                       () {
-                                    setState(() {});
                                   }),
                                   const SizedBox(width: 8)
                                 ])),
@@ -215,11 +283,13 @@ class _MyProductsState extends State<MyProducts> {
                    )   ,
                   ],
                 ),
-                
+
               ],
             ),
             )
-          );
+          ,
+              )
+            );
         });
   }
 }

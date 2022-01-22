@@ -1,11 +1,15 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
-
+  const Categories({Key? key, this.analytics, this.observer}) : super(key: key);
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
   @override
   State<Categories> createState() => _CategoriesState();
 }
@@ -27,6 +31,7 @@ class _CategoriesState extends State<Categories> {
       'title': 'Components',
       "subCat": [
         {'title': 'CPUs'},
+        {'title': 'GPUs'},
         {'title': 'Memory'},
         {'title': 'Motherboards'},
         {'title': 'Computer Cases'},
@@ -147,7 +152,19 @@ class _CategoriesState extends State<Categories> {
                       child: ListView.builder(
                         itemCount: categories[_selectedCat]['subCat'].length,
                         itemBuilder: (ctx, i) {
-                          return Container(
+                          return InkWell(
+                            onTap: (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchResult(
+                                          analytics: widget.analytics,
+                                          observer: widget.observer,
+                                          searchQuery: "${categories[_selectedCat]['subCat'][i]['title']}"
+                                          //searchQuery: "${categories[_selectedCat]['title']}",
+                                        )));
+                            },
+                            child: Container(
                             margin: const EdgeInsets.only(bottom: 15),
                             padding: const EdgeInsets.all(9.0),
                             decoration: BoxDecoration(
@@ -164,6 +181,7 @@ class _CategoriesState extends State<Categories> {
                                 const Icon(Icons.chevron_right),
                               ],
                             ),
+                          ),
                           );
                         },
                       ),
