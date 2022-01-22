@@ -126,6 +126,7 @@ class Service {
       'category': category,
       'stocks': stocks,
       'tag': tag,
+      'timesRated': 0,
     });
 
     var ref = FirebaseStorage.instance.ref();
