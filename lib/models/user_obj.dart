@@ -15,3 +15,19 @@ class UserObj with _$UserObj {
 
   factory UserObj.fromJson(Map<String, dynamic> json) => _$UserObjFromJson(json);
 }
+
+/*
+@freezed
+class UserObj with _$UserObj {
+  factory UserObj({
+    required String uid,
+    String? name,
+    String? email,
+    String? photoURL,
+    String? number,
+    num? rating,
+    
+}) = _UserObj;
+
+*   */
+
