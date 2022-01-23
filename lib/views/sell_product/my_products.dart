@@ -26,35 +26,37 @@ class MyProducts extends StatefulWidget {
 
 class _MyProductsState extends State<MyProducts> {
   TextEditingController searchTextController = TextEditingController();
-
-  List<Product> productsOnSale = [];
-
   Future<List<Product>> getAProducts() async {
     var sellerRef =
-    Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
-    var productsDocs =
-        (await Service.productCollection.where("seller", isEqualTo: sellerRef).get())
-            .docs;
+        Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
+    var productsDocs = (await Service.productCollection
+            .where("seller", isEqualTo: sellerRef)
+            .get())
+        .docs;
     List<Product> productsList = <Product>[];
+    num stocks = 0;
     for (var i = 0; i < productsDocs.length; i++) {
       var currentProductDoc = productsDocs[i];
-      DocumentReference sellerRef = currentProductDoc.get("seller");
-      String sellerName = (await sellerRef.get()).get("sellerName");
-      var currentProduct = Product(
-          pid: currentProductDoc.id,
-          imgURL: currentProductDoc["imgURL"],
-          productName: currentProductDoc.get("productName"),
-          rating: currentProductDoc.get("rating"),
-          price: currentProductDoc.get("price"),
-          seller: sellerName,
-          description: currentProductDoc.get("description"),
-          category: currentProductDoc["category"],
-          tag: currentProductDoc["tag"],
-          onSale: currentProductDoc["onSale"],
-          stocks: currentProductDoc["stocks"],
-          oldPrice: currentProductDoc["oldPrice"] ?? 0);
+      stocks = currentProductDoc.get("stocks");
+      if (stocks > 0) {
+        DocumentReference sellerRef = currentProductDoc.get("seller");
+        String sellerName = (await sellerRef.get()).get("sellerName");
+        var currentProduct = Product(
+            pid: currentProductDoc.id,
+            imgURL: currentProductDoc["imgURL"],
+            productName: currentProductDoc.get("productName"),
+            rating: currentProductDoc.get("rating"),
+            price: currentProductDoc.get("price"),
+            seller: sellerName,
+            description: currentProductDoc.get("description"),
+            category: currentProductDoc["category"],
+            tag: currentProductDoc["tag"],
+            onSale: currentProductDoc["onSale"],
+            stocks: currentProductDoc["stocks"],
+            oldPrice: currentProductDoc["oldPrice"] ?? 0);
 
-      productsList.add(currentProduct);
+        productsList.add(currentProduct);
+      }
     }
     filterProductsOnSale(productsList);
 
@@ -63,7 +65,7 @@ class _MyProductsState extends State<MyProducts> {
 
   Future<double> getRating() async {
     var sellerRef =
-    Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
+        Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
     var o = await Service.ordersCollection
         .where("seller", isEqualTo: sellerRef)
         .get();
@@ -72,25 +74,23 @@ class _MyProductsState extends State<MyProducts> {
     num count = 0;
     for (var element in o.docs) {
       var rating = element.get("rating");
-      if(rating> 0){
+      if (rating > 0) {
         total += rating;
         count += 1;
       }
     }
 
-    if(count > 0){
+    if (count > 0) {
       _rating = total / count;
     }
     return _rating;
   }
 
-  filterProductsOnSale(List<Product> pAll){
+  filterProductsOnSale(List<Product> pAll) {
     List<Product> catProducts = [];
-     pAll.forEach((item) => {
-        if(item.onSale == true){
-          catProducts.add(item)
-        },
-     });
+    pAll.forEach((item) => {
+          if (item.onSale == true) {catProducts.add(item)},
+        });
     //  setState(() {
     //       productsOnSale = catProducts;
     // });
@@ -106,7 +106,7 @@ class _MyProductsState extends State<MyProducts> {
     UserObj? currentUser = Provider.of<UserObj?>(context);
 
     return FutureBuilder(
-        future: Future.wait([getAProducts(),getRating()]),
+        future: Future.wait([getAProducts(), getRating()]),
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Text("Loading..");
@@ -115,125 +115,125 @@ class _MyProductsState extends State<MyProducts> {
                 child:
                     Text("You are not selling any products. Try adding some!"));
           }
-          List<Product>  allProducts = (snapshot.data)?[0] as List<Product>;
+          List<Product> allProducts = (snapshot.data)?[0] as List<Product>;
           double _rating = (snapshot.data)?[1] as double;
 
-
           return Scaffold(
-            body:  Padding(
-              padding: const EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("${currentUser?.name ?? currentUser!.email!}'s Current Rating" ,
-                  style: kTextTitleMedium,
-
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                        Text( _rating.toString(),
-                  style: kTextTitleMedium,
-
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    ],
-                  )
-                  ],
-                ),
-
-                // SizedBox(height: 30,),
-                // Column(
-                //   children: [
-                //     Text('Products Sold' ,
-                //       style: kTextTitle,
-
-                //     ),
-                //     SingleChildScrollView(
-                //       scrollDirection: Axis.horizontal,
-                //       child: Padding(
-                //         padding: Dimen.regularPadding,
-                //         child: Row(
-                //           children: List.generate(
-                //               soldProducts.length,
-                //                   (index) => Row(children: [
-
-                //                     SoldOrderCard(order: soldProducts[index]),
-                //                 const SizedBox(width: 8)
-                //               ])),
-                //         ),
-                //       ),
-                //     )   ,
-                //   ],
-                // ),
-
-                // SizedBox(height: 30,),
-                // Column(
-                //   children: [
-                //      Text('Products On Sale' ,
-                //   style: kTextTitle,
-
-                //     ),
-                //     SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Padding(
-                //       padding: Dimen.regularPadding,
-                //       child: Row(
-                //         children: List.generate(
-                //             productsOnSale.length,
-                //             (index) => Row(children: [
-                //                   editProductPreview(productsOnSale[index], context,
-                //                       () {
-                //                     setState(() {});
-                //                   }),
-                //                   const SizedBox(width: 8)
-                //                 ])),
-                //       ),
-                //     ),
-                //    )   ,
-                //   ],
-                // ),
-                SizedBox(height: 30,),
-
-                 Column(
-                  children: [
-                     Text("All Products",
-                  style: kTextTitle,
-
-                    ),
-                    // SellHistory(uid:  Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid).toString()),
-                    SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: Dimen.regularPadding,
-                      child: Row(
-                        children: List.generate(
-                            allProducts.length,
-                            (index) => Row(children: [
-                                  editProductPreview(allProducts[index], context,
-                                      () {
-                                  }),
-                                  const SizedBox(width: 8)
-                                ])),
+                      Text(
+                        "${currentUser?.name ?? currentUser!.email!}'s Current Rating",
+                        style: kTextTitleMedium,
                       ),
-                    ),
-                   )   ,
-                  ],
-                ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            _rating.toString(),
+                            style: kTextTitleMedium,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
 
-              ],
+                  // SizedBox(height: 30,),
+                  // Column(
+                  //   children: [
+                  //     Text('Products Sold' ,
+                  //       style: kTextTitle,
+
+                  //     ),
+                  //     SingleChildScrollView(
+                  //       scrollDirection: Axis.horizontal,
+                  //       child: Padding(
+                  //         padding: Dimen.regularPadding,
+                  //         child: Row(
+                  //           children: List.generate(
+                  //               soldProducts.length,
+                  //                   (index) => Row(children: [
+
+                  //                     SoldOrderCard(order: soldProducts[index]),
+                  //                 const SizedBox(width: 8)
+                  //               ])),
+                  //         ),
+                  //       ),
+                  //     )   ,
+                  //   ],
+                  // ),
+
+                  // SizedBox(height: 30,),
+                  // Column(
+                  //   children: [
+                  //      Text('Products On Sale' ,
+                  //   style: kTextTitle,
+
+                  //     ),
+                  //     SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     child: Padding(
+                  //       padding: Dimen.regularPadding,
+                  //       child: Row(
+                  //         children: List.generate(
+                  //             productsOnSale.length,
+                  //             (index) => Row(children: [
+                  //                   editProductPreview(productsOnSale[index], context,
+                  //                       () {
+                  //                     setState(() {});
+                  //                   }),
+                  //                   const SizedBox(width: 8)
+                  //                 ])),
+                  //       ),
+                  //     ),
+                  //    )   ,
+                  //   ],
+                  // ),
+                  SizedBox(
+                    height: 30,
+                  ),
+
+                  Column(
+                    children: [
+                      Text(
+                        "All Products",
+                        style: kTextTitle,
+                      ),
+                      // SellHistory(uid:  Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid).toString()),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: Dimen.regularPadding,
+                          child: Row(
+                            children: List.generate(
+                                allProducts.length,
+                                (index) => Row(children: [
+                                      editProductPreview(
+                                          allProducts[index], context, () {
+                                        setState(() {
+                                        });
+                                      }),
+                                      const SizedBox(width: 8)
+                                    ])),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            )
-          ,
-              )
-            );
+          ));
         });
   }
 }

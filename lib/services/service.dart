@@ -168,10 +168,7 @@ class Service {
 
   Future deleteProduct(String pid) async {
     var productRef = productCollection.doc(pid);
-    var pictureRef = FirebaseStorage.instance
-        .refFromURL((await productRef.get()).get("imgURL"));
-    await pictureRef.delete();
-    await productRef.delete();
+    await productRef.update({"stocks": -1});
   }
 
   Future<Product> getTheProduct(String pid) async {

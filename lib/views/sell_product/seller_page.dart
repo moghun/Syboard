@@ -17,10 +17,12 @@ import 'package:syboard/views/sell_history.dart';
 import 'package:syboard/views/sold_order_card.dart';
 
 class SellerPage extends StatefulWidget {
-  const SellerPage({Key? key, this.analytics, this.observer, required this.sellerRef}) : super(key: key);
+  const SellerPage(
+      {Key? key, this.analytics, this.observer, required this.sellerRef})
+      : super(key: key);
   final FirebaseAnalytics? analytics;
   final FirebaseAnalyticsObserver? observer;
-  final DocumentReference sellerRef ;
+  final DocumentReference sellerRef;
 
   @override
   State<SellerPage> createState() => _SellerPageState();
@@ -31,52 +33,53 @@ class _SellerPageState extends State<SellerPage> {
 
   List<Product> allProducts = [];
   List<Product> productsOnSale = [];
- 
 
   late String _currentSeller;
-   double _currentRating = 0.0;
+  double _currentRating = 0.0;
 
   Future getAProducts() async {
     // var sellerRef =
     // Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
-    var productsDocs =
-        (await Service.productCollection.where("seller", isEqualTo: widget.sellerRef).get())
-            .docs;
+    var productsDocs = (await Service.productCollection
+            .where("seller", isEqualTo: widget.sellerRef)
+            .get())
+        .docs;
     List<Product> productsList = <Product>[];
     String sellerName = "";
+    num stocks;
     for (var i = 0; i < productsDocs.length; i++) {
       var currentProductDoc = productsDocs[i];
-      DocumentReference sellerRef2 = currentProductDoc.get("seller");
-      sellerName = (await sellerRef2.get()).get("sellerName");
+      stocks = currentProductDoc.get("stocks");
+      if (stocks > 0) {
+        DocumentReference sellerRef2 = currentProductDoc.get("seller");
+        sellerName = (await sellerRef2.get()).get("sellerName");
 
-      var currentProduct = Product(
-          pid: currentProductDoc.id,
-          imgURL: currentProductDoc["imgURL"],
-          productName: currentProductDoc.get("productName"),
-          rating: currentProductDoc.get("rating"),
-          price: currentProductDoc.get("price"),
-          seller: sellerName,
-          description: currentProductDoc.get("description"),
-          category: currentProductDoc["category"],
-          tag: currentProductDoc["tag"],
-          onSale: currentProductDoc["onSale"],
-          stocks: currentProductDoc["stocks"],
-          oldPrice: currentProductDoc["oldPrice"] ?? 0);
+        var currentProduct = Product(
+            pid: currentProductDoc.id,
+            imgURL: currentProductDoc["imgURL"],
+            productName: currentProductDoc.get("productName"),
+            rating: currentProductDoc.get("rating"),
+            price: currentProductDoc.get("price"),
+            seller: sellerName,
+            description: currentProductDoc.get("description"),
+            category: currentProductDoc["category"],
+            tag: currentProductDoc["tag"],
+            onSale: currentProductDoc["onSale"],
+            stocks: currentProductDoc["stocks"],
+            oldPrice: currentProductDoc["oldPrice"] ?? 0);
 
-      productsList.add(currentProduct);
+        productsList.add(currentProduct);
+      }
     }
-   _currentSeller = sellerName;
+    _currentSeller = sellerName;
 
-   filterProductsOnSale(productsList);
-   setState(() {
-     allProducts = productsList;
-   });
-
+    filterProductsOnSale(productsList);
+    setState(() {
+      allProducts = productsList;
+    });
   }
 
-
   Future getRating() async {
-
     var o = await Service.ordersCollection
         .where("seller", isEqualTo: widget.sellerRef)
         .get();
@@ -85,37 +88,28 @@ class _SellerPageState extends State<SellerPage> {
     num count = 0;
     for (var element in o.docs) {
       var rating = element.get("rating");
-      if(rating> 0){
+      if (rating > 0) {
         total += rating;
         count += 1;
-
       }
     }
-   
-   if(count > 0){
+
+    if (count > 0) {
       _rating = total / count;
       setState(() {
         _currentRating = _rating;
       });
-   }
-
+    }
   }
 
-  filterProductsOnSale(List<Product> pAll){
-
+  filterProductsOnSale(List<Product> pAll) {
     List<Product> catProducts = [];
-     pAll.forEach((item) => {
-        if(item.onSale == true){
-          catProducts.add(item)
-        },
-
-
-     });
-     setState(() {
-          productsOnSale = catProducts;
+    pAll.forEach((item) => {
+          if (item.onSale == true) {catProducts.add(item)},
+        });
+    setState(() {
+      productsOnSale = catProducts;
     });
-
-
   }
 
   @override
@@ -127,44 +121,44 @@ class _SellerPageState extends State<SellerPage> {
 
   @override
   Widget build(BuildContext context) {
-          if(allProducts.length < 1){
-            return Center(
-             child: CircularProgressIndicator(
-
-             ),
-            );
-          }
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_currentSeller),
-            ),
-            body:  Padding(
-              padding: const EdgeInsets.all(12),
-              child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
+    if (allProducts.length < 1) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(_currentSeller),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(12),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Rating:" ,
-                  style: kTextTitleMedium,
-
+                    Text(
+                      "Rating:",
+                      style: kTextTitleMedium,
                     ),
-                    SizedBox(width: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                        Text( _currentRating.toString(),
-                  style: kTextTitleMedium,
-
+                    SizedBox(
+                      width: 10,
                     ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    ],
-                  )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _currentRating.toString(),
+                          style: kTextTitleMedium,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    )
                   ],
                 ),
 
@@ -193,62 +187,62 @@ class _SellerPageState extends State<SellerPage> {
                 //   ],
                 // ),
 
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Column(
                   children: [
-                     Text('Products On Sale' ,
-                  style: kTextTitle,
-
+                    Text(
+                      'Products On Sale',
+                      style: kTextTitle,
                     ),
                     SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: Dimen.regularPadding,
-                      child: Row(
-                        children: List.generate(
-                            productsOnSale.length,
-                            (index) => Row(children: [
-                              productPreview(productsOnSale[index], context),
-                                  
-                                  const SizedBox(width: 8)
-                                ])),
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: Dimen.regularPadding,
+                        child: Row(
+                          children: List.generate(
+                              productsOnSale.length,
+                              (index) => Row(children: [
+                                    productPreview(
+                                        productsOnSale[index], context),
+                                    const SizedBox(width: 8)
+                                  ])),
+                        ),
                       ),
                     ),
-                   )   ,
                   ],
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
 
-                 Column(
+                Column(
                   children: [
-                     Text("All Products",
-                  style: kTextTitle,
-
+                    Text(
+                      "All Products",
+                      style: kTextTitle,
                     ),
                     // SellHistory(uid:  Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid).toString()),
                     SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: Dimen.regularPadding,
-                      child: Row(
-                        children: List.generate(
-                            allProducts.length,
-                            (index) => Row(children: [
-                                 productPreview(allProducts[index], context),
-                                  const SizedBox(width: 8)
-                                ])),
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: Dimen.regularPadding,
+                        child: Row(
+                          children: List.generate(
+                              allProducts.length,
+                              (index) => Row(children: [
+                                    productPreview(allProducts[index], context),
+                                    const SizedBox(width: 8)
+                                  ])),
+                        ),
                       ),
                     ),
-                   )   ,
                   ],
                 ),
-
               ],
             ),
-            )
-          ,
-              )
-            );
-      
+          ),
+        ));
   }
 }
