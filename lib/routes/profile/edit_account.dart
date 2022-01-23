@@ -37,10 +37,10 @@ class _EditAccountState extends State<EditAccount> {
             icon: const Icon(Icons.insert_photo),
             name: "Change profile picture",
             route: '/profile/change_avatar'),
-        // AccountListItem(
-        //     icon: const Icon(Icons.highlight_remove),
-        //     name: "Delete Account",
-        //     route: '/'),
+        AccountListItem(
+            icon: const Icon(Icons.highlight_remove),
+            name: "Delete Account",
+            route: '/profile/account_delete'),
       ];
     } else {
       _itemList = <AccountListItem>[
@@ -60,7 +60,6 @@ class _EditAccountState extends State<EditAccount> {
             icon: const Icon(Icons.highlight_remove),
             name: "Delete Account",
             route: '/profile/account_delete'),
-
       ];
     }
   }

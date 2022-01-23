@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
@@ -16,8 +17,25 @@ class AccountDeletePP extends StatefulWidget {
   State<AccountDeletePP> createState() => _AccountDeletePPState();
 }
 
+
 class _AccountDeletePPState extends State<AccountDeletePP> {
+  bool hasProvider = false;
+
+  Future checkProvider () async{
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      hasProvider = (prefs.getBool('hasProvider') ?? false);
+    });
+  }
   String pass = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkProvider();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserObj?>(context, listen: false);
@@ -31,25 +49,22 @@ class _AccountDeletePPState extends State<AccountDeletePP> {
             SizedBox(
               height: 20,
             ),
-            const Text(
-                "Please confirm your identity by providing your password"),
+           !hasProvider ? const Text(
+                "Please confirm your identity by providing your password") : Text("Are you sure?"),
             const SizedBox(height: 10),
-            TextField(
+            !hasProvider? TextField(
                 obscureText: true,
                 autocorrect: false,
                 onChanged: (value) {
                   pass = value;
                 },
-                decoration: const InputDecoration(hintText: "Your Password")),
+                decoration: const InputDecoration(hintText: "Your Password")) : Text("Really?"),
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () async {
-                if (pass != "") {
                   if (await AuthService().reAuth(
                           pass,
-                          FirebaseAuth.instance.currentUser!.providerData[0]
-                                  .providerId ==
-                              "google.com") ==
+                          hasProvider) ==
                       null) {
                     showDialog(
                         context: context,
@@ -72,7 +87,7 @@ class _AccountDeletePPState extends State<AccountDeletePP> {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   }
-                }
+
               },
               child: Padding(
                 padding: EdgeInsets.all(8.0),

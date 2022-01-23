@@ -14,7 +14,7 @@ class AuthService {
     return user;
   }
 
-  UserObj? _userFromLocal (User? user) {
+  UserObj? _userFromLocal(User? user) {
     if (_auth.currentUser == null) {
       return null;
     }
@@ -28,7 +28,7 @@ class AuthService {
   }
 
   Stream<UserObj?> get getCurrentUser {
-    return _auth.userChanges().map(_userFromLocal) ;
+    return _auth.userChanges().map(_userFromLocal);
   }
 
   Future changePassword(String newPassword) async {
@@ -48,7 +48,7 @@ class AuthService {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     User user = userCredential.user!;
-    Service.addUser (user.uid, email);
+    Service.addUser(user.uid, email);
   }
 
   Future<void> signInAnon() async {
@@ -78,7 +78,7 @@ class AuthService {
         await FirebaseAuth.instance.signInWithCredential(credential);
     User user = result.user!;
     var userDoc = await Service.userCollection.doc(user.uid).get();
-    if(userDoc.exists){
+    if (userDoc.exists) {
       return _userFromFirebase(user);
     }
     Service.addUser(user.uid, user.displayName);
@@ -117,16 +117,18 @@ class AuthService {
       return null;
     }
   }
+
   Future updateSellerName(String newName, String uid) async {
     try {
-      var response = await Service.userCollection.where('sellerName', isEqualTo: newName).get();
-      for (var doc in response.docs){
-       if(doc["sellerName"] == newName){
+      var response = await Service.userCollection
+          .where('sellerName', isEqualTo: newName)
+          .get();
+      for (var doc in response.docs) {
+        if (doc["sellerName"] == newName) {
           return false;
         }
-
       }
-      
+
       await Service.userCollection.doc(uid).update({"sellerName": newName});
       return true;
     } catch (e) {
@@ -160,21 +162,19 @@ class AuthService {
       return null;
     }
   }
-  
-  
+
   Future deleteAccount(String uid) async {
-   
     try {
-      
       print(_auth.currentUser);
       await _auth.currentUser!.delete();
-       final userRef = getUserReference(uid);
-    var sellQuery =
-        await Service.productCollection.where("seller", isEqualTo: userRef).get();
-    for (var element in sellQuery.docs) {
-      await element.reference.update({"stocks": -1});
-    }
-    await userRef.update({"sellerName": "[Deleted User]", "isActive": false});
+      final userRef = getUserReference(uid);
+      var sellQuery = await Service.productCollection
+          .where("seller", isEqualTo: userRef)
+          .get();
+      for (var element in sellQuery.docs) {
+        await element.reference.update({"stocks": -1});
+      }
+      await userRef.update({"sellerName": "[Deleted User]", "isActive": false});
       await signOut();
       return true;
     } catch (e) {
@@ -186,13 +186,13 @@ class AuthService {
     return FirebaseFirestore.instance.collection("Users").doc(id);
   }
 
-    Future reAuth(String? pass, bool hasProvider) async {
-      print("reauth **************");
+  Future reAuth(String? pass, bool hasProvider) async {
+    print("reauth **************");
     AuthCredential cred;
     if (hasProvider) {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication googleAuth =
-      await googleUser!.authentication;
+          await googleUser!.authentication;
       cred = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
