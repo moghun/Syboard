@@ -198,32 +198,32 @@ class _MyProductsState extends State<MyProducts> {
                 //   ],
                 // ),
 
-                SizedBox(height: 30,),
-                Column(
-                  children: [
-                     Text('Products On Sale' ,
-                  style: kTextTitle,
+                // SizedBox(height: 30,),
+                // Column(
+                //   children: [
+                //      Text('Products On Sale' ,
+                //   style: kTextTitle,
 
-                    ),
-                    SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: Dimen.regularPadding,
-                      child: Row(
-                        children: List.generate(
-                            productsOnSale.length,
-                            (index) => Row(children: [
-                                  editProductPreview(productsOnSale[index], context,
-                                      () {
-                                    setState(() {});
-                                  }),
-                                  const SizedBox(width: 8)
-                                ])),
-                      ),
-                    ),
-                   )   ,
-                  ],
-                ),
+                //     ),
+                //     SingleChildScrollView(
+                //     scrollDirection: Axis.horizontal,
+                //     child: Padding(
+                //       padding: Dimen.regularPadding,
+                //       child: Row(
+                //         children: List.generate(
+                //             productsOnSale.length,
+                //             (index) => Row(children: [
+                //                   editProductPreview(productsOnSale[index], context,
+                //                       () {
+                //                     setState(() {});
+                //                   }),
+                //                   const SizedBox(width: 8)
+                //                 ])),
+                //       ),
+                //     ),
+                //    )   ,
+                //   ],
+                // ),
                 SizedBox(height: 30,),
 
                  Column(
