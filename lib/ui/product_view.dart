@@ -63,7 +63,7 @@ class _ProductViewState extends State<ProductView> {
 
   Service db = Service();
   late SharedPreferences prefs;
-  late bool favorite;
+  bool favorite = false;
 
   Future getPrefs() async {
     prefs = await SharedPreferences.getInstance();
