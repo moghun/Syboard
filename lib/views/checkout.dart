@@ -201,11 +201,11 @@ class _CheckoutState extends State<Checkout> {
                                     final productRef =
                                         Service.getProductReference(
                                             widget.CartItemList[i].pid);
-                                    final num currentStocks =
-                                        (await productRef.get()).get("stocks");
-                                    await Service.getProductReference(
-                                            widget.CartItemList[i].pid)
-                                        .update({"stocks": currentStocks - 1});
+                                    // final num currentStocks =
+                                    //     (await productRef.get()).get("stocks");
+                                    // await Service.getProductReference(
+                                    //         widget.CartItemList[i].pid)
+                                    //     .update({"stocks": currentStocks - 1});
                                   }
                                 } else {
                                   for (var i = 0;
@@ -231,11 +231,11 @@ class _CheckoutState extends State<Checkout> {
                                     final productRef =
                                         Service.getProductReference(
                                             widget.CartItemList[i].pid);
-                                    final num currentStocks =
-                                        (await productRef.get()).get("stocks");
-                                    await Service.getProductReference(
-                                            widget.CartItemList[i].pid)
-                                        .update({"stocks": currentStocks - 1});
+                                    // final num currentStocks =
+                                    //     (await productRef.get()).get("stocks");
+                                    // await Service.getProductReference(
+                                    //         widget.CartItemList[i].pid)
+                                    //     .update({"stocks": currentStocks - 1});
                                   }
                                 }
                                 widget.deleteCart();

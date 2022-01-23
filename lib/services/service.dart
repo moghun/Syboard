@@ -36,56 +36,43 @@ class Service {
     });
   }
 
-  Future updateProductRating(
-      String productID,
-     num ratingGiven)
-    async {
-      var productRef = productCollection.doc(productID);
-      num timesRated = (await productRef.get()).get("timesRated") ?? 0;
-      num currentRating = (await productRef.get()).get("rating") ?? 0;
-      num totalRating= timesRated * currentRating;
-      timesRated++;
-      totalRating+= ratingGiven;
-      totalRating/= timesRated;
-      num finalRating = totalRating;
-      productRef.update({
-        'timesRated': timesRated,
-        'rating': finalRating,
-      });
-    }
+  Future updateProductRating(String productID, num ratingGiven) async {
+    var productRef = productCollection.doc(productID);
+    num timesRated = (await productRef.get()).get("timesRated") ?? 0;
+    num currentRating = (await productRef.get()).get("rating") ?? 0;
+    num totalRating = timesRated * currentRating;
+    timesRated++;
+    totalRating += ratingGiven;
+    totalRating /= timesRated;
+    num finalRating = totalRating;
+    productRef.update({
+      'timesRated': timesRated,
+      'rating': finalRating,
+    });
+  }
 
-  Future addProductComment(
-      String orderID,
-      String currentComment)
-  async {
+  Future addProductComment(String orderID, String currentComment) async {
     var OrderRef = ordersCollection.doc(orderID);
     OrderRef.update({
       'comment': currentComment,
     });
   }
 
-  Future updateOrderAsCommented(
-      String orderID)
-  async {
+  Future updateOrderAsCommented(String orderID) async {
     var OrderRef = ordersCollection.doc(orderID);
     OrderRef.update({
       'isCommented': true,
     });
   }
 
-  Future updateOrderAsRated(
-      String orderID)
-  async {
+  Future updateOrderAsRated(String orderID) async {
     var OrderRef = ordersCollection.doc(orderID);
     OrderRef.update({
       'isRated': true,
     });
   }
 
-  Future setOrderRating(
-      String orderID,
-      num givenRating)
-  async {
+  Future setOrderRating(String orderID, num givenRating) async {
     var OrderRef = ordersCollection.doc(orderID);
     OrderRef.update({
       'rating': givenRating,
@@ -93,15 +80,13 @@ class Service {
   }
 
   Future approveComment(
-      String orderID,)
-  async {
+    String orderID,
+  ) async {
     var OrderRef = ordersCollection.doc(orderID);
     OrderRef.update({
       'commentApproved': true,
     });
   }
-
-
 
   Future addProduct(
       String category,
@@ -217,20 +202,24 @@ class Service {
       DocumentReference sellerRef = doc["seller"];
       var sellerRefGetter = await sellerRef.get();
       String sname = sellerRefGetter.get("sellerName") ?? "unknown";
-      list.add(Product(
-          pid: doc.id,
-          imgURL: doc["imgURL"],
-          productName: doc["productName"],
-          rating: doc["rating"],
-          price: doc["price"],
-          seller: sname,
-          description: doc["description"],
-          category: doc["category"],
-          tag: doc["tag"],
-          stocks: doc["stocks"],
-          oldPrice: doc["oldPrice"],
-          onSale: doc["onSale"]));
+      num stock = doc["stocks"];
+      if (stock > 0) {
+        list.add(Product(
+            pid: doc.id,
+            imgURL: doc["imgURL"],
+            productName: doc["productName"],
+            rating: doc["rating"],
+            price: doc["price"],
+            seller: sname,
+            description: doc["description"],
+            category: doc["category"],
+            tag: doc["tag"],
+            stocks: doc["stocks"],
+            oldPrice: doc["oldPrice"],
+            onSale: doc["onSale"]));
+      }
     }
+
     print("DB: " + list.length.toString());
     print(list);
     return list;
@@ -249,59 +238,70 @@ class Service {
         await FirebaseFirestore.instance.collection('products').get();
 
     for (var doc in products.docs) {
-      if ((doc["productName"]).toString().toLowerCase().contains(query.toString().toLowerCase())) {
-        DocumentReference sellerRef = doc["seller"];
-        String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
-        list.add(Product(
-            pid: doc.id,
-            imgURL: doc["imgURL"],
-            productName: doc["productName"],
-            rating: doc["rating"],
-            price: doc["price"],
-            seller: sname,
-            description: doc["description"],
-            category: doc["category"],
-            tag: doc["tag"],
-            stocks: doc["stocks"],
-            onSale: doc["onSale"],
-            oldPrice: doc["oldPrice"]));
-      }
+      num stock = doc["stocks"];
+      if (stock > 0) {
+        if ((doc["productName"])
+            .toString()
+            .toLowerCase()
+            .contains(query.toString().toLowerCase())) {
+          DocumentReference sellerRef = doc["seller"];
+          String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
 
-      if ((doc["tag"]).toString().toLowerCase().contains(query.toString().toLowerCase()))
-          {
-            DocumentReference sellerRef = doc["seller"];
-            String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
-            list.add(Product(
-                pid: doc.id,
-                imgURL: doc["imgURL"],
-                productName: doc["productName"],
-                rating: doc["rating"],
-                price: doc["price"],
-                seller: sname,
-                description: doc["description"],
-                category: doc["category"],
-                tag: doc["tag"],
-                stocks: doc["stocks"],
-                onSale: doc["onSale"],
-                oldPrice: doc["oldPrice"]));
-          }
-      if ((doc["category"]).toString().toLowerCase().contains(query.toString().toLowerCase()))
-      {
-        DocumentReference sellerRef = doc["seller"];
-        String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
-        list.add(Product(
-            pid: doc.id,
-            imgURL: doc["imgURL"],
-            productName: doc["productName"],
-            rating: doc["rating"],
-            price: doc["price"],
-            seller: sname,
-            description: doc["description"],
-            category: doc["category"],
-            tag: doc["tag"],
-            stocks: doc["stocks"],
-            onSale: doc["onSale"],
-            oldPrice: doc["oldPrice"]));
+          list.add(Product(
+              pid: doc.id,
+              imgURL: doc["imgURL"],
+              productName: doc["productName"],
+              rating: doc["rating"],
+              price: doc["price"],
+              seller: sname,
+              description: doc["description"],
+              category: doc["category"],
+              tag: doc["tag"],
+              stocks: doc["stocks"],
+              onSale: doc["onSale"],
+              oldPrice: doc["oldPrice"]));
+        }
+
+        if ((doc["tag"])
+            .toString()
+            .toLowerCase()
+            .contains(query.toString().toLowerCase())) {
+          DocumentReference sellerRef = doc["seller"];
+          String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
+          list.add(Product(
+              pid: doc.id,
+              imgURL: doc["imgURL"],
+              productName: doc["productName"],
+              rating: doc["rating"],
+              price: doc["price"],
+              seller: sname,
+              description: doc["description"],
+              category: doc["category"],
+              tag: doc["tag"],
+              stocks: doc["stocks"],
+              onSale: doc["onSale"],
+              oldPrice: doc["oldPrice"]));
+        }
+        if ((doc["category"])
+            .toString()
+            .toLowerCase()
+            .contains(query.toString().toLowerCase())) {
+          DocumentReference sellerRef = doc["seller"];
+          String sname = (await sellerRef.get()).get("sellerName") ?? "unknown";
+          list.add(Product(
+              pid: doc.id,
+              imgURL: doc["imgURL"],
+              productName: doc["productName"],
+              rating: doc["rating"],
+              price: doc["price"],
+              seller: sname,
+              description: doc["description"],
+              category: doc["category"],
+              tag: doc["tag"],
+              stocks: doc["stocks"],
+              onSale: doc["onSale"],
+              oldPrice: doc["oldPrice"]));
+        }
       }
     }
 
