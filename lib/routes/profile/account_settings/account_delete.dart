@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/styles.dart';
@@ -12,13 +14,14 @@ class AccountDeletePP extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserObj?>(context, listen: false);
     return SafeArea(
       child: Material( 
        
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-               SizedBox(height: 20,),
+              //  SizedBox(height: 20,),
               //   OutlinedButton(
               //     onPressed: () async {
                     
@@ -26,7 +29,7 @@ class AccountDeletePP extends StatelessWidget{
               //     child: Padding(
               //       padding: EdgeInsets.all(8.0),
               //       child: Text(
-              //         ' Account',
+              //         'Disable Account',
               //         style: kButtonDarkTextStyle,
               //       ),
               //     ),
@@ -34,11 +37,13 @@ class AccountDeletePP extends StatelessWidget{
               //       backgroundColor: AppColors.primary,
               //     ),
               //   ),
-              // SizedBox(height: 20,),
+              SizedBox(height: 20,),
               OutlinedButton(
               onPressed: () async {
-                await AuthService().deleteAccount();
+                await AuthService().deleteAccount(user!.uid);
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
+
               },
               child: Padding(
                 padding: EdgeInsets.all(8.0),

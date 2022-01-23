@@ -110,7 +110,7 @@ class AppBase extends StatelessWidget {
             '/profile/change_name': (context) =>
                 AccountSettingsName(), // TO DO: add analytics
             '/profile/change_avatar': (context) => AccountSettingsPP(),
-            //  '/profile/delete_account': (context) => AccountDeletePP(),
+             '/profile/account_delete': (context) => AccountDeletePP(),
             '/sell_product': (context) => SellProduct(),
             '/sell_product/add_product': (context) => AddProduct(),
             '/profile/buy_sell_history': (context) => BuySellHistory()

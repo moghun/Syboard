@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -161,13 +162,27 @@ class AuthService {
   }
   
   
-  Future deleteAccount() async {
+  Future deleteAccount(String uid) async {
+   
     try {
+      
       print(_auth.currentUser);
       await _auth.currentUser!.delete();
+       final userRef = getUserReference(uid);
+    var sellQuery =
+        await Service.productCollection.where("seller", isEqualTo: userRef).get();
+    for (var element in sellQuery.docs) {
+      await element.reference.update({"stocks": -1});
+    }
+    await userRef.update({"sellerName": "[Deleted User]", "isActive": false});
+      await signOut();
       return true;
     } catch (e) {
       return null;
     }
+  }
+
+  static DocumentReference getUserReference(String id) {
+    return FirebaseFirestore.instance.collection("Users").doc(id);
   }
 }

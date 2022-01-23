@@ -34,20 +34,20 @@ class _ProfileState extends State<Profile> {
             color: Colors.black.withOpacity(0.7)),
         name: 'My Orders',
         route: '/profile/buy_sell_history'),
-    AccountListItem(
-        icon: Icon(Icons.favorite_border, color: Colors.black.withOpacity(0.7)),
-        name: 'My Favorites',
-        route: '/'),
-    AccountListItem(
-        icon:
-            Icon(Icons.reviews_outlined, color: Colors.black.withOpacity(0.7)),
-        name: 'My Reviews',
-        route: '/'),
+    // AccountListItem(
+    //     icon: Icon(Icons.favorite_border, color: Colors.black.withOpacity(0.7)),
+    //     name: 'My Favorites',
+    //     route: '/'),
+    // AccountListItem(
+    //     icon:
+    //         Icon(Icons.reviews_outlined, color: Colors.black.withOpacity(0.7)),
+    //     name: 'My Reviews',
+    //     route: '/'),
     AccountListItem(
         icon: Icon(Icons.notifications_outlined,
             color: Colors.black.withOpacity(0.7)),
         name: 'Notifications',
-        route: '/'),
+        route: '/notifications'),
     AccountListItem(
         icon: Icon(Icons.settings_outlined, color: Colors.black.withOpacity(0.7)),
         name: 'Edit My Account',
