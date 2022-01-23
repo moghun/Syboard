@@ -14,17 +14,20 @@ class AuthService {
   }
 
   UserObj? _userFromLocal (User? user) {
+    if (_auth.currentUser == null) {
+      return null;
+    }
     UserObj tempUser = UserObj(
         uid: _auth.currentUser!.uid,
-        name: _auth.currentUser?.displayName,
-        email: _auth.currentUser?.email,
-        photoURL: _auth.currentUser?.photoURL,
-        number: _auth.currentUser?.phoneNumber);
+        name: _auth.currentUser!.displayName,
+        email: _auth.currentUser!.email,
+        photoURL: _auth.currentUser!.photoURL,
+        number: _auth.currentUser!.phoneNumber);
     return tempUser;
   }
 
   Stream<UserObj?> get getCurrentUser {
-    return _auth.userChanges().map(_userFromLocal);
+    return _auth.userChanges().map(_userFromLocal) ;
   }
 
   Future changePassword(String newPassword) async {
