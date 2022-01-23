@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syboard/models/order.dart';
 import 'package:syboard/views/comment_card.dart';
+import 'package:syboard/views/sell_product/seller_page.dart';
 
 class ProductView extends StatefulWidget {
   const ProductView(
@@ -29,6 +30,8 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
+
+  late DocumentReference _sellerRef;
   //ProductPreview
   Future<List<Order>> getComments() async {
     List<Order> orders = <Order>[];
@@ -93,6 +96,11 @@ class _ProductViewState extends State<ProductView> {
     }
   }
 
+  getSellerRef() async {
+    _sellerRef = await Service.getSellerReferenceByPID(widget.product.pid);
+    
+  }
+
   @override
   void initState() {
     super.initState();
@@ -100,6 +108,8 @@ class _ProductViewState extends State<ProductView> {
       isFavorite(widget.product.pid);
       setState(() {});
     });
+    getSellerRef();
+  
   }
 
   @override
@@ -178,7 +188,12 @@ class _ProductViewState extends State<ProductView> {
                         ),
                         TextButton(
                             onPressed: () {
-                              print("Seller Page");
+                              Navigator.push(context,
+                                MaterialPageRoute(
+                                      builder: (_) => SellerPage(
+                                           sellerRef: _sellerRef
+                                          ))
+                              );
                             },
                             child: Text(
                               widget.product.seller.toString(),
