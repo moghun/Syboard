@@ -1,6 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/routes/search_results.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/utils/dimension.dart';
@@ -63,7 +65,12 @@ class _HomeState extends State<Home> {
               )),
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/sell_product');
+                final user = Provider.of<UserObj?>(context, listen: false);
+                if (user == null) {
+                  Navigator.popAndPushNamed(context, '/login');
+                } else {
+                  Navigator.pushNamed(context, '/sell_product');
+                }
               },
               icon: const Icon(
                 Icons.sell_rounded,
