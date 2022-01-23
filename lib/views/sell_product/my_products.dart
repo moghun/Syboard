@@ -129,7 +129,7 @@ class _MyProductsState extends State<MyProducts> {
         builder: (context, AsyncSnapshot<List<List<dynamic>>> snapshot) {
           if (!snapshot.hasData) {
             return const Text("Loading..");
-          } else if (((snapshot.data)?[0])!.isEmpty) {
+          } else if (((snapshot.data)![0]).isEmpty) {
             return const Center(
                 child:
                     Text("You are not selling any products. Try adding some!"));
