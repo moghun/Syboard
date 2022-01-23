@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -22,49 +23,70 @@ class _AccountDeletePPState extends State<AccountDeletePP> {
     final user = Provider.of<UserObj?>(context, listen: false);
     return SafeArea(
       child: Material(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-           SizedBox(height: 20,),
-          
-          Row(
-            children: [
-              const Text(
-                  "Please confirm your identity by providing your password"),
-              const SizedBox(height: 10),
-              TextField(
-                  obscureText: true,
-                  autocorrect: false,
-                  onChanged: (value) {
-                    pass = value;
-                  },
-                  decoration: const InputDecoration(hintText: "Your Password"))
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          OutlinedButton(
-            onPressed: () async {
-              if(pass != ""){
-                
-              }
-              await AuthService().deleteAccount(user!.uid);
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Delete Account',
-                style: kButtonDarkTextStyle,
+          child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            const Text(
+                "Please confirm your identity by providing your password"),
+            const SizedBox(height: 10),
+            TextField(
+                obscureText: true,
+                autocorrect: false,
+                onChanged: (value) {
+                  pass = value;
+                },
+                decoration: const InputDecoration(hintText: "Your Password")),
+            const SizedBox(height: 10),
+            OutlinedButton(
+              onPressed: () async {
+                if (pass != "") {
+                  if (await AuthService().reAuth(
+                          pass,
+                          FirebaseAuth.instance.currentUser!.providerData[0]
+                                  .providerId ==
+                              "google.com") ==
+                      null) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              title: const Text("Account Deletion Error"),
+                              content: const Text(
+                                  "An error occurred. Make sure to write your credentials correctly"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ]);
+                        });
+                  } else {
+                    await AuthService().deleteAccount(user!.uid);
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  }
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Delete Account',
+                  style: kButtonDarkTextStyle,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.red,
               ),
             ),
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.red,
-            ),
-          ),
-        ],
+          ],
+        ),
       )),
     );
   }
