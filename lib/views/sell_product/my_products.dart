@@ -61,58 +61,39 @@ class _MyProductsState extends State<MyProducts> {
     return productsList;
   }
 
-
-  Future<List<Order>> getOrders() async {
-    print("SOLD PRODUCT: ---");
-
-    List<Order> orders = [];
-    final user = Provider.of<UserObj?>(context);
-    var sellerRef = Service.userCollection.doc(user?.uid);
+  Future<double> getRating() async {
+    var sellerRef =
+    Service.userCollection.doc(Provider.of<UserObj?>(context)!.uid);
     var o = await Service.ordersCollection
         .where("seller", isEqualTo: sellerRef)
         .get();
+    double total = 0.0;
+    double _rating = 0.0;
+    num count = 0;
     for (var element in o.docs) {
-      DocumentReference currentProduct = element.get("product");
-      String currentProductName = (await currentProduct.get()).get("productName");
-      num currentProductPrice = (await currentProduct.get()).get("price");
-      String currentProductPicture =
-      (await currentProduct.get()).get("imgURL");
-      String currentPid = currentProduct.id;
-      orders.add(Order(
-        //buyer: currentBuyerName,
-        //oid: element.id,
-          url: currentProductPicture,
-          productName: currentProductName,
-          pid: currentPid,
-          price: currentProductPrice,
-          purchaseDate: element.get("purchaseDate"),
-          amount: element.get("amount"),
-          orderID: element.id,
-          comment: element.get("comment"),
-          isCommented: element.get("isCommented"),
-          isRated: element.get("isRated"),
-          rating: element.get("rating"),
-          commentApproved: element.get("commentApproved")
-      ));
+      var rating = element.get("rating");
+      if(rating> 0){
+        total += rating;
+        count += 1;
+      }
     }
-    return orders;
+
+    if(count > 0){
+      _rating = total / count;
+    }
+    return _rating;
   }
 
   filterProductsOnSale(List<Product> pAll){
-
     List<Product> catProducts = [];
      pAll.forEach((item) => {
         if(item.onSale == true){
           catProducts.add(item)
         },
-
-
      });
     //  setState(() {
     //       productsOnSale = catProducts;
     // });
-
-
   }
 
   @override
@@ -125,8 +106,8 @@ class _MyProductsState extends State<MyProducts> {
     UserObj? currentUser = Provider.of<UserObj?>(context);
 
     return FutureBuilder(
-        future: Future.wait([getAProducts(),getOrders()]),
-        builder: (context, AsyncSnapshot<List<List<dynamic>>> snapshot) {
+        future: Future.wait([getAProducts(),getRating()]),
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Text("Loading..");
           } else if (((snapshot.data)![0]).isEmpty) {
@@ -135,13 +116,8 @@ class _MyProductsState extends State<MyProducts> {
                     Text("You are not selling any products. Try adding some!"));
           }
           List<Product>  allProducts = (snapshot.data)?[0] as List<Product>;
-          List<Order>  soldProducts = (snapshot.data)?[1] as List<Order>;
-          double total = 0.0;
-          double _rating = 0.0;
-          soldProducts.forEach((order){
-            total += order.rating;
-          });
-          _rating = total / soldProducts.length;
+          double _rating = (snapshot.data)?[1] as double;
+
 
           return Scaffold(
             body:  Padding(
