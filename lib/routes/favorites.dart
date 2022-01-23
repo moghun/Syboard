@@ -39,14 +39,14 @@ class _FavoritesState extends State<Favorites> {
   Future getPrefs() async {
     prefs = await SharedPreferences.getInstance();
   }
-  removeFavorite(String pid, int position){
-      print("deleted");
-      var temp = prefs.getStringList("favorites")!;
-      temp.remove(pid);
-      prefs.setStringList("favorites", temp);
-      _FavoriteItemList.removeAt(position);
-    setState(() {
-    });
+
+  removeFavorite(String pid, int position) {
+    print("deleted");
+    var temp = prefs.getStringList("favorites")!;
+    temp.remove(pid);
+    prefs.setStringList("favorites", temp);
+    _FavoriteItemList.removeAt(position);
+    setState(() {});
   }
 
   @override
@@ -88,7 +88,8 @@ class _FavoritesState extends State<Favorites> {
                 shrinkWrap: true,
                 itemCount: _FavoriteItemList.length,
                 itemBuilder: (context, i) {
-                  return FavoriteItem(_FavoriteItemList[i], removeFavorite, i);
+                  return FavoriteItem(
+                      _FavoriteItemList[i], removeFavorite, i, context);
                 }),
           ),
         ],
