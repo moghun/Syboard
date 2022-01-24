@@ -259,7 +259,7 @@ class Service {
               oldPrice: doc["oldPrice"]));
         }
 
-        if ((doc["tag"])
+        else if ((doc["tag"])
             .toString()
             .toLowerCase()
             .contains(query.toString().toLowerCase())) {
@@ -279,7 +279,7 @@ class Service {
               onSale: doc["onSale"],
               oldPrice: doc["oldPrice"]));
         }
-        if ((doc["category"])
+        else if ((doc["category"])
             .toString()
             .toLowerCase()
             .contains(query.toString().toLowerCase())) {
