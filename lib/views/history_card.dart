@@ -43,6 +43,7 @@ class _HistoryCardState extends State<HistoryCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -71,13 +72,9 @@ class _HistoryCardState extends State<HistoryCard> {
                                 fontSize: 16)),
                       ],
                     ),
-                    Text((() {
-                      if(!widget.order.isCommented)
-                      {
-                        return "";
-                      }
-                      return "Comment:"+widget.order.comment;
-                    })(),  style: kTextTitleSmall),
+                    Text(
+                      widget.order.isCommented ? "Comment:"+widget.order.comment : "",
+                     style: kTextTitleSmall, overflow: TextOverflow.ellipsis,),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.push(
