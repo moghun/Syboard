@@ -261,7 +261,7 @@ class _ProductViewState extends State<ProductView> {
                 children: [
                   Text((() {
                     if (widget.product.onSale == true) {
-                      return widget.product.oldPrice.toString() + "TL";
+                      return widget.product.oldPrice.toString() + " USD";
                     }
                     return "";
                   })(),
@@ -272,7 +272,7 @@ class _ProductViewState extends State<ProductView> {
                           letterSpacing: -0.7,
                           decoration: TextDecoration.lineThrough)),
                   Text(
-                    " " + widget.product.price.toString() + "TL",
+                    " " + widget.product.price.toString() + " USD",
                     style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 20.0,

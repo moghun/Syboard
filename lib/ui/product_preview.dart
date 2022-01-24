@@ -78,7 +78,7 @@ Widget productPreview(Product product, BuildContext context) {
                           children: [
                             Text((() {
                               if (product.onSale == true) {
-                                return product.oldPrice.toString() + "TL";
+                                return product.oldPrice.toString() + " USD";
                               }
                               return "";
                             })(),
@@ -88,7 +88,7 @@ Widget productPreview(Product product, BuildContext context) {
                                     letterSpacing: -0.7,
                                     decoration: TextDecoration.lineThrough)),
                             Text(
-                              " " + product.price.toString() + "TL",
+                              " " + product.price.toString() + " USD",
                               style: const TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.w800,

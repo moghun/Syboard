@@ -7,6 +7,7 @@ import 'package:syboard/models/user_obj.dart';
 import 'package:syboard/services/auth.dart';
 import 'package:syboard/services/service.dart';
 import 'package:syboard/ui/product_preview.dart';
+import 'package:syboard/utils/color.dart';
 import 'package:syboard/utils/dimension.dart';
 import 'package:syboard/models/product.dart';
 import 'package:syboard/ui/edit_product_preview.dart';
@@ -129,6 +130,7 @@ class _SellerPageState extends State<SellerPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(_currentSeller),
+          backgroundColor: AppColors.primary,
         ),
         body: Padding(
           padding: const EdgeInsets.all(12),
