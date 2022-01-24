@@ -22,7 +22,7 @@ class HistoryCard extends StatefulWidget {
 
 class _HistoryCardState extends State<HistoryCard> {
   ExpandableController panelController =
-  ExpandableController(initialExpanded: false);
+      ExpandableController(initialExpanded: false);
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +59,27 @@ class _HistoryCardState extends State<HistoryCard> {
                             fontSize: 16,
                           ),
                         ),
+                        Text((() {
+                          if (!widget.order.isRated) {
+                            return "";
+                          }
+                          return "   Rating:" + widget.order.rating.toString();
+                        })(),
+                            style: const TextStyle(
+                                color: AppColors.lightTextColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ],
                     ),
                     OutlinedButton(
-                      onPressed: () { Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => GiveRating(
-                                order: widget.order,
-                              )));},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => GiveRating(
+                                      order: widget.order,
+                                    )));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
@@ -85,8 +97,8 @@ class _HistoryCardState extends State<HistoryCard> {
                             context,
                             MaterialPageRoute(
                                 builder: (_) => CommentProduct(
-                                  order: widget.order,
-                                )));
+                                      order: widget.order,
+                                    )));
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -98,7 +110,8 @@ class _HistoryCardState extends State<HistoryCard> {
                       style: OutlinedButton.styleFrom(
                         backgroundColor: AppColors.primary,
                       ),
-                    )],
+                    )
+                  ],
                 ),
                 // order ile alakali ekstra seyler buraya, rating
               ],
