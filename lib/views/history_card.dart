@@ -71,6 +71,16 @@ class _HistoryCardState extends State<HistoryCard> {
                                 fontSize: 16)),
                       ],
                     ),
+                    Text((() {
+                      if(!widget.order.isCommented)
+                      {
+                        return "";
+                      }
+                      return "Comment:"+widget.order.comment;
+                    })(),  style:  TextStyle(
+                        color: AppColors.lightTextColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.push(
