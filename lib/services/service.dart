@@ -144,7 +144,7 @@ class Service {
         'category': category,
         'stocks': stocks,
         'tag': tag,
-        'rating': price,
+//        'rating': price,
       });
     } else {
       String oldURL = (await productRef.get()).get("picture");
