@@ -105,6 +105,7 @@ class _EditProductState extends State<EditProduct> {
     oldPrice = widget.product.oldPrice ?? 0;
     _currentCategory = _categories.indexOf(widget.product.category);
     _currentTag = widget.product.tag;
+    stocks = widget.product.stocks;
   }
 
   @override
